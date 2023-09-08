@@ -12,7 +12,11 @@
 		    // Базовые правила для TypeScript
 		    "plugin:@typescript-eslint/recommended",
 		    // Правила TS, требующие инфо о типах
-		    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+		    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        // eslint-config-stylelint
+        "stylelint",
+        // For Jest
+        "stylelint/jest"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": { "project": ["./tsconfig.json"] },
@@ -36,6 +40,13 @@
             "exports": "never",
             "functions": "never"
         }],
+    "sort-imports": ["error", {
+            "ignoreCase": false,
+            "ignoreDeclarationSort": true,
+            "ignoreMemberSort": false,
+            "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+            "allowSeparatedGroups": true
+        }]
     },
-    "ignorePatterns": ["src/**/*.test.*"]
+    "ignorePatterns": ["src/**/*.test.*", "**/*.scss"]
 }
