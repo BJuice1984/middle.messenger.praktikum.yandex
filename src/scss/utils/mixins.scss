@@ -22,6 +22,7 @@
 }
 
 @mixin text {
+    /* stylelint-disable */
 	text-rendering: optimizeLegibility;
 	text-decoration: none;
 	letter-spacing: 0;
