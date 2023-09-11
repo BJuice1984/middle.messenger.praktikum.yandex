@@ -33,6 +33,14 @@
     ],
     "no-console": "off",
     "linebreak-style": ["error", "unix"], // символ(ы) конца строки
+    "quotes": ["error", "single"], // использовать одинарные кавычки
+    "semi": ["error", "never"], // точка с запятой в конце операторов
+    "indent": ["error", 4, { "SwitchCase": 1 }], // отступы в коде из 4 пробелов с учетом switch...case
+    "no-trailing-spaces": "error", // не должно быть пробелов в конце строки
+    "brace-style": ["error", "1tbs"], // правила для фигурных скобкок для блоков кода
+    "keyword-spacing": "error", // пробел слева и справа для ключевых слов
+    "no-multi-spaces": "error", // не допускается несколько пробелов подряд
+    "no-multiple-empty-lines": "error", // не больше 2 пустых строк подряд
     "comma-dangle": ["error", { // запятая после последнего элемента массива или объекта
             "arrays": "always-multiline",
             "objects": "always-multiline",

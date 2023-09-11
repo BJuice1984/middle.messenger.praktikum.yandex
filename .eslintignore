@@ -2,6 +2,7 @@ node_modules
 public
 .eslintrc.json
 .stylelintrc.json
+commitlint.config.js
 build
 dist
 vendor
