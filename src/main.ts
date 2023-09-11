@@ -1,24 +1,35 @@
-import "./style.scss";
-import typescriptLogo from "./typescript.svg";
-import viteLogo from "../public/vite.svg";
-import { setupCounter } from "./counter.ts";
+import Handlebars from 'handlebars'
+import * as Components from './components/components.ts'
+import * as Pages from './pages/pages.ts'
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const pages = {
+    'login': [ Pages.LoginPage ],
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+Object.entries(Components).forEach(([ name, component ]) => {
+    Handlebars.registerPartial(name, component)
+})
+
+function navigate(page: string) {
+
+    const [ source, context ] = pages[page]
+    const container = document.getElementById('app')!
+
+    container.innerHTML = Handlebars.compile(source)(context)
+}
+
+document.addEventListener('DOMContentLoaded', () => navigate('login'))
+
+document.addEventListener('click', e => {
+
+    const page = e.target.getAttribute('page')
+
+    console.log(page)
+
+    if (page) {
+        navigate(page)
+
+        e.preventDefault()
+        e.stopImmediatePropagation()
+    }
+})

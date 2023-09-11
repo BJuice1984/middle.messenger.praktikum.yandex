@@ -9,6 +9,8 @@
         "preview": "vite preview",
         "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx src",
         "cm": "cz",
+        "stylelint": "stylelint '**/*{.css,.scss}'",
+        "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix",
         "prepare": "husky install"
     },
     "devDependencies": {

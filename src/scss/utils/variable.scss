@@ -6,15 +6,11 @@ $mainTextColor: #F7F7FC;
 $secondTextColor: #ADB5BD;
 
 //Login
-$boxShadowLogin: 0 0 6px 0 rgb(0, 0, 0, 0.14) inset, 0 4 4 0 rgb(0, 0, 0, 0.25);
-$borderTask: 1px solid rgb(47 38 27 0.20);
-$borderTaskAttention: 1px solid rgb(167 0 0 0.20);
-$borderTaskFail: 1px solid rgb(138 138 138 0.40);
+$boxShadowLogin: 0 0 6px 0 rgb(0 0 0 / 14%) inset, 0 4 4 0 rgb(0 0 0 / 25%);
+$borderTask: 1px solid rgb(47 38 27 / 20%);
+$borderTaskAttention: 1px solid rgb(167 0 0 / 20%);
+$borderTaskFail: 1px solid rgb(138 138 138 / 40%);
 $borderRadiusTaskContainer: 32px;
 $borderRadiusTask: 16px;
 $hoverTask: #9A7F6633;
 $hoverTransition: 0.3s;
-
-//Project
-$boxShadowProject: $boxShadowTask;
-$hoverProject: $hoverTask;

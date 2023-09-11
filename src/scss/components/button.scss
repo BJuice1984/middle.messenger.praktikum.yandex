@@ -1,0 +1,17 @@
+@import '../utils/mixins.scss';
+@import '../utils/variable.scss';
+
+.button {
+    @include reset;
+    width: 280px;
+    height: 52px;
+    font-size: 13px;
+
+    &__primary {
+        background-color: $thirdColor;
+    }
+
+    &__disabled {
+        background-color: $fourthColor;
+    }
+}
