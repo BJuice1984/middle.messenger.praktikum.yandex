@@ -1,0 +1,11 @@
+.main {
+    display: flex;
+    margin: 0 40px 40px;
+    max-height: 100vh;
+    justify-content: center;
+    
+    &__container {
+      margin: 0;
+    }
+  }
+  

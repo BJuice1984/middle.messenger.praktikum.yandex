@@ -1,11 +1,19 @@
-@import '../utils/mixins.scss';
-@import '../utils/variable.scss';
+@import '../utils/mixins';
+@import '../utils/variable';
 
 .button {
     @include reset;
-    width: 280px;
-    height: 52px;
-    font-size: 13px;
+    @include size(52px, 280px);
+    @include text;
+    @include text-format(600, 16px, 28px);
+
+    color: $mainTextColor;
+    border: none;
+    border-radius: $borderRadiusLoginButton;
+    box-shadow: $boxShadowLoginButton;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: $hoverTransition;
 
     &__primary {
         background-color: $thirdColor;
@@ -14,4 +22,9 @@
     &__disabled {
         background-color: $fourthColor;
     }
+
+    &:hover {
+        box-shadow: $hoverLoginButton;
+        transition: $hoverTransition;
+      }
 }
