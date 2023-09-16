@@ -1,8 +1,13 @@
 <div class="container">
     {{#> FormAuth}}
+        {{> Input label="EMAIL" }}
         {{> Input label="Login" }}
+        {{> Input label="First Name" }}
+        {{> Input label="Last Name" }}
+        {{> Input label="Phone Number" }}
         {{> Input label="Password" }}
-        {{> Button label="Sign in" type="primary" page="list"}}
-        {{> Button label="Sign up" type="disabled" }}
+        {{> Input label="Confirm Password" }}
+        {{> Button label="Sign up" type="disabled" page="login"}}
+        {{> Button label="Sign in" type="disabled" }}
     {{/FormAuth}}
 </div>

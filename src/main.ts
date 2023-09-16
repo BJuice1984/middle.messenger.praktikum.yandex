@@ -4,6 +4,7 @@ import * as Pages from './pages/pages.ts'
 
 const pages = {
     'login': [ Pages.LoginPage ],
+    'register': [Pages.RegisterPage],
 }
 
 Object.entries(Components).forEach(([ name, component ]) => {
