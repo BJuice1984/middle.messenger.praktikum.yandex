@@ -23,6 +23,15 @@
         background-color: $fourthColor;
     }
 
+    &__secondary {
+        @include size(0, 280px);
+        @include text-format(500, 11px, 11px);
+        background-color: transparent;
+        box-shadow: none;
+        color: $thirdTextColor;
+        padding-top: 10px;
+    }
+
     &:hover {
         box-shadow: $hoverLoginButton;
         transition: $hoverTransition;
