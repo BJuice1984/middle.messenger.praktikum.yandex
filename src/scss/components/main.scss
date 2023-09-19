@@ -1,8 +1,9 @@
 .main {
     display: flex;
-    margin: 0 40px 40px;
-    max-height: 100vh;
+    margin: 0 auto;
+    height: 100vh;
     justify-content: center;
+    align-items: center;
     
     &__container {
       margin: 0;

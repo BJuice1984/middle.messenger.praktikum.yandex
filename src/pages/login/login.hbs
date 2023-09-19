@@ -1,8 +1,8 @@
 <section class="login">
     <h2 class="login__header">Login</h2>
     {{#> FormAuth}}
-        {{> Input label="Login" }}
-        {{> Input label="Password" }}
+        {{> Input label="Login (Required)" }}
+        {{> Input label="Password (Required)" }}
         {{> Button label="Sign in" type="primary" page="list"}}
         {{> Button label="Sign up" type="secondary" }}
     {{/FormAuth}}
