@@ -1,4 +1,5 @@
-<div class="container">
+<section class="login">
+    <h2 class="login__header">Register</h2>
     {{#> FormAuth}}
         {{> Input label="EMAIL" }}
         {{> Input label="Login" }}
@@ -7,7 +8,7 @@
         {{> Input label="Phone Number" }}
         {{> Input label="Password" }}
         {{> Input label="Confirm Password" }}
-        {{> Button label="Sign up" type="disabled" page="login"}}
-        {{> Button label="Sign in" type="disabled" }}
+        {{> Button label="Sign up" classType="disabled" page="chatty"}}
+        {{> Button label="Sign in" classType="secondary" page="login"}}
     {{/FormAuth}}
-</div>
+</section>

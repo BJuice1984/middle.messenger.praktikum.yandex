@@ -11,7 +11,7 @@ Object.entries(Components).forEach(([ name, component ]) => {
     Handlebars.registerPartial(name, component)
 })
 
-function navigate(page) {
+function navigate(page: string) {
 
     const [ source, context ] = pages[page]
     const container = document.getElementById('app')!
@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => navigate('login'))
 document.addEventListener('click', e => {
 
     const page = e.target.getAttribute('page')
-
-    console.log(page)
 
     if (page) {
         navigate(page)
