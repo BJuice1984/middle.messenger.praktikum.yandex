@@ -1,0 +1,8 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.chatStory {
+    @include size(56px, 56px);
+
+    background-color: $thirdColor;
+}

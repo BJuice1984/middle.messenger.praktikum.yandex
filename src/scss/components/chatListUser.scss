@@ -1,0 +1,8 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.chatListUser {
+    @include size(56px, 272px);
+
+    background-color: $thirdColor;
+}

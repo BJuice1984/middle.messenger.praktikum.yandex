@@ -48,13 +48,9 @@
         list-style: none;
     }
 
-    &__story {
-        @include size(56px, 56px);
-        background-color: $thirdColor;
-    }
-
     &__search-bar {
         @include size(36px, 372px);
+
         background-color: $secondColor;
         justify-self: center;
         border-radius: 4px;
@@ -64,11 +60,6 @@
         display: grid;
         row-gap: 16px;
         list-style: none;
-    }
-
-    &__user {
-        @include size(56px, 272px);
-        background-color: $thirdColor;
     }
 
     &__container-chats {

@@ -27,8 +27,12 @@ document.addEventListener('click', e => {
     const page = e.target.getAttribute('page')
 
     if (page) {
-        navigate(page)
 
+
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        navigate(page) //перенести наверх
+    } else {
         e.preventDefault()
         e.stopImmediatePropagation()
     }

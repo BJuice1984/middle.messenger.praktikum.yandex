@@ -8,17 +8,17 @@
             </div>
         </div>
         <ul class="chat__container-stories-list">
-            <li class="chat__story">add story</li>
-            <li class="chat__story">story 1</li>
-            <li class="chat__story">story 2</li>
-            <li class="chat__story">story 3</li>
+            {{> Story story-owner="You story" }}
+            {{> Story story-owner="story 1" }}
+            {{> Story story-owner="story 2" }}
+            {{> Story story-owner="story 3" }}
         </ul>
         <div class="chat__search-bar"></div>
         <ul class="chat__container-users-list">
-            <li class="chat__user">user 1</li>
-            <li class="chat__user">user 2</li>
-            <li class="chat__user">user 3</li>
-            <li class="chat__user">user 4</li>
+            {{> User chat-user="user 1" }}
+            {{> User chat-user="user 2" }}
+            {{> User chat-user="user 3" }}
+            {{> User chat-user="user 4" }}
         </ul>
     </div>
     <div class="chat__container-chats">
