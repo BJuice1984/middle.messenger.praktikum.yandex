@@ -3,28 +3,85 @@
 
 .chat {
     @include size(100%, 100vw);
+
     display: grid;
     grid-template-columns: min-content 1fr;
     background-color: $mainColor;
 
     &__container-users {
         width: 375px;
+        border-right: $borderChat;
+    }
+
+    &__container-header {
+        width: auto;
+        padding: 13px 24px 18px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    &__header {
+        @include reset;
+        @include text;
+        @include text-format(500, 20px, 20px);
+
+        color: $mainTextColor;
+        text-align: left;
+    }
+
+    &__container-header-icons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__header-icon {
+        @include size(24px, 24px);
+    }
+
+    &__container-stories-list {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        min-height: 108px;
+        border-bottom: $borderChat;
+        list-style: none;
+    }
+
+    &__story {
+        @include size(56px, 56px);
+        background-color: $thirdColor;
+    }
+
+    &__search-bar {
+        @include size(36px, 372px);
+        background-color: $secondColor;
+        justify-self: center;
+        border-radius: 4px;
+    }
+
+    &__container-users-list {
+        display: grid;
+        row-gap: 16px;
+        list-style: none;
+    }
+
+    &__user {
+        @include size(56px, 272px);
+        background-color: $thirdColor;
     }
 
     &__container-chats {
         width: auto;
     }
 
-    &__container-header {
-        width: auto;
-        padding: 13px 24px 18px;
-    }
-
-    &__header {
+    &__disclaimer {
         @include reset;
         @include text;
-        @include text-format(500, 20px, 20px);
-        color: $mainTextColor;
-        text-align: left;
+        @include text-format(500, 12px, 12px);
+        
+        color: $secondTextColor;
+        text-align: center;
     }
+
 }
