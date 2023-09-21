@@ -1,3 +1,5 @@
 export { Button } from './button/button.ts'
 export { Input } from './input/input.ts'
 export { FormAuth } from './form-auth/form-auth.ts'
+export { Story } from './story/story.ts'
+export { User } from './chatListUser/chatListUser.ts'
