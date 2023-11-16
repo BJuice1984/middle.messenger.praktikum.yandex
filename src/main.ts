@@ -28,6 +28,7 @@ function navigate(page: string) {
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'))
 
+//повесить слушатель на кнопку
 document.addEventListener('click', e => {
     if (!e.target) return
 
