@@ -3,24 +3,17 @@ import * as Components from './components/components.ts'
 import * as Pages from './pages/pages.ts'
 
 const pages = {
-    'login': [Pages.LoginPage, {test: '123'}],
-    'register': [Pages.RegisterPage],
-    'chatty': [Pages.ChatPage],
+    login: [Pages.LoginPage, { test: '123' }],
+    register: [Pages.RegisterPage],
+    chatty: [Pages.ChatPage],
 }
 
-Object.entries(Components).forEach(([ name, component ]) => {
-    // console.log('component', component)
-    // console.log('name', name)
-    // console.log('component', component)
+Object.entries(Components).forEach(([name, component]) => {
     Handlebars.registerPartial(name, component)
 })
 
 function navigate(page: string) {
-    const [ source, context ] = pages[page]
-
-    // console.log('source', source)
-    // console.log('context', typeof context)
-    // console.log('pages', pages[page])
+    const [source, context] = pages[page]
     const container = document.getElementById('app')!
 
     container.innerHTML = Handlebars.compile(source)(context)

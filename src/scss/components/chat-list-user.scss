@@ -2,7 +2,7 @@
 @import '../utils/variable';
 
 .chat-list-user {
-    @include size(56px, 272px);
+    @include size(56px, 100%);
 
     background-color: $thirdColor;
 }

@@ -8,12 +8,12 @@
             </div>
         </div>
         <ul class="chat__container-stories-list">
-            {{> Story story-owner="You story" }}
-            {{> Story story-owner="story 1" }}
-            {{> Story story-owner="story 2" }}
-            {{> Story story-owner="story 3" }}
+            {{> Story story-owner="You story" extra-class="chat-story__container_type_add-story" story-img-src="/images/add-story-icon.svg" story-alt="Иконка. Создать чат"}}
+            {{> Story story-owner="Midala Huininja" story-img-src="/images/ava-1.jpg" story-alt="Иконка. Аватар пользователя"}}
+            {{> Story story-owner="Athalia Putri" story-img-src="/images/ava-2.jpg" story-alt="Иконка. Аватар пользователя"}}
+            {{> Story story-owner="Erlan Sadewa" story-img-src="/images/ava-3.jpg" story-alt="Иконка. Аватар пользователя"}}
         </ul>
-        <div class="chat__search-bar"></div>
+        <input class="chat__search-bar" placeholder="Search"><img class="chat__header-icon" src="/images/search-lupe-icon.svg" alt="Иконка. Лупа"></input>
         <ul class="chat__container-users-list">
             {{> User chat-user="user 1" }}
             {{> User chat-user="user 2" }}
