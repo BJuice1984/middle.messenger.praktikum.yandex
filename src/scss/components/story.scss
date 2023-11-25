@@ -42,7 +42,7 @@
       @include size(51px, 51px);
       @include flex-center-center;
 
-      border-radius: 16px;
+      border-radius: 15px;
       border: $borderStory;
       background-color: $secondColor;
       box-sizing: border-box;
@@ -54,7 +54,7 @@
       height: 100%;
       object-fit: cover;
       overflow: hidden;
-      border-radius: 13px;
+      border-radius: 12px;
     }
 
     &__title {
