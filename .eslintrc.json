@@ -32,6 +32,7 @@
       }
   ],
   "no-console": "off",
+  
   "linebreak-style": ["error", "unix"], // символ(ы) конца строки
   "quotes": ["error", "single"], // использовать одинарные кавычки
   "semi": ["error", "never"], // точка с запятой в конце операторов

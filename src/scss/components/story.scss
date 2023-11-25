@@ -3,11 +3,13 @@
 
 .chat-story {
     @include flex-center-center;
+
     flex-direction: column;
 
     &__container {
       @include size(56px, 56px);
       @include flex-center-center;
+
       background-image: $borderStoryGradientBorder;
       border-radius: 18px;
       box-sizing: border-box;
@@ -39,6 +41,7 @@
     &__img-container {
       @include size(51px, 51px);
       @include flex-center-center;
+
       border-radius: 16px;
       border: $borderStory;
       background-color: $secondColor;
@@ -58,6 +61,7 @@
       @include reset;
       @include text;
       @include text-format(400, 10px, 16px);
+
       color: $mainTextColor;
       width: 56px;
       overflow: hidden;

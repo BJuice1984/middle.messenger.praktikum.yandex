@@ -16,6 +16,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
     }
 
     &__container-header {
@@ -49,6 +50,7 @@
 
     &__container-stories-list {
       @include reset;
+
       padding-left: 17px;
         display: flex;
         flex-direction: row;
@@ -65,7 +67,6 @@
         @include size(36px, 90%);
 
         background-color: $secondColor;
-        justify-self: center;
         border-radius: 4px;
         border: none;
         margin-top: 16px;
@@ -75,6 +76,7 @@
 
     &__container-users-list {
       @include reset;
+
       margin-left: 8px;
         display: grid;
         row-gap: 16px;
@@ -94,6 +96,18 @@
         
         color: $secondTextColor;
         text-align: center;
+    }
+
+    &__container-botom-bar {
+      @include reset;
+      
+      position: absolute;
+      bottom: 0;
+      width: 90%;
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
     }
 
 }

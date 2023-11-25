@@ -1,0 +1,8 @@
+.chat-bottom-bar-item {
+  cursor: pointer;
+  
+  &__img {
+    @include size(32px, 32px);
+    @include hover-opacity;
+  }
+}
