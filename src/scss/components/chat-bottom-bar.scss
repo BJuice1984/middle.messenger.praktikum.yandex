@@ -2,11 +2,13 @@
 
   &__item {
     @include reset;
+
     cursor: pointer;
       
     &-img {
       @include size(32px, 32px);
       @include hover-opacity;
+
       z-index: 1;
     }
   }
