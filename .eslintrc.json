@@ -60,7 +60,7 @@
   "ignorePatterns": ["src/**/*.test.*", "**/*.scss"],
   "overrides": [
     {
-      "files": ["vite.config.js"],
+      "files": ["vite.config.js", "server/server.js"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": null
