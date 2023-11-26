@@ -24,7 +24,7 @@
     }
 
     &__secondary {
-        @include size(0, 280px);
+        @include size(40, 280px);
         @include text-format(500, 11px, 11px);
 
         background-color: transparent;

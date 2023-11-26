@@ -7,6 +7,8 @@ const pages = {
     register: [Pages.RegisterPage],
     chatty: [Pages.ChatPage],
     profile: [Pages.ProfilePage],
+    pageNotFound: [Pages.NotFoundPage],
+    serverErrorPage: [Pages.ServerErrorPage],
 }
 
 Object.entries(Components).forEach(([name, component]) => {
