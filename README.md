@@ -1,4 +1,8 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/88434455-8cb0-47c4-bae9-b763d88135f9/deploy-status?branch=dev)](https://app.netlify.com/sites/startling-faloodeh-01b44f/deploy)
+
+## [Ссылка на проект](https://startling-faloodeh-01b44f.netlify.app/)
+## [Ссылка на макет Figma](https://www.figma.com/file/bM8yGd4zQLl4H7VQSThAma/Chatty-UI-Kit---Messenger-App?type=design&node-id=0%3A1&mode=design&t=S96tosRx5QfhpWsh-1)
 
 
 ### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
