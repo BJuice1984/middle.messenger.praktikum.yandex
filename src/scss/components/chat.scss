@@ -111,8 +111,9 @@
       &-ava {
         @include reset;
         @include size(50px, 50px);
+
         display: flex;
-        background-image: url(../../../public/images/pencil.svg);
+        background-image: url("../../../public/images/pencil.svg");
         background-repeat: no-repeat;
         background-size: 20px;
         background-position: center;
@@ -135,19 +136,20 @@
 
       &-info {
         @include reset;
+
         color: $mainTextColor;
         padding-left: 20px;
 
         &-contact {
           @include reset;
           @include text;
-        @include text-format(600, 14px, 24px);
+          @include text-format(600, 14px, 24px);
 
-        cursor: default;
+          cursor: default;
 
-        &_type_tel {
-          opacity: 0.4; 
-        }
+          &_type_tel {
+            opacity: 0.4; 
+          }
         }
       }
       
@@ -155,7 +157,22 @@
         position: absolute;
         align-self: center;
         right: 10px;
+
         @include hover-opacity;
+      }
+    }
+
+    &__container-profile-settings {
+      @include reset;
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
+      width: 96%;
+      margin-top: 24px;
+      align-self: center;
+
+      &_type_last {
+        border-bottom: $borderChat;
       }
     }
 
