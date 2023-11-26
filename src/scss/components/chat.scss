@@ -164,9 +164,9 @@
 
     &__container-profile-settings {
       @include reset;
+
       display: flex;
       flex-direction: column;
-      align-self: flex-start;
       width: 96%;
       margin-top: 24px;
       align-self: center;
