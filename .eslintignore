@@ -4,6 +4,7 @@ server
 .eslintrc.json
 .stylelintrc.json
 commitlint.config.js
+vite.config.js
 build
 dist
 vendor
