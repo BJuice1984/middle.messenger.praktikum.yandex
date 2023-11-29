@@ -1,13 +1,13 @@
 <section class="login">
     <h2 class="login__header">Register</h2>
     {{#> FormAuth}}
-        {{> Input label="EMAIL" }}
-        {{> Input label="Login" }}
-        {{> Input label="First Name" }}
-        {{> Input label="Last Name" }}
-        {{> Input label="Phone Number" }}
-        {{> Input label="Password" }}
-        {{> Input label="Confirm Password" }}
+        {{> Input label="EMAIL" name="email" }}
+        {{> Input label="Login" name="login" }}
+        {{> Input label="First Name" name="first_name" }}
+        {{> Input label="Last Name" name="second_name" }}
+        {{> Input label="Phone Number" name="phone" }}
+        {{> Input label="Password" name="password" }}
+        {{> Input label="Confirm Password" name="confirm_password" }}
         {{> Button label="Sign up" classType="disabled" page="chatty"}}
         {{> Button label="Sign in" classType="secondary" page="login"}}
     {{/FormAuth}}
