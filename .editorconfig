@@ -11,3 +11,5 @@ trim_trailing_whitespace = false
 # Possible values - true, false
 [*.scss]
 insert_final_newline = true
+[*.json]
+insert_final_newline = true
