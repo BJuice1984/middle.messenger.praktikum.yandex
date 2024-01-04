@@ -1,0 +1,210 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.chat {
+    @include size(100%, 100%);
+
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    background-color: $mainColor;
+
+    &__container-users {
+        width: 375px;
+        height: 98%;
+        align-self: center;
+        border-right: $borderChat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+
+    &__container-header {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 24px 18px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    &__header {
+        @include reset;
+        @include text;
+        @include text-format(500, 20px, 20px);
+
+        color: $mainTextColor;
+        text-align: left;
+        cursor: default;
+    }
+
+    &__container-header-icons {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    &__header-icon {
+        @include size(20px, 20x);
+        @include hover-opacity;
+    }
+
+    &__container-stories-list {
+      @include reset;
+
+      padding-left: 17px;
+        display: flex;
+        flex-direction: row;
+        width: 96%;
+        box-sizing: border-box;
+        gap: 16px;
+        min-height: 108px;
+        border-bottom: $borderChatBottom;
+        list-style: none;
+    }
+
+    &__search-bar {
+      @include reset;
+      @include size(36px, 90%);
+
+      background-color: $secondColor;
+      border-radius: 4px;
+      border: none;
+      margin-top: 16px;
+      margin-left: 8px;
+      margin-bottom: 16px;
+    }
+
+    &__container-users-list {
+      @include reset;
+
+      margin-left: 8px;
+        display: grid;
+        row-gap: 16px;
+        list-style: none;
+        width: 90%;
+        box-sizing: border-box;
+    }
+
+    &__container-chats {
+        width: auto;
+    }
+
+    &__disclaimer {
+        @include reset;
+        @include text;
+        @include text-format(500, 12px, 12px);
+        
+        color: $secondTextColor;
+        text-align: center;
+    }
+
+    &__container-profile {
+      display: flex;
+      flex-direction: row;
+      align-self: flex-start;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 16px;
+      position: relative;
+
+      &-ava {
+        @include reset;
+        @include size(50px, 50px);
+
+        display: flex;
+        background-image: url("../../../public/images/pencil.svg");
+        background-repeat: no-repeat;
+        background-size: 20px;
+        background-position: center;
+
+        &_type_change-profile {
+          @include size(150px, 150px);
+
+          background-size: 30px;
+        }
+      }
+
+      &-img {
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin: 0;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+          opacity: 0.2;
+          transition: 0.2s ease-in-out;
+        }
+
+        &_type_change-profile {
+          border-radius: 150px;
+          width: 150px;
+          height: 150px;
+        }
+      }
+
+      &-info {
+        @include reset;
+
+        color: $mainTextColor;
+        padding-left: 20px;
+
+        &-contact {
+          @include reset;
+          @include text;
+          @include text-format(600, 14px, 24px);
+
+          cursor: default;
+
+          &_type_tel {
+            opacity: 0.4; 
+          }
+        }
+      }
+      
+      &-arrow {
+        position: absolute;
+        align-self: center;
+        right: 10px;
+
+        @include hover-opacity;
+      }
+    }
+
+    &__container-profile-settings {
+      @include reset;
+
+      display: flex;
+      flex-direction: column;
+      width: 96%;
+      margin-top: 24px;
+      align-self: center;
+
+      &_type_last {
+        border-bottom: $borderChat;
+      }
+    }
+
+    &__container-profile-changing {
+      @include reset;
+      @include flex-center-center;
+
+      flex-direction: column;
+      margin-top: 24px;
+    }
+
+    &__container-botom-bar {
+      @include reset;
+      
+      position: absolute;
+      bottom: 0;
+      width: 90%;
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+}

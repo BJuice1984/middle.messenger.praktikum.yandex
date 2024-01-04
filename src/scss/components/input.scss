@@ -1,0 +1,37 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.input {
+    @include reset;
+
+    width: auto;
+
+    &__container {
+        width: auto;
+    }
+
+    &__element {
+        @include reset;
+        @include size(36px, 100%);
+        @include text;
+        @include text-format(600, 14px, 24px);
+
+        background-color: $secondColor;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        padding-left: 8px;
+        transition: $hoverTransition;
+    }
+
+    &__element::placeholder {
+        color: $mainTextColor;
+        opacity: 0.5;
+      }
+
+      &__element:focus-visible {
+        outline: none;
+        box-shadow: $hoverLoginButton;
+        transition: $hoverTransition;
+      }
+  }

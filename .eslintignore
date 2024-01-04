@@ -1,0 +1,12 @@
+node_modules
+public
+server
+.eslintrc.json
+.stylelintrc.json
+commitlint.config.js
+vite.config.js
+build
+dist
+vendor
+*.css
+*.svg

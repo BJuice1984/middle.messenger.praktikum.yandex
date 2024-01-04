@@ -1,0 +1,25 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.login {
+    @include reset;
+    @include text;
+    @include text-format(500, 20px, 20px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $mainColor;
+    border-radius: 12px;
+    box-shadow: $boxShadowLogin;
+    min-height: 450px;
+    width: 340px;
+
+    &__header {
+        @include reset;
+
+        color: $mainTextColor;
+        text-align: center;
+        padding-top: 50px;
+    }
+}

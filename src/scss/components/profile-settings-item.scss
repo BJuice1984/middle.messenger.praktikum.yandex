@@ -1,0 +1,25 @@
+.profile-settings-item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 16px;
+
+  &__img {
+    @include reset;
+    @include size(24px, 24px);
+  }
+
+  &__name {
+    @include reset;
+    @include text;
+    @include text-format(600, 14px, 24px);
+
+    cursor: default;
+    color: $mainTextColor;
+    padding-left: 6px;
+  }
+}

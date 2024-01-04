@@ -1,0 +1,34 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": ["text", "text-size-adjust", "border-radius"]
+      }
+    ],
+    "font-family-name-quotes": "always-unless-keyword",
+    "rule-empty-line-before": "always",
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreKeywords": ["Helvetica", "Arial"]
+      }
+    ],
+    "scss/double-slash-comment-empty-line-before": ["always"],
+    "scss/double-slash-comment-whitespace-inside": "never",
+    "scss/at-import-partial-extension": "never",
+    "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
+    "scss/at-else-closing-brace-space-after": "always-intermediate",
+    "scss/at-else-empty-line-before": "never",
+    "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
+    "scss/at-if-closing-brace-space-after": "always-intermediate",
+    "scss/dollar-variable-pattern": [
+      "/[a-z][a-zA-Z]+/",
+      { "ignore": "global" },
+      {
+        "ignore": ["first-nested", "after-comment", "after-dollar-variable"]
+      }
+    ]
+  }
+}
