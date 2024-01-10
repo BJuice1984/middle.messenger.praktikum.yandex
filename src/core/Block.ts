@@ -5,7 +5,6 @@ interface Props {
     events?: Record<string, () => void>
 }
 
-// Нельзя создавать экземпляр данного класса
 class Block {
     static EVENTS = {
         INIT: 'init',
