@@ -16,20 +16,22 @@ class Block {
 
     public id = nanoid(6)
     protected props: unknown
+    // eslint-disable-next-line no-use-before-define
     protected refs: Record<string, Block> = {}
+    // eslint-disable-next-line no-use-before-define
     public children: Record<string, Block>
     private eventBus: () => EventBus
     private _element: HTMLElement | null = null
-    private _meta: { props: Props }
+    // private _meta: { props: Props }
 
     constructor(propsWithChildren: unknown = {}) {
         const eventBus = new EventBus()
 
         const { props, children } = this._getChildrenAndProps(propsWithChildren)
 
-        this._meta = {
-            props,
-        }
+        // this._meta = {
+        //     props,
+        // }
 
         this.children = children
         this.props = this._makePropsProxy(props)
@@ -41,17 +43,23 @@ class Block {
         eventBus.emit(Block.EVENTS.INIT)
     }
 
-    _getChildrenAndProps(childrenAndProps: unknown) {
+    private _getChildrenAndProps(childrenAndProps: unknown) {
         const props: Record<string, unknown> = {}
         const children: Record<string, Block> = {}
 
-        Object.entries(childrenAndProps).forEach(([key, value]) => {
-            if (value instanceof Block) {
-                children[key] = value
-            } else {
-                props[key] = value
-            }
-        })
+        // Проверка, что childrenAndProps - это объект с строковыми ключами
+        if (typeof childrenAndProps === 'object' && childrenAndProps !== null) {
+            Object.entries(childrenAndProps).forEach(([key, value]) => {
+                if (value instanceof Block) {
+                    children[key] = value
+                } else {
+                    props[key] = value
+                }
+            })
+        } else {
+            // Обработка случая, когда childrenAndProps не является объектом
+            console.error('Invalid childrenAndProps:', childrenAndProps)
+        }
 
         return { props, children }
     }
@@ -102,10 +110,11 @@ class Block {
     }
 
     setProps = (nextProps: unknown) => {
-        if (!nextProps) {
+        if (nextProps === undefined || nextProps === null) {
             return
         }
 
+        // this.props = { ...this.props, ...(nextProps as object) }
         Object.assign(this.props, nextProps)
     }
 
@@ -127,8 +136,11 @@ class Block {
         this._addEvents()
     }
 
-    protected compile(template: (context: unknown) => string, context: unknown) {
-        const contextAndStubs = { ...context, __refs: this.refs }
+    protected compile(
+        template: (context: Record<string, unknown>) => string,
+        context: Record<string, unknown>
+    ) {
+        const contextAndStubs: Record<string, unknown> = { ...context, __refs: this.refs }
 
         const html = template(contextAndStubs)
 
@@ -136,13 +148,14 @@ class Block {
 
         temp.innerHTML = html
 
-        contextAndStubs.__children?.forEach(({ embed }: unknown) => {
-            embed(temp.content)
-        })
+        contextAndStubs.__children?.forEach(
+            ({ embed }: { embed: (content: DocumentFragment) => void }) => {
+                embed(temp.content)
+            }
+        )
 
         return temp.content
     }
-
     protected render(): DocumentFragment {
         return new DocumentFragment()
     }
@@ -151,26 +164,22 @@ class Block {
         return this.element
     }
 
-    _makePropsProxy(props: unknown) {
-        // Ещё один способ передачи this, но он больше не применяется с приходом ES6+
-        const self = this
-
+    _makePropsProxy(props: Record<string | symbol, unknown>) {
         return new Proxy(props, {
-            get(target, prop) {
+            get: (target, prop) => {
                 const value = target[prop]
-                return typeof value === 'function' ? value.bind(target) : value
+
+                return typeof value === 'function' ? (value as Function).bind(target) : value
             },
-            set(target, prop, value) {
+            set: (target, prop, value) => {
                 const oldTarget = { ...target }
 
                 target[prop] = value
+                this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target)
 
-                // Запускаем обновление компоненты
-                // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
-                self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target)
                 return true
             },
-            deleteProperty() {
+            deleteProperty: () => {
                 throw new Error('Нет доступа')
             },
         })
