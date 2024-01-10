@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars'
-import Block from './Block'
+import Block from './Block.ts'
 import { HelperOptions } from 'handlebars'
 
 export function registerComponent(name: string, Component: typeof Block) {
@@ -7,6 +7,7 @@ export function registerComponent(name: string, Component: typeof Block) {
         throw `The ${name} component is already registered!`
     }
 
+    // eslint-disable-next-line func-names
     Handlebars.registerHelper(name, function (this: unknown, { hash, data, fn }: HelperOptions) {
         const component = new Component(hash)
         const dataAttribute = `data-id="${component.id}"`

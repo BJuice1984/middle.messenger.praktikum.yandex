@@ -4,7 +4,8 @@ server
 .eslintrc.json
 .stylelintrc.json
 commitlint.config.js
-vite.config.js
+vite.config.ts
+vite-plugin-handelbars-precompile.ts
 build
 dist
 vendor

@@ -1,6 +1,9 @@
-import EventBus from './EventBus'
+import EventBus from './EventBus.ts'
 import { nanoid } from 'nanoid'
-import Handlebars from 'handlebars'
+
+interface Props {
+    events?: Record<string, () => void>
+}
 
 // Нельзя создавать экземпляр данного класса
 class Block {
@@ -12,14 +15,14 @@ class Block {
     }
 
     public id = nanoid(6)
-    protected props: any
+    protected props: unknown
     protected refs: Record<string, Block> = {}
     public children: Record<string, Block>
     private eventBus: () => EventBus
     private _element: HTMLElement | null = null
-    private _meta: { props: any }
+    private _meta: { props: Props }
 
-    constructor(propsWithChildren: any = {}) {
+    constructor(propsWithChildren: unknown = {}) {
         const eventBus = new EventBus()
 
         const { props, children } = this._getChildrenAndProps(propsWithChildren)
@@ -38,8 +41,8 @@ class Block {
         eventBus.emit(Block.EVENTS.INIT)
     }
 
-    _getChildrenAndProps(childrenAndProps: any) {
-        const props: Record<string, any> = {}
+    _getChildrenAndProps(childrenAndProps: unknown) {
+        const props: Record<string, unknown> = {}
         const children: Record<string, Block> = {}
 
         Object.entries(childrenAndProps).forEach(([key, value]) => {
@@ -54,7 +57,7 @@ class Block {
     }
 
     _addEvents() {
-        const { events = {} } = this.props as { events: Record<string, () => void> }
+        const { events = {} } = this.props as Props
 
         Object.keys(events).forEach(eventName => {
             this._element?.addEventListener(eventName, events[eventName])
@@ -88,17 +91,17 @@ class Block {
         Object.values(this.children).forEach(child => child.dispatchComponentDidMount())
     }
 
-    private _componentDidUpdate(oldProps: any, newProps: any) {
+    private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
         if (this.componentDidUpdate(oldProps, newProps)) {
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
         }
     }
 
-    protected componentDidUpdate(oldProps: any, newProps: any) {
+    protected componentDidUpdate(oldProps: unknown, newProps: unknown) {
         return true
     }
 
-    setProps = (nextProps: any) => {
+    setProps = (nextProps: unknown) => {
         if (!nextProps) {
             return
         }
@@ -111,7 +114,7 @@ class Block {
     }
 
     private _render() {
-        const fragment = this.compile(this.render(), this.props)
+        const fragment = this.render()
 
         const newElement = fragment.firstElementChild as HTMLElement
 
@@ -124,31 +127,31 @@ class Block {
         this._addEvents()
     }
 
-    private compile(template: string, context: any) {
+    protected compile(template: (context: unknown) => string, context: unknown) {
         const contextAndStubs = { ...context, __refs: this.refs }
 
-        const html = Handlebars.compile(template)(contextAndStubs)
+        const html = template(contextAndStubs)
 
         const temp = document.createElement('template')
 
         temp.innerHTML = html
 
-        contextAndStubs.__children?.forEach(({ embed }: any) => {
+        contextAndStubs.__children?.forEach(({ embed }: unknown) => {
             embed(temp.content)
         })
 
         return temp.content
     }
 
-    protected render(): string {
-        return ''
+    protected render(): DocumentFragment {
+        return new DocumentFragment()
     }
 
     getContent() {
         return this.element
     }
 
-    _makePropsProxy(props: any) {
+    _makePropsProxy(props: unknown) {
         // Ещё один способ передачи this, но он больше не применяется с приходом ES6+
         const self = this
 
