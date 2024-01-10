@@ -3,7 +3,7 @@ import * as Components from './components/components.ts'
 import * as Pages from './pages/pages.ts'
 
 const pages = {
-    login: [Pages.LoginPage, { test: '123' }],
+    login: [Pages.LoginPage, { test: '12345' }],
     register: [Pages.RegisterPage],
     chatty: [Pages.ChatPage],
     profile: [Pages.ProfilePage],
