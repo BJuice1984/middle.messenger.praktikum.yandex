@@ -1,28 +1,54 @@
-export { default as LoginPage } from './login.hbs?raw'
 import Block from '../../core/Block.ts'
+import { render } from '../../core/render.ts'
 import template from './login.hbs'
-// import { render } from '../../core/render.ts'
 
 export class Login extends Block {
     constructor() {
-        super()
+        super({
+            inputs: [
+                {
+                    label: 'Login (Required)',
+                    name: 'login',
+                },
+                {
+                    label: 'Password (Required)',
+                    name: 'password',
+                },
+            ],
+            buttons: [
+                {
+                    label: 'Sign in',
+                    classType: 'primary',
+                    onClick: () => {
+                        render('chatty')
+                    },
+                },
+                {
+                    label: 'Sign up',
+                    classType: 'secondary',
+                    onClick: () => {
+                        render('register')
+                    },
+                },
+                {
+                    label: '404',
+                    classType: 'secondary',
+                    onClick: () => {
+                        render('pageNotFound')
+                    },
+                },
+                {
+                    label: '500',
+                    classType: 'secondary',
+                    onClick: () => {
+                        render('serverErrorPage')
+                    },
+                },
+            ],
+        })
     }
 
     render() {
         return this.compile(template, this.props as Record<string, unknown>)
     }
 }
-
-// export interface InputData {
-//     label: string
-// }
-
-// export interface ButtonData {
-//     label: string
-//     classType: 'primary' | 'secondary'
-//     page: string
-// }
-
-// export interface LoginPageData {
-//     test: string
-// }

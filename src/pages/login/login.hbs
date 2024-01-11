@@ -1,12 +1,11 @@
 <section class="login">
     <h2 class="login__header">Login</h2>
-    {{#> FormAuth}}
-        {{> Input label="Login (Required)" name="login" }}
-        {{> Input label="Password (Required)" name="password" }}
-        {{> Button label="Sign in" classType="primary" page="chatty" }}
-        {{> Button label="Sign up" classType="secondary"  page="register" }}
-        {{> Button label="404" classType="secondary"  page="pageNotFound" }}
-        {{> Button label="500" classType="secondary"  page="serverErrorPage" }}
-        {{test}}
-    {{/FormAuth}}
+    <form class="login-form">
+      {{#each inputs}}
+        {{{ Input label=this.label name=this.name }}}
+      {{/each}}
+      {{#each buttons}}
+        {{{ Button label=this.label classType=this.classType onClick=this.onClick }}}
+      {{/each}}
+    </form>
 </section>
