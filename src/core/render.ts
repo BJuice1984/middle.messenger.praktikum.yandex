@@ -1,12 +1,17 @@
-import * as Pages from './pages/pages.ts'
+import { Login } from '../pages/login/login.ts'
+// import * as Pages from '../pages/pages.ts'
+
+// const ROUTES = {
+//     login: Pages.LoginPage,
+//     register: Pages.RegisterPage,
+//     chatty: Pages.ChatPage,
+//     profile: Pages.ProfilePage,
+//     pageNotFound: Pages.NotFoundPage,
+//     serverErrorPage: Pages.ServerErrorPage,
+// }
 
 const ROUTES = {
-    login: Pages.LoginPage,
-    register: Pages.RegisterPage,
-    chatty: Pages.ChatPage,
-    profile: Pages.ProfilePage,
-    pageNotFound: Pages.NotFoundPage,
-    serverErrorPage: Pages.ServerErrorPage,
+    login: Login,
 }
 
 export function render(name: keyof typeof ROUTES) {
@@ -16,7 +21,11 @@ export function render(name: keyof typeof ROUTES) {
 
     const Page = ROUTES[name]
 
+    console.log('🚀 ~ render ~ Page:', Page)
+
     const page = new Page()
+
+    console.log('🚀 ~ render ~ page:', page)
 
     root.append(page.getContent()!)
 

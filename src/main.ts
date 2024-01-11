@@ -1,43 +1,47 @@
-import Handlebars from 'handlebars'
-import * as Components from './components/components.ts'
-import * as Pages from './pages/pages.ts'
+import { render } from './core/render.ts'
 
-const pages = {
-    login: [Pages.LoginPage, { test: '12345' }],
-    register: [Pages.RegisterPage],
-    chatty: [Pages.ChatPage],
-    profile: [Pages.ProfilePage],
-    pageNotFound: [Pages.NotFoundPage],
-    serverErrorPage: [Pages.ServerErrorPage],
-}
+document.addEventListener('DOMContentLoaded', () => render('login'))
 
-Object.entries(Components).forEach(([name, component]) => {
-    Handlebars.registerPartial(name, component)
-})
+// import Handlebars from 'handlebars'
+// import * as Components from './components/components.ts'
+// import * as Pages from './pages/pages.ts'
 
-function navigate(page: string) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const [source, context] = pages[page]
-    const container = document.getElementById('app')!
+// const pages = {
+//     login: [Pages.LoginPage, { test: '12345' }],
+//     register: [Pages.RegisterPage],
+//     chatty: [Pages.ChatPage],
+//     profile: [Pages.ProfilePage],
+//     pageNotFound: [Pages.NotFoundPage],
+//     serverErrorPage: [Pages.ServerErrorPage],
+// }
 
-    container.innerHTML = Handlebars.compile(source)(context)
-}
+// Object.entries(Components).forEach(([name, component]) => {
+//     Handlebars.registerPartial(name, component)
+// })
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'))
+// function navigate(page: string) {
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     //@ts-ignore
+//     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+//     const [source, context] = pages[page]
+//     const container = document.getElementById('app')!
 
-//повесить слушатель на кнопку
-document.addEventListener('click', e => {
-    if (!e.target) return
+//     container.innerHTML = Handlebars.compile(source)(context)
+// }
 
-    const el = e.target as HTMLButtonElement
-    const page = el.getAttribute('page') as string
+// document.addEventListener('DOMContentLoaded', () => navigate('login'))
 
-    if (page.length > 0) {
-        navigate(page)
+// //повесить слушатель на кнопку
+// document.addEventListener('click', e => {
+//     if (!e.target) return
 
-        e.preventDefault()
-        e.stopImmediatePropagation()
-    }
-})
+//     const el = e.target as HTMLButtonElement
+//     const page = el.getAttribute('page') as string
+
+//     if (page.length > 0) {
+//         navigate(page)
+
+//         e.preventDefault()
+//         e.stopImmediatePropagation()
+//     }
+// })
