@@ -1,10 +1,10 @@
 import { render } from './core/render.ts'
 import { registerComponent } from './core/registerComponent.ts'
-import { Button } from './components/components.ts'
-import { Input } from './components/components.ts'
+import * as Components from './components/components.ts'
 
-registerComponent('Button', Button)
-registerComponent('Input', Input)
+Object.entries(Components).forEach(([name, component]) => {
+    registerComponent(name, component)
+})
 
 document.addEventListener('DOMContentLoaded', () => render('login'))
 
