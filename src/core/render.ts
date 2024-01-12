@@ -1,9 +1,20 @@
-import { Login } from '../pages/login/login.ts'
-import { Register } from '../pages/register/register.ts'
+// import {
+//     ChatPage,
+//     LoginPage,
+//     NotFoundPage,
+//     ProfilePage,
+//     RegisterPage,
+//     ServerErrorPage
+// } from '../pages/pages.ts'
+import * as Pages from '../pages/pages.ts'
 
 const ROUTES = {
-    login: Login,
-    register: Register,
+    login: Pages.LoginPage,
+    register: Pages.RegisterPage,
+    profile: Pages.ProfilePage,
+    chatty: Pages.ChatPage,
+    pageNotFound: Pages.NotFoundPage,
+    serverErrorPage: Pages.ServerErrorPage,
 }
 
 export function render(name: keyof typeof ROUTES) {

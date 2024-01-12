@@ -2,7 +2,7 @@ import Block from '../../core/Block.ts'
 import { render } from '../../core/render.ts'
 import template from './login.hbs'
 
-export class Login extends Block {
+export class LoginPage extends Block {
     constructor() {
         super({
             inputs: [

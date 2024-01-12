@@ -1,7 +1,7 @@
 import Block from '../../core/Block.ts'
 import template from './register.hbs'
 
-export class Register extends Block {
+export class RegisterPage extends Block {
     constructor() {
         super()
     }
