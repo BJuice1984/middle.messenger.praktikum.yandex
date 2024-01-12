@@ -103,6 +103,8 @@ class Block {
     }
 
     protected componentDidUpdate(oldProps: unknown, newProps: unknown) {
+        console.log(oldProps, newProps)
+
         return true
     }
 
