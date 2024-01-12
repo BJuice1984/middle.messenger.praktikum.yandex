@@ -2,7 +2,7 @@
     <h2 class="login__header">Login</h2>
     <form class="login-form">
       {{#each inputs}}
-        {{{ Input label=this.label name=this.name }}}
+        {{{ Input label=this.label name=this.name ref=this.ref }}}
       {{/each}}
       {{#each buttons}}
         {{{ Button label=this.label classType=this.classType onClick=this.onClick }}}

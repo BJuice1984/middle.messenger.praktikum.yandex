@@ -4,23 +4,21 @@ import template from './input.hbs'
 interface InputProps {
     label: string
     name: string
-    data: string
-    // type: 'password' | 'text'
-    // placeholder: string
-    // onFocusout?: () => void
-    // events: {
-    //     focusout: () => void
-    // }
+    ref: string
 }
 
 export class Input extends Block {
     constructor(props: InputProps) {
         super({
             ...props,
-            // events: {
-            //     focusout: props.onFocusout,
-            // },
         })
+    }
+
+    public value() {
+        // if (!this.validate()) {
+        //     return false
+        // }
+        return this.refs
     }
 
     render() {

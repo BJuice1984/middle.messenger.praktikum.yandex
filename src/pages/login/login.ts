@@ -9,18 +9,25 @@ export class LoginPage extends Block {
                 {
                     label: 'Login (Required)',
                     name: 'login',
+                    ref: 'login',
                 },
                 {
                     label: 'Password (Required)',
                     name: 'password',
+                    ref: 'password',
                 },
             ],
             buttons: [
                 {
                     label: 'Sign in',
                     classType: 'primary',
-                    onClick: () => {
-                        render('chatty')
+                    onClick: event => {
+                        event.preventDefault()
+                        const login = this.refs.login.value()
+                        const password = this.refs.password.value()
+
+                        console.log(this.refs.login)
+                        // render('chatty')
                     },
                 },
                 {
