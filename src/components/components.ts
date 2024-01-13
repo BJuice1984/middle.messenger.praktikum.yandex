@@ -1,4 +1,5 @@
 export { Button } from './button/button.ts'
+export { Form } from './form/form.ts'
 export { LabeledInput } from './input/labeledInput/labeledInput.ts'
 export { Input } from './input/input/input.ts'
 export { Story } from './story/story.ts'

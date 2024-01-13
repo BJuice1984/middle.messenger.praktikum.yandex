@@ -4,7 +4,6 @@ import template from './input.hbs'
 interface InputProps {
     label: string
     name: string
-    ref: string
 }
 
 export class Input extends Block {
@@ -12,7 +11,7 @@ export class Input extends Block {
         super({
             ...props,
         })
-        console.log(this.element)
+        // console.log(this.element)
     }
 
     public value() {
@@ -24,6 +23,6 @@ export class Input extends Block {
     }
 
     render() {
-        return this.compile(template, this.props as Record<string, unknown>)
+        return this.compile(template, this.props as Record<string, string>)
     }
 }

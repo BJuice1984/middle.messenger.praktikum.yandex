@@ -4,7 +4,6 @@ import template from './labeledInput.hbs'
 interface LabeledInputProps {
     label: string
     name: string
-    ref: string
 }
 
 export class LabeledInput extends Block {
@@ -12,7 +11,7 @@ export class LabeledInput extends Block {
         super({
             ...props,
         })
-        console.log(this.element)
+        // console.log(this.element)
     }
 
     public value() {
