@@ -10,16 +10,12 @@ export class Input extends Block {
     constructor(props: InputProps) {
         super({
             ...props,
+            events: {
+                blur: event => {
+                    console.log(event.target.value)
+                },
+            },
         })
-        // console.log(this.element)
-    }
-
-    public value() {
-        // if (!this.validate()) {
-        //     return false
-        // }
-        console.log(this.element)
-        // return this.element?.value
     }
 
     render() {
