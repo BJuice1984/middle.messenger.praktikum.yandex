@@ -1,4 +1,4 @@
-import Block from '../../core/Block.ts'
+import Block from '../../../core/Block.ts'
 import template from './input.hbs'
 
 interface InputProps {
@@ -12,13 +12,15 @@ export class Input extends Block {
         super({
             ...props,
         })
+        console.log(this.element)
     }
 
     public value() {
         // if (!this.validate()) {
         //     return false
         // }
-        return this.refs
+        console.log(this.element)
+        // return this.element?.value
     }
 
     render() {
