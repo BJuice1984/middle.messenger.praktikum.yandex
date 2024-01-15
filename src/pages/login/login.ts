@@ -9,10 +9,12 @@ export class LoginPage extends Block {
                 {
                     label: 'Login (Required)',
                     name: 'login',
+                    onFocusout: (e: { target: { value: string } }) => console.log(e.target.value),
                 },
                 {
                     label: 'Password (Required)',
                     name: 'password',
+                    onFocusout: (e: { target: { value: string } }) => console.log(e.target.value),
                 },
             ],
             buttons: [
