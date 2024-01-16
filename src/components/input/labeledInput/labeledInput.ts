@@ -4,22 +4,17 @@ import template from './labeledInput.hbs'
 interface LabeledInputProps {
     label: string
     name: string
+    // eslint-disable-next-line no-unused-vars
+    validate: (value: string) => boolean
 }
 
 export class LabeledInput extends Block {
     constructor(props: LabeledInputProps) {
         super({
             ...props,
+            onBlur: (e: { target: { value: string } }) =>
+                this.refs.error.setProps({ isShown: !props.validate(e.target.value) }),
         })
-        // console.log(this.element)
-    }
-
-    public value() {
-        // if (!this.validate()) {
-        //     return false
-        // }
-        console.log(this.element)
-        // return this.element?.value
     }
 
     render() {

@@ -9,12 +9,14 @@ export class LoginPage extends Block {
                 {
                     label: 'Login (Required)',
                     name: 'login',
-                    onFocusout: (e: { target: { value: string } }) => console.log(e.target.value),
+                    validate: (value: string) => !(value.length < 3 && value.length !== 0),
+                    validateMessage: 'не менее 3-х символов',
                 },
                 {
                     label: 'Password (Required)',
                     name: 'password',
-                    onFocusout: (e: { target: { value: string } }) => console.log(e.target.value),
+                    validate: (value: string) => !(value.length < 6 && value.length !== 0),
+                    validateMessage: 'не менее 6-ти символов',
                 },
             ],
             buttons: [

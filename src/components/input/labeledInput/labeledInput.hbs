@@ -1,5 +1,6 @@
 <div class="input" >
     <label class="input__container">
-        {{{ Input label=this.label name=this.name onFocusout=this.onFocusout }}}
+        {{{ Input label=this.label name=this.name onBlur=this.onBlur }}}
+        {{{ InputError ref="error" validateMessage=this.validateMessage }}}
     </label>
 </div>

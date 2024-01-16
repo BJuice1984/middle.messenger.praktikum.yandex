@@ -2,7 +2,7 @@ import Block from '../../../core/Block.ts'
 import template from './input.hbs'
 
 interface InputProps {
-    onFocusout: () => void
+    onBlur: () => void
     label: string
     name: string
 }
@@ -12,10 +12,9 @@ export class Input extends Block {
         super({
             ...props,
             events: {
-                focusout: props.onFocusout,
+                blur: props.onBlur,
             },
         })
-        console.log('🚀 ~ Input ~ constructor ~ props:', props)
     }
 
     render() {

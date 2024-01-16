@@ -7,7 +7,9 @@
     width: auto;
 
     &__container {
+      display: block;
         width: auto;
+        height: 57px;
     }
 
     &__element {
@@ -34,4 +36,16 @@
         box-shadow: $hoverLoginButton;
         transition: $hoverTransition;
       }
+    &__error {
+      @include reset;
+      @include text;
+      @include text-format(600, 12px, 11px);
+      color: $spanErrorColor;
+      display: none;
+
+      &_visible {
+        display: block;
+        padding-top: 5px;
+      }
+    }
   }
