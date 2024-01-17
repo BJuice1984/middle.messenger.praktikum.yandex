@@ -1,5 +1,7 @@
 import Block from '../../core/Block.ts'
 import { render } from '../../core/render.ts'
+import { loginValidationMessage, passwordValidationMessage } from '../../utils/constants.ts'
+import { loginValidator, passwordValidator } from '../../utils/validators.ts'
 import template from './login.hbs'
 
 export class LoginPage extends Block {
@@ -9,14 +11,14 @@ export class LoginPage extends Block {
                 {
                     label: 'Login (Required)',
                     name: 'login',
-                    validate: (value: string) => !(value.length < 3 && value.length !== 0),
-                    validateMessage: 'не менее 3-х символов',
+                    validate: loginValidator,
+                    validateMessage: loginValidationMessage,
                 },
                 {
                     label: 'Password (Required)',
                     name: 'password',
-                    validate: (value: string) => !(value.length < 6 && value.length !== 0),
-                    validateMessage: 'не менее 6-ти символов',
+                    validate: passwordValidator,
+                    validateMessage: passwordValidationMessage,
                 },
             ],
             buttons: [

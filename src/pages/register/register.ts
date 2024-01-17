@@ -1,6 +1,20 @@
 import Block from '../../core/Block.ts'
 import template from './register.hbs'
 import { render } from '../../core/render.ts'
+import {
+    loginValidationMessage,
+    mailValidationMessage,
+    nameValidationMessage,
+    passwordValidationMessage,
+    phoneValidationMessage,
+} from '../../utils/constants.ts'
+import {
+    loginValidator,
+    mailValidator,
+    nameValidator,
+    passwordValidator,
+    phoneValidator,
+} from '../../utils/validators.ts'
 
 export class RegisterPage extends Block {
     constructor() {
@@ -9,37 +23,44 @@ export class RegisterPage extends Block {
                 {
                     label: 'EMAIL',
                     name: 'email',
-                    onFocusout: e => console.log(e.target.value),
+                    validate: mailValidator,
+                    validateMessage: mailValidationMessage,
                 },
                 {
                     label: 'Login',
                     name: 'login',
-                    onFocusout: e => console.log(e.target.value),
+                    validate: loginValidator,
+                    validateMessage: loginValidationMessage,
                 },
                 {
                     label: 'First Name',
                     name: 'first_name',
-                    onFocusout: e => console.log(e.target.value),
+                    validate: nameValidator,
+                    validateMessage: nameValidationMessage,
                 },
                 {
                     label: 'Last Name',
                     name: 'second_name',
-                    onFocusout: e => console.log(e.target.value),
+                    validate: nameValidator,
+                    validateMessage: nameValidationMessage,
                 },
                 {
                     label: 'Phone Number',
                     name: 'phone',
-                    onFocusout: e => console.log(e.target.value),
+                    validate: phoneValidator,
+                    validateMessage: phoneValidationMessage,
                 },
                 {
                     label: 'Password',
                     name: 'password',
-                    onFocusout: e => console.log(e.target.value),
+                    validate: passwordValidator,
+                    validateMessage: passwordValidationMessage,
                 },
                 {
                     label: 'Confirm Password',
                     name: 'confirm_password',
-                    onFocusout: e => console.log(e.target.value),
+                    validate: passwordValidator,
+                    validateMessage: passwordValidationMessage,
                 },
             ],
             buttons: [
