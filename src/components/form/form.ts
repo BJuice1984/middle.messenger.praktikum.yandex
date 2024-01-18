@@ -15,8 +15,16 @@ interface FormProps {
 
 export class Form extends Block {
     constructor(props: FormProps) {
+        console.log('🚀 ~ Form ~ constructor ~ props:', props)
         super({
             ...props,
+            events: {
+                submit: e => {
+                    e.preventDefault()
+
+                    console.log('🚀 ~ Form ~ constructor ~ e.target:', e.target)
+                },
+            },
         })
     }
 

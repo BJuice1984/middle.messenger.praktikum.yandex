@@ -4,6 +4,7 @@ import template from './button.hbs'
 interface ButtonProps {
     label: string
     classType: 'primary' | 'secondary'
+    type: 'submit' | 'button'
     onClick: () => void
     events: {
         click: () => void

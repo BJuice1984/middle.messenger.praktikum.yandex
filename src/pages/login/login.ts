@@ -25,13 +25,18 @@ export class LoginPage extends Block {
                 {
                     label: 'Sign in',
                     classType: 'primary',
-                    onClick: () => {
+                    type: 'submit',
+                    onClick: e => {
+                        e.preventDefault()
+                        console.log('🚀 ~ LoginPage ~ constructor ~ e.target:', e.target)
+
                         render('chatty')
                     },
                 },
                 {
                     label: 'Sign up',
                     classType: 'secondary',
+                    type: 'button',
                     onClick: () => {
                         render('register')
                     },
@@ -39,6 +44,7 @@ export class LoginPage extends Block {
                 {
                     label: '404',
                     classType: 'secondary',
+                    type: 'button',
                     onClick: () => {
                         render('pageNotFound')
                     },
@@ -46,6 +52,7 @@ export class LoginPage extends Block {
                 {
                     label: '500',
                     classType: 'secondary',
+                    type: 'button',
                     onClick: () => {
                         render('serverErrorPage')
                     },

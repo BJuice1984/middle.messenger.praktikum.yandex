@@ -67,6 +67,7 @@ export class RegisterPage extends Block {
                 {
                     label: 'Sign up',
                     classType: 'disabled',
+                    type: 'submit',
                     onClick: () => {
                         render('chatty')
                     },
@@ -74,6 +75,7 @@ export class RegisterPage extends Block {
                 {
                     label: 'Sign in',
                     classType: 'secondary',
+                    type: 'button',
                     onClick: () => {
                         render('login')
                     },
