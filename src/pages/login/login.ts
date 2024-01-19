@@ -26,10 +26,7 @@ export class LoginPage extends Block {
                     label: 'Sign in',
                     classType: 'primary',
                     type: 'submit',
-                    onClick: e => {
-                        e.preventDefault()
-                        console.log('🚀 ~ LoginPage ~ constructor ~ e.target:', e.target)
-
+                    handleClick: () => {
                         render('chatty')
                     },
                 },
