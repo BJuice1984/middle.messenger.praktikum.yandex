@@ -48,7 +48,6 @@ export class Form extends Block<FormProps> {
                 },
             },
         })
-        console.log('🚀 ~ Form ~ this.element:', this.element)
     }
 
     _validateInputs(): boolean {
