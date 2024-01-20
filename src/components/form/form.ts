@@ -1,22 +1,6 @@
 import Block from '../../core/Block.ts'
 import template from './form.hbs'
 
-// interface FormProps {
-//     inputs: {
-//         label: string
-//         name: string
-//         validateMessage: string
-//         // eslint-disable-next-line no-unused-vars
-//         validate: (value: string) => boolean
-//     }[]
-//     buttons: {
-//         label: string
-//         classType: string
-//         onClick?: () => void
-//         handleClick?: () => void
-//     }[]
-// }
-
 interface FormButton {
     label: string
     classType: string
@@ -33,6 +17,7 @@ interface FormProps {
         validate: (value: string) => boolean
     }[]
     buttons: FormButton[]
+    [key: string]: unknown
 }
 
 export class Form extends Block<FormProps> {
@@ -46,17 +31,16 @@ export class Form extends Block<FormProps> {
                     if (this._validateInputs()) {
                         console.log('Форма ДА!')
 
-                        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                        const buttonWithHandleClick: FormButton | undefined =
-                            this.props.buttons.find(
-                                (button: { handleClick: () => void }) => button.handleClick
-                            )
+                        const buttonWithHandleClick: Partial<FormButton> | undefined =
+                            this.props.buttons.find((button: FormButton) => button.handleClick)
 
-                        if (buttonWithHandleClick && this.element) {
-                            buttonWithHandleClick.handleClick()
-                            const formData = this._serializeForm(this.element)
+                        if (buttonWithHandleClick && this.element instanceof HTMLFormElement) {
+                            if (buttonWithHandleClick.handleClick) {
+                                buttonWithHandleClick.handleClick()
+                                const formData = this._serializeForm(this.element)
 
-                            console.log(formData)
+                                console.log(formData)
+                            }
                         }
                     } else {
                         console.log('Форма НЕ!')
@@ -69,11 +53,11 @@ export class Form extends Block<FormProps> {
 
     _validateInputs(): boolean {
         for (const input of this.props.inputs) {
-            const inputElement = this.element.querySelector(
+            const inputElement = this.element?.querySelector(
                 `[name="${input.name}"]`
             ) as HTMLInputElement
 
-            if (inputElement && !input.validate(inputElement.value)) {
+            if (!input.validate(inputElement.value)) {
                 console.log(`Ошибка валидации на ${input.name}`)
 
                 return false
@@ -87,9 +71,9 @@ export class Form extends Block<FormProps> {
         const { elements } = formNode
 
         const data = Array.from(elements)
-            .filter(item => Boolean(item.name))
-            .reduce((acc, element) => {
-                const { name, value } = element
+            .filter(item => Boolean((item as HTMLInputElement).name))
+            .reduce<Record<string, string>>((acc, element) => {
+                const { name, value } = element as HTMLInputElement
 
                 acc[name] = value
 

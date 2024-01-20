@@ -2,20 +2,39 @@ import Handlebars from 'handlebars'
 import Block from './Block.ts'
 import { HelperOptions } from 'handlebars'
 
+interface CustomData {
+    root: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        __refs?: Record<string, Block<any>> // Уточненный тип для __refs
+        __children?: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            component: Block<any> // Уточненный тип для component
+            // eslint-disable-next-line no-unused-vars
+            embed: (fragment: DocumentFragment) => void
+        }[]
+    }
+}
+
 export function registerComponent(name: string, Component: typeof Block) {
     if (name in Handlebars.helpers) {
         throw `The ${name} component is already registered!`
     }
 
+    // eslint-disable-next-line func-names
     Handlebars.registerHelper(name, function (this: unknown, { hash, data, fn }: HelperOptions) {
         const component = new Component(hash)
         const dataAttribute = `data-id="${component.id}"`
 
-        if ('ref' in hash) {
-            ;(data.root.__refs = data.root.__refs || {})[hash.ref] = component
+        const customData = data as CustomData // Уточняем тип данных
+
+        if (Boolean(hash) && typeof hash === 'object' && 'ref' in hash) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            const hashRef = hash.ref as string // Явное приведение типа
+
+            ;(customData.root.__refs = customData.root.__refs || {})[hashRef] = component
         }
 
-        ;(data.root.__children = data.root.__children || []).push({
+        ;(customData.root.__children = customData.root.__children || []).push({
             component,
             embed(fragment: DocumentFragment) {
                 const stub = fragment.querySelector(`[${dataAttribute}]`)
@@ -25,11 +44,11 @@ export function registerComponent(name: string, Component: typeof Block) {
                 }
 
                 component.getContent()?.append(...Array.from(stub.childNodes))
-
                 stub.replaceWith(component.getContent()!)
             },
         })
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const contents = fn ? fn(this) : ''
 
         return `<div ${dataAttribute}>${contents}</div>`
