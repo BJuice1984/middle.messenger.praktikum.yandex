@@ -6,6 +6,11 @@ interface Props {
     [key: string]: unknown
 }
 
+interface WithChildren {
+    // eslint-disable-next-line no-unused-vars
+    __children?: { embed: (content: DocumentFragment) => void }[]
+}
+
 class Block<T extends Props = Props> {
     static EVENTS = {
         INIT: 'init',
@@ -41,9 +46,13 @@ class Block<T extends Props = Props> {
         eventBus.emit(Block.EVENTS.INIT)
     }
 
-    private _getChildrenAndProps(childrenAndProps: unknown) {
+    private _getChildrenAndProps<U extends Record<string, unknown>>(
+        childrenAndProps: U
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ): { props: Record<string, unknown>; children: Record<string, Block<any>> } {
         const props: Record<string, unknown> = {}
-        const children: Record<string, Block> = {}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const children: Record<string, Block<any>> = {}
 
         // Проверка, что childrenAndProps - это объект с строковыми ключами
         if (typeof childrenAndProps === 'object' && childrenAndProps !== null) {
@@ -141,7 +150,10 @@ class Block<T extends Props = Props> {
         template: (context: Record<string, unknown>) => string,
         context: Record<string, unknown>
     ) {
-        const contextAndStubs: Record<string, unknown> = { ...context, __refs: this.refs }
+        const contextAndStubs: Record<string, unknown> & WithChildren = {
+            ...context,
+            __refs: this.refs,
+        }
 
         const html = template(contextAndStubs)
 
@@ -149,15 +161,15 @@ class Block<T extends Props = Props> {
 
         temp.innerHTML = html
 
-        contextAndStubs.__children?.forEach(
-            // eslint-disable-next-line no-unused-vars
-            ({ embed }: { embed: (content: DocumentFragment) => void }) => {
+        if (contextAndStubs.__children && Array.isArray(contextAndStubs.__children)) {
+            contextAndStubs.__children.forEach(({ embed }) => {
                 embed(temp.content)
-            }
-        )
+            })
+        }
 
         return temp.content
     }
+
     protected render(): DocumentFragment {
         return new DocumentFragment()
     }
