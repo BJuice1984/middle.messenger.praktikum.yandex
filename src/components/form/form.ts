@@ -1,38 +1,58 @@
 import Block from '../../core/Block.ts'
 import template from './form.hbs'
 
+// interface FormProps {
+//     inputs: {
+//         label: string
+//         name: string
+//         validateMessage: string
+//         // eslint-disable-next-line no-unused-vars
+//         validate: (value: string) => boolean
+//     }[]
+//     buttons: {
+//         label: string
+//         classType: string
+//         onClick?: () => void
+//         handleClick?: () => void
+//     }[]
+// }
+
+interface FormButton {
+    label: string
+    classType: string
+    onClick?: () => void
+    handleClick?: () => void
+}
+
 interface FormProps {
     inputs: {
         label: string
         name: string
         validateMessage: string
         // eslint-disable-next-line no-unused-vars
-        validate: (value: string) => boolean // Изменили тип функции валидации
+        validate: (value: string) => boolean
     }[]
-    buttons: {
-        label: string
-        classType: string
-        onClick?: () => void
-        handleClick?: () => void
-    }[]
+    buttons: FormButton[]
 }
 
-export class Form extends Block {
+export class Form extends Block<FormProps> {
     constructor(props: FormProps) {
         super({
             ...props,
             events: {
-                submit: e => {
+                submit: (e: { preventDefault: () => void }) => {
                     e.preventDefault()
 
                     if (this._validateInputs()) {
                         console.log('Форма ДА!')
 
-                        const buttonWithHandleClick = this.props.buttons.find(
-                            button => button.handleClick
-                        )
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                        const buttonWithHandleClick: FormButton | undefined =
+                            this.props.buttons.find(
+                                (button: { handleClick: () => void }) => button.handleClick
+                            )
 
-                        if (buttonWithHandleClick) {
+                        if (buttonWithHandleClick && this.element) {
                             buttonWithHandleClick.handleClick()
                             const formData = this._serializeForm(this.element)
 
@@ -44,7 +64,7 @@ export class Form extends Block {
                 },
             },
         })
-        console.log(this.refs.error)
+        console.log('🚀 ~ Form ~ this.element:', this.element)
     }
 
     _validateInputs(): boolean {

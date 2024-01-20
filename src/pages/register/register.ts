@@ -68,7 +68,7 @@ export class RegisterPage extends Block {
                     label: 'Sign up',
                     classType: 'disabled',
                     type: 'submit',
-                    onClick: () => {
+                    handleClick: () => {
                         render('chatty')
                     },
                 },

@@ -3,9 +3,10 @@ import { nanoid } from 'nanoid'
 
 interface Props {
     events?: Record<string, () => void>
+    [key: string]: unknown
 }
 
-class Block {
+class Block<T extends Props = Props> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -14,24 +15,24 @@ class Block {
     }
 
     public id = nanoid(6)
-    protected props: unknown
+    protected props: T
     protected refs: Record<string, Block> = {}
     public children: Record<string, Block>
     private eventBus: () => EventBus
     private _element: HTMLElement | null = null
     // private _meta: { props: Props }
 
-    constructor(propsWithChildren: unknown = {}) {
+    constructor(propsWithChildren: T = {} as T) {
         const eventBus = new EventBus()
 
-        const { props, children } = this._getChildrenAndProps(propsWithChildren)
+        const { children } = this._getChildrenAndProps(propsWithChildren)
 
         // this._meta = {
         //     props,
         // }
 
         this.children = children
-        this.props = this._makePropsProxy(props)
+        this.props = this._makePropsProxy(propsWithChildren)
 
         this.eventBus = () => eventBus
 
@@ -136,6 +137,7 @@ class Block {
     }
 
     protected compile(
+        // eslint-disable-next-line no-unused-vars
         template: (context: Record<string, unknown>) => string,
         context: Record<string, unknown>
     ) {
@@ -148,6 +150,7 @@ class Block {
         temp.innerHTML = html
 
         contextAndStubs.__children?.forEach(
+            // eslint-disable-next-line no-unused-vars
             ({ embed }: { embed: (content: DocumentFragment) => void }) => {
                 embed(temp.content)
             }
@@ -163,17 +166,18 @@ class Block {
         return this.element
     }
 
-    _makePropsProxy(props: Record<string | symbol, unknown>) {
+    _makePropsProxy(props: T): T {
         return new Proxy(props, {
             get: (target, prop) => {
-                const value = target[prop]
+                const value: unknown = target[prop as keyof T]
 
-                return typeof value === 'function' ? (value as Function).bind(target) : value
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                return typeof value === 'function' ? value.bind(target) : value
             },
-            set: (target, prop, value) => {
+            set: (target, prop, value: T[keyof T]) => {
                 const oldTarget = { ...target }
 
-                target[prop] = value
+                target[prop as keyof T] = value
                 this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target)
 
                 return true
@@ -184,18 +188,18 @@ class Block {
         })
     }
 
-    _createDocumentElement(tagName: string) {
-        // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-        return document.createElement(tagName)
-    }
+    // _createDocumentElement(tagName: string) {
+    //     // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+    //     return document.createElement(tagName)
+    // }
 
-    show() {
-        this.getContent()!.style.display = 'block'
-    }
+    // show() {
+    //     this.getContent()!.style.display = 'block'
+    // }
 
-    hide() {
-        this.getContent()!.style.display = 'none'
-    }
+    // hide() {
+    //     this.getContent()!.style.display = 'none'
+    // }
 }
 
 export default Block
