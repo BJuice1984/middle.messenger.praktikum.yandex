@@ -46,6 +46,8 @@ class Block<T extends Props = Props> {
         eventBus.emit(Block.EVENTS.INIT)
     }
 
+    getValue?(): string
+
     private _getChildrenAndProps<U extends Record<string, unknown>>(
         childrenAndProps: U
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

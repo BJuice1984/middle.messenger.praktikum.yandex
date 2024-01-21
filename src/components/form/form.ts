@@ -8,6 +8,12 @@ interface FormButton {
     handleClick?: () => void
 }
 
+interface FormRefs {
+    [name: string]: {
+        getValue: () => string
+    }
+}
+
 interface FormProps {
     inputs: {
         label: string
@@ -51,12 +57,17 @@ export class Form extends Block<FormProps> {
     }
 
     _validateInputs(): boolean {
-        for (const input of this.props.inputs) {
-            const inputElement = this.element?.querySelector(
-                `[name="${input.name}"]`
-            ) as HTMLInputElement
+        const formValues: Record<string, string> = Object.fromEntries(
+            this.props.inputs.map(({ name }) => [
+                name,
+                this.refs[name as keyof FormRefs]?.getValue?.() ?? '',
+            ])
+        )
 
-            if (!input.validate(inputElement.value)) {
+        for (const input of this.props.inputs) {
+            const inputValue = formValues[input.name]
+
+            if (!input.validate(inputValue)) {
                 console.log(`Ошибка валидации на ${input.name}`)
 
                 return false

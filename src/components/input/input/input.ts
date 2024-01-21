@@ -5,9 +5,13 @@ interface InputProps {
     onBlur: () => void
     label: string
     name: string
+    events: {
+        blur: () => void
+    }
+    [key: string]: unknown
 }
 
-export class Input extends Block {
+export class Input extends Block<InputProps> {
     constructor(props: InputProps) {
         super({
             ...props,
@@ -15,6 +19,10 @@ export class Input extends Block {
                 blur: props.onBlur,
             },
         })
+    }
+
+    getValue() {
+        return this.element ? (this.element as HTMLInputElement).value : ''
     }
 
     render() {

@@ -1,6 +1,7 @@
 <form class="login-form">
   {{#each inputs}}
-    {{{ LabeledInput 
+    {{{ LabeledInput
+          ref=this.name
           label=this.label
           name=this.name
           validate=this.validate
