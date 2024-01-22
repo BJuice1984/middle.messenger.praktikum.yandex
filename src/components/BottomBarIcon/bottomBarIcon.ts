@@ -5,10 +5,9 @@ interface BottomBarIconProps {
     src: string
     alt: string
     onClick: () => void
-    [key: string]: unknown
 }
 
-export class BottomBarIcon extends Block<BottomBarIconProps> {
+export class BottomBarIcon extends Block {
     constructor(props: BottomBarIconProps) {
         super({
             ...props,
