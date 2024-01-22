@@ -5,9 +5,10 @@ interface BottomBarIconProps {
     src: string
     alt: string
     onClick: () => void
+    [key: string]: unknown
 }
 
-export class BottomBarIcon extends Block {
+export class BottomBarIcon extends Block<BottomBarIconProps> {
     constructor(props: BottomBarIconProps) {
         super({
             ...props,
@@ -18,6 +19,6 @@ export class BottomBarIcon extends Block {
     }
 
     render() {
-        return this.compile(template, this.props as Record<string, unknown>)
+        return this.compile(template, this.props as Record<string, string>)
     }
 }
