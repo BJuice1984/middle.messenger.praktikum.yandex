@@ -12,6 +12,7 @@
     "noEmit": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true},
+    "noImplicitAny": true,
+    "noUnusedLocals": false,},
   "include": ["src"]
 }
