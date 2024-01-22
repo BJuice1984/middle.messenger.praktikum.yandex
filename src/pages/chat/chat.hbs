@@ -12,7 +12,7 @@
             {{{ Story owner=this.owner extraClass=this.extraClass src=this.src alt=this.alt }}}
           {{/each}}
         </ul>
-        <input class="chat__search-bar" placeholder="Search"></input>
+        <div class="chat__search-bar">{{{ SearchBar }}}</div>
         <ul class="chat__container-users-list">
           {{#each users}}
             {{{ User name=this.name }}}
