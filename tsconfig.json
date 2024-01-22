@@ -13,6 +13,6 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "noUnusedLocals": false,},
+    "noUnusedLocals": true,},
   "include": ["src"]
 }
