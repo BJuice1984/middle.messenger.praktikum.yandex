@@ -5,56 +5,87 @@ const METHODS = {
     DELETE: 'DELETE',
 }
 
-function queryStringify(data) {
-    const queryString = `?${Object.keys(data)
-        .map(key => `${key}=${data[key]}`)
-        .join('&')}`
-
-    return queryString
+interface Options {
+    headers?: { [key: string]: string }
+    method?: string
+    timeout?: number
+    data?: Record<string, unknown>
 }
 
-/**
- * На входе: объект. Пример: {a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]}
- * На выходе: строка. Пример: ?a=1&b=2&c=[object Object]&k=1,2,3
- */
+// eslint-disable-next-line no-unused-vars
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
 
-class HTTPTransport {
-    get = (url, options = {}) => {
+function queryStringify(data: Options['data']): string {
+    if (!data) {
+        return ''
+    }
+
+    const queryString = Object.entries(data)
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
+        .join('&')
+
+    return `?${queryString}`
+}
+
+export default class HTTPTransport {
+    get: HTTPMethod = (url, options = {}) => {
         const queryString = queryStringify(options.data)
-        const fullUrl = queryString ? `${url}${queryString}` : url
+        const fullUrl = queryString.length > 0 ? `${url}${queryString}` : url
 
         console.log(fullUrl)
 
-        return this.request(fullUrl, { ...options, method: METHODS.GET }, options.timeout)
+        return this.request(fullUrl, { ...options, method: METHODS.GET })
     }
 
-    put = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PUT }, options.timeout)
+    put: HTTPMethod = (url, options = {}) => {
+        return this.request(url, { ...options, method: METHODS.PUT })
     }
 
-    post = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.POST }, options.timeout)
+    post: HTTPMethod = (url, options = {}) => {
+        return this.request(url, { ...options, method: METHODS.POST })
     }
 
-    delete = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout)
+    delete: HTTPMethod = (url, options = {}) => {
+        return this.request(url, { ...options, method: METHODS.DELETE })
     }
 
-    request = (url, options = { method: METHODS.GET }) => {
+    request: HTTPMethod = (url, options = { method: METHODS.GET }) => {
         const { method, data } = options
 
         return new Promise((resolve, reject) => {
+            if (method == null) {
+                reject(new Error('No method specified'))
+
+                return
+            }
+
             const xhr = new XMLHttpRequest()
 
             xhr.open(method, url)
 
+            // eslint-disable-next-line func-names
             xhr.onload = function () {
-                resolve(xhr)
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    resolve(xhr.response)
+                } else {
+                    reject(new Error(`Запрос не выполнен. Статус: ${xhr.status}`))
+                }
             }
 
-            xhr.onabort = reject
-            xhr.onerror = reject
-            xhr.ontimeout = reject
+            // eslint-disable-next-line func-names
+            xhr.onabort = function () {
+                reject(new Error('Запрос прерван'))
+            }
+
+            // eslint-disable-next-line func-names
+            xhr.onerror = function () {
+                reject(new Error('Ошибка сети. Запрос не выполнен'))
+            }
+
+            // eslint-disable-next-line func-names
+            xhr.ontimeout = function () {
+                reject(new Error('Время ожидания запроса истекло'))
+            }
 
             if (method === METHODS.GET || !data) {
                 xhr.send()
@@ -66,29 +97,29 @@ class HTTPTransport {
     }
 }
 
-function fetchWithRetry(url, options = { retries: 3 }) {
-    const { retries } = options
-    let attempts = 0
+// function fetchWithRetry(url, options = { retries: 3 }) {
+//     const { retries } = options
+//     let attempts = 0
 
-    const attemptFetch = () => {
-        return fetch(url, options)
-            .then(response => {
-                return Promise.resolve(response)
-            })
-            .catch(error => {
-                attempts++
+//     const attemptFetch = () => {
+//         return fetch(url, options)
+//             .then(response => {
+//                 return Promise.resolve(response)
+//             })
+//             .catch(error => {
+//                 attempts++
 
-                if (attempts === retries) {
-                    return Promise.reject(
-                        new Error(`Failed after ${attempts} attempts. Last error: ${error.message}`)
-                    )
-                }
+//                 if (attempts === retries) {
+//                     return Promise.reject(
+//                         new Error(`Failed after ${attempts} attempts. Last error: ${error.message}`)
+//                     )
+//                 }
 
-                console.log(`Attempt ${attempts} failed. Retrying...`)
+//                 console.log(`Attempt ${attempts} failed. Retrying...`)
 
-                return attemptFetch()
-            })
-    }
+//                 return attemptFetch()
+//             })
+//     }
 
-    return attemptFetch()
-}
+//     return attemptFetch()
+// }
