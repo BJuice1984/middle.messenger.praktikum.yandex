@@ -32,6 +32,10 @@
         color: $thirdTextColor;
     }
 
+    &__hidden {
+      display: none;
+  }
+
     &:hover {
         box-shadow: $hoverLoginButton;
         transition: $hoverTransition;

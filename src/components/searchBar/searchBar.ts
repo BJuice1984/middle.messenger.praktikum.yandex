@@ -2,63 +2,46 @@ import Block from '../../core/Block.ts'
 import { emptyValidator } from '../../utils/validators.ts'
 import template from './searchBar.hbs'
 
-interface FormInputs {
+interface SearchBarProps {
     label: string
     name: string
-    validateMessage: string
     // eslint-disable-next-line no-unused-vars
     validate: (value: string) => boolean
-}
-
-interface FormButton {
-    label: string
+    validateMessage: string
     classType: string
-    onClick?: () => void
-    handleClick?: () => void
-}
-
-interface FormRefs {
-    [name: string]: {
-        getValue: () => string
-        // eslint-disable-next-line no-unused-vars
-        setValue: (value: string) => void
-    }
-}
-
-interface FormProps {
-    inputs: FormInputs[]
-    buttons: FormButton[]
-    user: {
-        [key: string]: string
-    }
+    type: string
+    handleClick: () => void
     [key: string]: unknown
 }
 
-export class SearchBar extends Block<FormProps> {
-    constructor(props: FormProps) {
+export class SearchBar extends Block<SearchBarProps> {
+    constructor() {
         super({
-            ...props,
             label: 'Search',
-            name: 'ChatSearch',
+            name: 'chat_search',
             validate: emptyValidator,
             validateMessage: 'Поле не может быть пустым',
+
+            classType: 'hidden',
+            type: 'submit',
+            handleClick: () => {
+                console.log('Отправка данных')
+            },
+
             events: {
                 submit: (e: { preventDefault: () => void }) => {
                     e.preventDefault()
 
-                    if (this._validateInputs()) {
+                    if (this._validateSearchInput()) {
                         console.log('Форма ДА!')
+                        this.props.handleClick()
 
-                        const buttonWithHandleClick: Partial<FormButton> | undefined =
-                            this.props.buttons.find((button: FormButton) => button.handleClick)
+                        if (this.element instanceof HTMLFormElement) {
+                            const formData = this._serializeForm(this.element)
 
-                        if (buttonWithHandleClick && this.element instanceof HTMLFormElement) {
-                            if (buttonWithHandleClick.handleClick) {
-                                buttonWithHandleClick.handleClick()
-                                const formData = this._serializeForm(this.element)
-
-                                console.log(formData)
-                            }
+                            console.log(formData)
+                        } else {
+                            console.error('Неверный тип формы')
                         }
                     } else {
                         console.log('Форма НЕ!')
@@ -66,34 +49,13 @@ export class SearchBar extends Block<FormProps> {
                 },
             },
         })
-        Boolean(props.user) && this._setProfile()
     }
 
-    _setProfile() {
-        Object.fromEntries(
-            this.props.inputs.map(({ name }) => [
-                name,
-                this.refs[name as keyof FormRefs].setValue?.(this.props.user[name] ?? ''),
-            ])
-        )
-    }
+    _validateSearchInput(): boolean {
+        const inputValue = this.refs.chat_search.getValue?.()
 
-    _validateInputs(): boolean {
-        const formValues: Record<string, string> = Object.fromEntries(
-            this.props.inputs.map(({ name }) => [
-                name,
-                this.refs[name as keyof FormRefs]?.getValue?.() ?? '',
-            ])
-        )
-
-        for (const input of this.props.inputs) {
-            const inputValue = formValues[input.name]
-
-            if (!input.validate(inputValue)) {
-                console.log(`Ошибка валидации на ${input.name}`)
-
-                return false
-            }
+        if (inputValue != null && !this.props.validate(inputValue)) {
+            return false
         }
 
         return true

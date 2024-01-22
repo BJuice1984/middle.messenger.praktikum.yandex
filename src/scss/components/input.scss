@@ -24,6 +24,7 @@
         color: white;
         padding-left: 8px;
         transition: $hoverTransition;
+        box-sizing: border-box;
     }
 
     &__element::placeholder {

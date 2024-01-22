@@ -3,7 +3,7 @@ import template from './button.hbs'
 
 interface ButtonProps {
     label: string
-    classType: 'primary' | 'secondary'
+    classType: 'primary' | 'secondary' | 'disabled' | 'hidden'
     type: 'submit' | 'button'
     onClick: () => void
     events: {
