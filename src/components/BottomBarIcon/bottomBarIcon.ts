@@ -2,15 +2,19 @@ import Block from '../../core/Block.ts'
 import template from './bottomBarIcon.hbs'
 
 interface BottomBarIconProps {
-    label: string
-    name: string
-    data: string
+    src: string
+    alt: string
+    onClick: () => void
+    [key: string]: unknown
 }
 
-export class BottomBarIcon extends Block {
+export class BottomBarIcon extends Block<BottomBarIconProps> {
     constructor(props: BottomBarIconProps) {
         super({
             ...props,
+            events: {
+                click: props.onClick,
+            },
         })
     }
 
