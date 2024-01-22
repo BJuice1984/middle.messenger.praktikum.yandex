@@ -2,9 +2,10 @@ import Block from '../../core/Block.ts'
 import template from './story.hbs'
 
 interface StoryProps {
-    label: string
-    name: string
-    data: string
+    owner: string
+    extraClass?: string
+    src: string
+    alt: string
 }
 
 export class Story extends Block {

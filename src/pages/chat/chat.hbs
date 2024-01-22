@@ -8,11 +8,16 @@
             </div>
         </div>
         <ul class="chat__container-stories-list">
+          {{#each stories}}
+            {{{ Story owner=this.owner extraClass=this.extraClass src=this.src alt=this.alt }}}
+          {{/each}}
+        </ul>
+                {{!-- <ul class="chat__container-stories-list">
             {{{ Story story-owner="You story" extra-class="chat-story__container_type_add-story" story-img-src="/images/add-story-icon.svg" story-alt="Иконка. Создать чат" }}}
             {{{ Story story-owner="Midala Huininja" story-img-src="/images/ava-1.jpg" story-alt="Иконка. Аватар пользователя" }}}
             {{{ Story story-owner="Athalia Putri" story-img-src="/images/ava-2.jpg" story-alt="Иконка. Аватар пользователя" }}}
             {{{ Story story-owner="Erlan Sadewa" story-img-src="/images/ava-3.jpg" story-alt="Иконка. Аватар пользователя" }}}
-        </ul>
+        </ul> --}}
         <input class="chat__search-bar" placeholder="Search"></input>
         <ul class="chat__container-users-list">
             {{{ User chat-user="user 1" }}}
