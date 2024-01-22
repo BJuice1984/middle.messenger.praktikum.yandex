@@ -8,8 +8,8 @@
             <img class="chat__container-profile-img" src="/images/ava-4.jpg" alt="Фотография профиля">
           </div>
           <div class="chat__container-profile-info">
-            <p class="chat__container-profile-info-contact">Almayra Zamzamy</p>
-            <p class="chat__container-profile-info-contact chat__container-profile-info-contact_type_tel">+62 1309 - 1710 - 1920</p>
+            <p class="chat__container-profile-info-contact">{{this.user.first_name}}</p>
+            <p class="chat__container-profile-info-contact chat__container-profile-info-contact_type_tel">{{this.user.phone}}</p>
           </div>
           <img class="chat__container-profile-arrow" src="/images/arrow.svg" alt="Иконка. Стрелка вперёд">
         </div>
@@ -29,7 +29,7 @@
         <div class="chat__container-profile-ava chat__container-profile-ava_type_change-profile">
           <img class="chat__container-profile-img chat__container-profile-img_type_change-profile" src="/images/ava-4.jpg" alt="Фотография профиля">
         </div>
-        {{{ Form inputs=this.inputs buttons=this.buttons }}}
+        {{{ Form inputs=this.inputs buttons=this.buttons user=this.user }}}
         {{!-- <form class="login-form">
             {{{ Input label="EMAIL" name="email" }}}
             {{{ Input label="Login" name="login" }}}

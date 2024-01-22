@@ -1,6 +1,14 @@
 import Block from '../../core/Block.ts'
 import template from './form.hbs'
 
+interface FormInputs {
+    label: string
+    name: string
+    validateMessage: string
+    // eslint-disable-next-line no-unused-vars
+    validate: (value: string) => boolean
+}
+
 interface FormButton {
     label: string
     classType: string
@@ -11,18 +19,17 @@ interface FormButton {
 interface FormRefs {
     [name: string]: {
         getValue: () => string
+        // eslint-disable-next-line no-unused-vars
+        setValue: (value: string) => void
     }
 }
 
 interface FormProps {
-    inputs: {
-        label: string
-        name: string
-        validateMessage: string
-        // eslint-disable-next-line no-unused-vars
-        validate: (value: string) => boolean
-    }[]
+    inputs: FormInputs[]
     buttons: FormButton[]
+    user: {
+        [key: string]: string
+    }
     [key: string]: unknown
 }
 
@@ -54,6 +61,16 @@ export class Form extends Block<FormProps> {
                 },
             },
         })
+        Boolean(props.user) && this._setProfile()
+    }
+
+    _setProfile() {
+        Object.fromEntries(
+            this.props.inputs.map(({ name }) => [
+                name,
+                this.refs[name as keyof FormRefs].setValue?.(this.props.user[name] ?? ''),
+            ])
+        )
     }
 
     _validateInputs(): boolean {

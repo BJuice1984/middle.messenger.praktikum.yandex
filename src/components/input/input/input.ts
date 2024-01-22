@@ -25,6 +25,12 @@ export class Input extends Block<InputProps> {
         return this.element ? (this.element as HTMLInputElement).value : ''
     }
 
+    setValue(value: string) {
+        if (this.element) {
+            ;(this.element as HTMLInputElement).value = value
+        }
+    }
+
     render() {
         return this.compile(template, this.props as Record<string, string>)
     }

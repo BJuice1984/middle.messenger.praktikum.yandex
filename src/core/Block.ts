@@ -48,6 +48,9 @@ class Block<T extends Props = Props> {
 
     getValue?(): string
 
+    // eslint-disable-next-line no-unused-vars
+    setValue?(value: string): void
+
     private _getChildrenAndProps<U extends Record<string, unknown>>(
         childrenAndProps: U
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

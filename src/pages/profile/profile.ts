@@ -19,6 +19,11 @@ import {
 export class ProfilePage extends Block {
     constructor() {
         super({
+            user: {
+                first_name: 'Almayra Zamzamy',
+                phone: '+7(987)123-4554',
+                email: 'xxxx@yyyy.zz',
+            },
             inputs: [
                 {
                     label: 'EMAIL',

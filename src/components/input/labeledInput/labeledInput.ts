@@ -26,6 +26,12 @@ export class LabeledInput extends Block<LabeledInputProps> {
         return ''
     }
 
+    setValue(value: string) {
+        if (typeof this.refs.input.setValue === 'function') {
+            this.refs.input.setValue(value)
+        }
+    }
+
     render() {
         return this.compile(template, this.props as Record<string, unknown>)
     }
