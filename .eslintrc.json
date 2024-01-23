@@ -32,6 +32,8 @@
       }
   ],
   "no-console": "off",
+  "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "error",
   
   "linebreak-style": ["error", "unix"], // символ(ы) конца строки
   "quotes": ["error", "single"], // использовать одинарные кавычки
@@ -45,8 +47,8 @@
   "comma-dangle": ["error", { // запятая после последнего элемента массива или объекта
           "arrays": "always-multiline",
           "objects": "always-multiline",
-          "imports": "never",
-          "exports": "never",
+          "imports": "always-multiline",
+          "exports": "always-multiline",
           "functions": "never"
       }],
   "sort-imports": ["error", {

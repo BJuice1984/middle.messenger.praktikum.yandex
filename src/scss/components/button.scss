@@ -30,8 +30,11 @@
         background-color: transparent;
         box-shadow: none;
         color: $thirdTextColor;
-        padding-top: 10px;
     }
+
+    &__hidden {
+      display: none;
+  }
 
     &:hover {
         box-shadow: $hoverLoginButton;

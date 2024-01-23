@@ -1,0 +1,13 @@
+<form class="login-form">
+  {{#each inputs}}
+    {{{ LabeledInput
+          ref=this.name
+          label=this.label
+          name=this.name
+          validate=this.validate
+          validateMessage=this.validateMessage }}}
+  {{/each}}
+  {{#each buttons}}
+    {{{ Button label=this.label classType=this.classType type=this.type onClick=this.onClick }}}
+  {{/each}}
+</form>
