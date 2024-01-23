@@ -84,6 +84,14 @@ class Block<T extends Props = Props> {
         })
     }
 
+    _removeEvents() {
+        const { events = {} } = this.props as Props
+
+        Object.keys(events).forEach(eventName => {
+            this._element?.removeEventListener(eventName, events[eventName])
+        })
+    }
+
     _registerEvents(eventBus: EventBus) {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this))
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
@@ -117,7 +125,9 @@ class Block<T extends Props = Props> {
 
     private _componentDidUpdate(oldProps: Props, newProps: Props) {
         if (this.componentDidUpdate(oldProps, newProps)) {
+            this._removeEvents()
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
+            this._addEvents()
         }
     }
 

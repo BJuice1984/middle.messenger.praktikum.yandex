@@ -13,3 +13,5 @@ trim_trailing_whitespace = false
 insert_final_newline = true
 [*.json]
 insert_final_newline = true
+[*.hbs]
+insert_final_newline = true
