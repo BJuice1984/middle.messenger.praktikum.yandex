@@ -87,7 +87,11 @@ class Block<T extends Props = Props> {
     _registerEvents(eventBus: EventBus) {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this))
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
-        eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
+        eventBus.on(Block.EVENTS.FLOW_CDU, (...args: unknown[]) => {
+            const [oldProps, newProps] = args as [Props, Props]
+
+            this._componentDidUpdate(oldProps, newProps)
+        })
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
     }
 
@@ -111,19 +115,19 @@ class Block<T extends Props = Props> {
         Object.values(this.children).forEach(child => child.dispatchComponentDidMount())
     }
 
-    private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
+    private _componentDidUpdate(oldProps: Props, newProps: Props) {
         if (this.componentDidUpdate(oldProps, newProps)) {
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
         }
     }
 
-    protected componentDidUpdate(oldProps: unknown, newProps: unknown) {
+    protected componentDidUpdate(oldProps: Props, newProps: Props) {
         console.log(oldProps, newProps)
 
         return true
     }
 
-    setProps = (nextProps: unknown) => {
+    setProps = (nextProps: Props) => {
         if (nextProps === undefined || nextProps === null) {
             return
         }
