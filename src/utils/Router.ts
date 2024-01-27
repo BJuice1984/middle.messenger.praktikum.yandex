@@ -1,8 +1,5 @@
 import Block from '../core/Block.ts'
-
-function isEqual(lhs: string, rhs: string): boolean {
-    return lhs === rhs
-}
+import isEqual from '../helpers/isEqual.ts'
 
 function render(query: string, block: Block) {
     const root = document.querySelector(query)

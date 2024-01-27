@@ -38,22 +38,6 @@ export class LoginPage extends Block {
                         render('register')
                     },
                 },
-                {
-                    label: '404',
-                    classType: 'secondary',
-                    type: 'button',
-                    onClick: () => {
-                        render('pageNotFound')
-                    },
-                },
-                {
-                    label: '500',
-                    classType: 'secondary',
-                    type: 'button',
-                    onClick: () => {
-                        render('serverErrorPage')
-                    },
-                },
             ],
         })
     }
