@@ -1,3 +1,4 @@
+import AuthController from '../../controllers/AuthController.ts'
 import Block from '../../core/Block.ts'
 import { render } from '../../core/render.ts'
 import { loginValidationMessage, passwordValidationMessage } from '../../utils/constants.ts'
@@ -26,8 +27,11 @@ export class LoginPage extends Block {
                     label: 'Sign in',
                     classType: 'primary',
                     type: 'submit',
-                    handleClick: () => {
-                        render('chatty')
+                    // subClick: () => {
+                    //     AuthController.signin(value)
+                    // },
+                    handleSubmitClick: value => {
+                        AuthController.signin(value)
                     },
                 },
                 {

@@ -33,13 +33,15 @@ export default class HTTPTransport {
 
     constructor(endpoint: string) {
         this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
+        console.log('🚀 ~ HTTPTransport ~ constructor ~ this.endpoint:', this.endpoint)
     }
 
     public get: HTTPMethod = (url, options = {}) => {
         const queryString = queryStringify(options.data)
-        const fullUrl = queryString.length > 0 ? `${url}${queryString}` : url
-
-        console.log(fullUrl)
+        const fullUrl =
+            queryString.length > 0
+                ? `${this.endpoint}${url}${queryString}`
+                : `${this.endpoint}${url}`
 
         return this.request(fullUrl, { ...options, method: METHODS.GET })
     }
@@ -49,7 +51,10 @@ export default class HTTPTransport {
     }
 
     public post: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.POST })
+        // console.log('🚀 ~ HTTPTransport ~ options:', options)
+        const fullUrl = `${this.endpoint}${url}`
+
+        return this.request(fullUrl, { ...options, method: METHODS.POST })
     }
 
     public delete: HTTPMethod = (url, options = {}) => {
@@ -58,6 +63,7 @@ export default class HTTPTransport {
 
     private request: HTTPMethod = (url, options = { method: METHODS.GET }) => {
         const { method, data } = options
+        console.log('🚀 ~ HTTPTransport ~ options:', options)
 
         return new Promise((resolve, reject) => {
             if (method == null) {
@@ -93,6 +99,9 @@ export default class HTTPTransport {
             xhr.ontimeout = function () {
                 reject(new Error('Время ожидания запроса истекло'))
             }
+
+            xhr.withCredentials = true
+            xhr.responseType = 'json'
 
             if (method === METHODS.GET || !data) {
                 xhr.send()

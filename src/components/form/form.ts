@@ -13,7 +13,7 @@ interface FormButton {
     label: string
     classType: string
     onClick?: () => void
-    handleClick?: () => void
+    handleSubmitClick?: () => void
 }
 
 interface FormRefs {
@@ -45,14 +45,15 @@ export class Form extends Block<FormProps> {
                         console.log('Форма ДА!')
 
                         const buttonWithHandleClick: Partial<FormButton> | undefined =
-                            this.props.buttons.find((button: FormButton) => button.handleClick)
+                            this.props.buttons.find(
+                                (button: FormButton) => button.handleSubmitClick
+                            )
 
                         if (buttonWithHandleClick && this.element instanceof HTMLFormElement) {
-                            if (buttonWithHandleClick.handleClick) {
-                                buttonWithHandleClick.handleClick()
+                            if (buttonWithHandleClick.handleSubmitClick) {
                                 const formData = this._serializeForm(this.element)
-
-                                console.log(formData)
+                                console.log('🚀 ~ Form ~ constructor ~ formData:', formData)
+                                buttonWithHandleClick.handleSubmitClick(formData)
                             }
                         }
                     } else {
