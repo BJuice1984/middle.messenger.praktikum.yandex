@@ -22,8 +22,11 @@ class Route {
     private block: Block | null = null
 
     constructor(
+        // eslint-disable-next-line no-unused-vars
         private pathname: string,
+        // eslint-disable-next-line no-unused-vars
         private readonly blockClass: typeof Block,
+        // eslint-disable-next-line no-unused-vars
         private readonly query: string
     ) {}
 
@@ -40,7 +43,6 @@ class Route {
             this.block = new this.blockClass({})
 
             render(this.query, this.block)
-            return
         }
     }
 }
@@ -51,7 +53,9 @@ class Router {
     private currentRoute: Route | null = null
     private history = window.history
 
+    // eslint-disable-next-line no-unused-vars
     constructor(private readonly rootQuery: string) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (Router.__instance) {
             return Router.__instance
         }
@@ -63,6 +67,7 @@ class Router {
 
     public use(pathname: string, block: typeof Block) {
         const route = new Route(pathname, block, this.rootQuery)
+
         this.routes.push(route)
 
         return this
