@@ -28,7 +28,14 @@ function queryStringify(data: Options['data']): string {
 }
 
 export default class HTTPTransport {
-    get: HTTPMethod = (url, options = {}) => {
+    static API_URL = 'https://ya-praktikum.tech/api/v2'
+    protected endpoint: string
+
+    constructor(endpoint: string) {
+        this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
+    }
+
+    public get: HTTPMethod = (url, options = {}) => {
         const queryString = queryStringify(options.data)
         const fullUrl = queryString.length > 0 ? `${url}${queryString}` : url
 
@@ -37,19 +44,19 @@ export default class HTTPTransport {
         return this.request(fullUrl, { ...options, method: METHODS.GET })
     }
 
-    put: HTTPMethod = (url, options = {}) => {
+    public put: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.PUT })
     }
 
-    post: HTTPMethod = (url, options = {}) => {
+    public post: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.POST })
     }
 
-    delete: HTTPMethod = (url, options = {}) => {
+    public delete: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.DELETE })
     }
 
-    request: HTTPMethod = (url, options = { method: METHODS.GET }) => {
+    private request: HTTPMethod = (url, options = { method: METHODS.GET }) => {
         const { method, data } = options
 
         return new Promise((resolve, reject) => {
@@ -96,30 +103,3 @@ export default class HTTPTransport {
         })
     }
 }
-
-// function fetchWithRetry(url, options = { retries: 3 }) {
-//     const { retries } = options
-//     let attempts = 0
-
-//     const attemptFetch = () => {
-//         return fetch(url, options)
-//             .then(response => {
-//                 return Promise.resolve(response)
-//             })
-//             .catch(error => {
-//                 attempts++
-
-//                 if (attempts === retries) {
-//                     return Promise.reject(
-//                         new Error(`Failed after ${attempts} attempts. Last error: ${error.message}`)
-//                     )
-//                 }
-
-//                 console.log(`Attempt ${attempts} failed. Retrying...`)
-
-//                 return attemptFetch()
-//             })
-//     }
-
-//     return attemptFetch()
-// }
