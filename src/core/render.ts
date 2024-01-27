@@ -1,11 +1,3 @@
-// import {
-//     ChatPage,
-//     LoginPage,
-//     NotFoundPage,
-//     ProfilePage,
-//     RegisterPage,
-//     ServerErrorPage
-// } from '../pages/pages.ts'
 import * as Pages from '../pages/pages.ts'
 
 const ROUTES = {
