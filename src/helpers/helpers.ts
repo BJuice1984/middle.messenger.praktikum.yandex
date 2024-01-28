@@ -1,5 +1,6 @@
 export type Indexed<T = unknown> = {
-    [key in string]: T
+    // eslint-disable-next-line no-unused-vars
+    [key in string]: Indexed<T>
 }
 
 export function merge<T>(lhs: Indexed<T>, rhs: Indexed<T>): Indexed<T> {
@@ -12,7 +13,7 @@ export function merge<T>(lhs: Indexed<T>, rhs: Indexed<T>): Indexed<T> {
 
         try {
             if (rhs[p] !== null && typeof rhs[p] === 'object' && !Array.isArray(rhs[p])) {
-                result[p] = merge(lhs[p] as Indexed<T>, rhs[p] as Indexed<T>)
+                result[p] = merge(lhs[p], rhs[p])
             } else {
                 result[p] = rhs[p]
             }
@@ -35,7 +36,8 @@ export function set<T>(object: Indexed<T>, path: string, value: T): Indexed<T> {
 
     const keys = path.split('.')
 
-    const setObjectValue = (obj: Indexed<T>, keys: string[], value: T): Indexed<T> => {
+    // eslint-disable-next-line no-shadow
+    const setObjectValue = (obj: Indexed<T>, keys: string[], value: Indexed<T>): Indexed<T> => {
         if (keys.length === 0) {
             return value
         }
@@ -47,10 +49,10 @@ export function set<T>(object: Indexed<T>, path: string, value: T): Indexed<T> {
             obj[key] = {}
         }
 
-        obj[key] = setObjectValue(obj[key] as Indexed<T>, restKeys, value)
+        obj[key] = setObjectValue(obj[key], restKeys, value)
 
         return obj
     }
 
-    return merge(object, setObjectValue({}, keys, value))
+    return merge(object, setObjectValue({}, keys, value as Indexed<T>))
 }

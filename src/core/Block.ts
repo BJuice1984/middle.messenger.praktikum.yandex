@@ -1,7 +1,7 @@
 import EventBus from './EventBus.ts'
 import { nanoid } from 'nanoid'
 
-interface Props {
+export interface Props {
     events?: Record<string, () => void>
     [key: string]: unknown
 }

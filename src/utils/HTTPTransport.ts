@@ -63,7 +63,6 @@ export default class HTTPTransport {
 
     private request: HTTPMethod = (url, options = { method: METHODS.GET }) => {
         const { method, data } = options
-        console.log('🚀 ~ HTTPTransport ~ options:', options)
 
         return new Promise((resolve, reject) => {
             if (method == null) {
@@ -79,7 +78,7 @@ export default class HTTPTransport {
             // eslint-disable-next-line func-names
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
-                    resolve(xhr.response)
+                    resolve(xhr.response as PromiseLike<never>)
                 } else {
                     reject(new Error(`Запрос не выполнен. Статус: ${xhr.status}`))
                 }
