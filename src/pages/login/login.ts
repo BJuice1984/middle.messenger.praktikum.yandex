@@ -1,3 +1,4 @@
+import { SigninData } from '../../api/AuthApi.ts'
 import AuthController from '../../controllers/AuthController.ts'
 import Block from '../../core/Block.ts'
 import Router from '../../utils/Router.ts'
@@ -27,8 +28,8 @@ export class LoginPage extends Block {
                     label: 'Sign in',
                     classType: 'primary',
                     type: 'submit',
-                    handleSubmitClick: value => {
-                        AuthController.signin(value)
+                    handleSubmitClick: (value: SigninData) => {
+                        void AuthController.signin(value)
                     },
                 },
                 {

@@ -3,6 +3,7 @@ import BaseAPI from './BaseApi.ts'
 export interface SigninData {
     login: string
     password: string
+    [key: string]: unknown
 }
 
 export interface SignupData {
@@ -12,6 +13,7 @@ export interface SignupData {
     email: string
     password: string
     phone: string
+    [key: string]: unknown
 }
 
 export interface User {
@@ -39,7 +41,6 @@ export class AuthAPI extends BaseAPI {
     }
 
     read(): Promise<User> {
-        console.log('🚀 ~ AuthAPI ~ read ~ this.http:', this.http)
         return this.http.get('/user')
     }
 

@@ -13,7 +13,7 @@ interface Options {
 }
 
 // eslint-disable-next-line no-unused-vars
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
+type HTTPMethod = (url: string, options?: Options) => Promise<never>
 
 function queryStringify(data: Options['data']): string {
     if (!data) {

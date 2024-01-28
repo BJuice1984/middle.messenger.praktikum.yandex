@@ -13,7 +13,8 @@ interface FormButton {
     label: string
     classType: string
     onClick?: () => void
-    handleSubmitClick?: () => void
+    // eslint-disable-next-line no-unused-vars
+    handleSubmitClick?: (value: { [key: string]: unknown }) => void
 }
 
 interface FormRefs {
@@ -52,7 +53,7 @@ export class Form extends Block<FormProps> {
                         if (buttonWithHandleClick && this.element instanceof HTMLFormElement) {
                             if (buttonWithHandleClick.handleSubmitClick) {
                                 const formData = this._serializeForm(this.element)
-                                console.log('🚀 ~ Form ~ constructor ~ formData:', formData)
+
                                 buttonWithHandleClick.handleSubmitClick(formData)
                             }
                         }

@@ -14,6 +14,7 @@ import {
     passwordValidator,
     phoneValidator,
 } from '../../utils/validators.ts'
+import AuthController from '../../controllers/AuthController.ts'
 
 export class ProfilePage extends Block {
     constructor() {
@@ -81,7 +82,7 @@ export class ProfilePage extends Block {
                     classType: 'secondary',
                     type: 'button',
                     onClick: () => {
-                        console.log('Sign out')
+                        void AuthController.logout()
                     },
                 },
             ],

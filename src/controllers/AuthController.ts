@@ -10,14 +10,12 @@ export class AuthController {
     }
 
     async signin(data: SigninData) {
-        console.log('🚀 ~ AuthController ~ signin ~ data:', data)
-        console.log('🚀 ~ AuthController ~ fetchUser ~ this.api:', this.api)
         try {
             await this.api.signin(data)
 
             router.go('/profile')
-        } catch (e: any) {
-            console.error(e)
+        } catch (e: unknown) {
+            console.error((e as Error).message)
         }
     }
 
@@ -28,13 +26,12 @@ export class AuthController {
             await this.fetchUser()
 
             router.go('/profile')
-        } catch (e: any) {
-            console.error(e.message)
+        } catch (e: unknown) {
+            console.error((e as Error).message)
         }
     }
 
     async fetchUser() {
-        // console.log('🚀 ~ AuthController ~ fetchUser ~ this.api:', this.api)
         const user = await this.api.read()
 
         store.set('user', user)
@@ -45,8 +42,8 @@ export class AuthController {
             await this.api.logout()
 
             router.go('/')
-        } catch (e: any) {
-            console.error(e.message)
+        } catch (e: unknown) {
+            console.error((e as Error).message)
         }
     }
 }
