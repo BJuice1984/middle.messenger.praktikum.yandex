@@ -16,6 +16,8 @@ import {
     phoneValidator,
 } from '../../utils/validators.ts'
 import Router from '../../utils/Router.ts'
+import { SignupData } from '../../api/AuthApi.ts'
+import AuthController from '../../controllers/AuthController.ts'
 
 export class RegisterPage extends Block {
     constructor() {
@@ -69,8 +71,8 @@ export class RegisterPage extends Block {
                     label: 'Sign up',
                     classType: 'disabled',
                     type: 'submit',
-                    handleClick: () => {
-                        console.log('Sign up')
+                    handleSubmitClick: (value: SignupData) => {
+                        void AuthController.signup(value)
                     },
                 },
                 {

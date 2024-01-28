@@ -1,6 +1,7 @@
 import API, { AuthAPI, SigninData, SignupData } from '../api/AuthApi.ts'
 import store from '../utils/Store.ts'
-import router from '../utils/Router.ts'
+import Router from '../utils/Router.ts'
+import { PROFILE } from '../utils/constants.ts'
 
 export class AuthController {
     private readonly api: AuthAPI
@@ -13,7 +14,7 @@ export class AuthController {
         try {
             await this.api.signin(data)
 
-            router.go('/profile')
+            Router.go('/')
         } catch (e: unknown) {
             console.error((e as Error).message)
         }
@@ -25,7 +26,7 @@ export class AuthController {
 
             await this.fetchUser()
 
-            router.go('/profile')
+            Router.go(PROFILE)
         } catch (e: unknown) {
             console.error((e as Error).message)
         }
@@ -41,7 +42,7 @@ export class AuthController {
         try {
             await this.api.logout()
 
-            router.go('/')
+            Router.go('/')
         } catch (e: unknown) {
             console.error((e as Error).message)
         }

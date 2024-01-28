@@ -33,7 +33,6 @@ export default class HTTPTransport {
 
     constructor(endpoint: string) {
         this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
-        console.log('🚀 ~ HTTPTransport ~ constructor ~ this.endpoint:', this.endpoint)
     }
 
     public get: HTTPMethod = (url, options = {}) => {
@@ -51,7 +50,6 @@ export default class HTTPTransport {
     }
 
     public post: HTTPMethod = (url, options = {}) => {
-        // console.log('🚀 ~ HTTPTransport ~ options:', options)
         const fullUrl = `${this.endpoint}${url}`
 
         return this.request(fullUrl, { ...options, method: METHODS.POST })
