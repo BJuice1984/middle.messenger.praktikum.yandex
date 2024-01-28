@@ -1,5 +1,4 @@
 import Block from '../../core/Block.ts'
-import { render } from '../../core/render.ts'
 import template from './profile.hbs'
 import {
     loginValidationMessage,
@@ -74,7 +73,7 @@ export class ProfilePage extends Block {
                     classType: 'disabled',
                     type: 'submit',
                     handleClick: () => {
-                        render('profile')
+                        console.log('Reset changes')
                     },
                 },
                 {
@@ -82,7 +81,7 @@ export class ProfilePage extends Block {
                     classType: 'secondary',
                     type: 'button',
                     onClick: () => {
-                        render('login')
+                        console.log('Sign out')
                     },
                 },
             ],

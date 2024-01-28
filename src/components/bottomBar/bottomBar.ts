@@ -1,5 +1,6 @@
 import Block from '../../core/Block.ts'
-import { render } from '../../core/render.ts'
+import Router from '../../utils/Router.ts'
+import { PROFILE } from '../../utils/constants.ts'
 import template from './bottomBar.hbs'
 
 export class BottomBar extends Block {
@@ -10,21 +11,21 @@ export class BottomBar extends Block {
                     src: '/images/bottom-bar-icon_group.svg',
                     alt: 'Иконка. Контакты',
                     onClick: () => {
-                        render('profile') //render('contacts')
+                        console.log('render contacts')
                     },
                 },
                 {
                     src: '/images/bottom-bar-icon_chats.svg',
                     alt: 'Иконка. Чаты',
                     onClick: () => {
-                        render('chatty')
+                        Router.go('/')
                     },
                 },
                 {
                     src: '/images/bottom-bar-icon_more.svg',
                     alt: 'Иконка. Ещё',
                     onClick: () => {
-                        render('profile')
+                        Router.go(PROFILE)
                     },
                 },
             ],

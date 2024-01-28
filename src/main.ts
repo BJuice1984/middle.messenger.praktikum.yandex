@@ -4,12 +4,13 @@ import Block from './core/Block.ts'
 import * as Pages from './pages/pages.ts'
 import Router from './utils/Router.ts'
 import AuthController from './controllers/AuthController.ts'
+import { PROFILE, SIGNIN, SIGNUP } from './utils/constants.ts'
 
 export const Routes = {
     Chatty: '/',
-    Login: '/login',
-    Register: '/register',
-    Profile: '/profile',
+    Login: SIGNIN,
+    Register: SIGNUP,
+    Profile: PROFILE,
     PageNotFound: '/404',
     ServerErrorPage: '/500',
 }
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         Router.start()
 
         // if (isProtectedRoute) {
-        Router.go(Routes.Login)
+        // Router.go(Routes.Login)
         // }
     }
 
