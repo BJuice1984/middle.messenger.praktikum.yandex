@@ -25,18 +25,18 @@ export class Store extends EventBus {
 const store = new Store()
 
 // eslint-disable-next-line no-unused-vars
-export function withStore(mapStateToProps: (state: unknown) => unknown) {
+export function withStore(mapStateToProps: (state: unknown) => Props) {
     return function wrap(Component: typeof Block) {
         let previousState: Props
 
         return class WithStore extends Component {
             constructor(props: Props) {
-                previousState = mapStateToProps(store.getState()) as Props
+                previousState = mapStateToProps(store.getState())
 
                 super({ ...props, ...previousState })
 
                 store.on(StoreEvents.Updated, () => {
-                    const stateProps = mapStateToProps(store.getState()) as Props
+                    const stateProps = mapStateToProps(store.getState())
 
                     previousState = stateProps
 

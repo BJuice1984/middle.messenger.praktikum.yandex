@@ -3,29 +3,27 @@ export type Indexed<T = unknown> = {
     [key in string]: Indexed<T>
 }
 
-export function merge<T>(lhs: Indexed<T>, rhs: Indexed<T>): Indexed<T> {
-    const result: Indexed<T> = { ...lhs }
-
-    for (const p in rhs) {
-        if (!(p in rhs)) {
+export function merge(lhs: Indexed, rhs: Indexed): Indexed {
+    for (let p in rhs) {
+        if (!rhs.hasOwnProperty(p)) {
             continue
         }
 
         try {
-            if (rhs[p] !== null && typeof rhs[p] === 'object' && !Array.isArray(rhs[p])) {
-                result[p] = merge(lhs[p], rhs[p])
+            if (rhs[p].constructor === Object) {
+                rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed)
             } else {
-                result[p] = rhs[p]
+                lhs[p] = rhs[p]
             }
         } catch (e) {
-            result[p] = rhs[p]
+            lhs[p] = rhs[p]
         }
     }
 
-    return result
+    return lhs
 }
 
-export function set<T>(object: Indexed<T>, path: string, value: T): Indexed<T> {
+export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
     if (typeof object !== 'object' || object === null) {
         return object
     }
@@ -34,25 +32,12 @@ export function set<T>(object: Indexed<T>, path: string, value: T): Indexed<T> {
         throw new Error('path must be string')
     }
 
-    const keys = path.split('.')
+    const result = path.split('.').reduceRight<Indexed>(
+        (acc, key) => ({
+            [key]: acc,
+        }),
+        value as any
+    )
 
-    // eslint-disable-next-line no-shadow
-    const setObjectValue = (obj: Indexed<T>, keys: string[], value: Indexed<T>): Indexed<T> => {
-        if (keys.length === 0) {
-            return value
-        }
-
-        const key = keys[0]
-        const restKeys = keys.slice(1)
-
-        if (!(key in obj)) {
-            obj[key] = {}
-        }
-
-        obj[key] = setObjectValue(obj[key], restKeys, value)
-
-        return obj
-    }
-
-    return merge(object, setObjectValue({}, keys, value as Indexed<T>))
+    return merge(object as Indexed, result)
 }

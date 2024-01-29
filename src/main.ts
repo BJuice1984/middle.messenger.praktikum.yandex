@@ -28,21 +28,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         .use(Routes.PageNotFound, Pages.NotFoundPage as typeof Block)
         .use(Routes.ServerErrorPage, Pages.ServerErrorPage as typeof Block)
 
-    try {
-        await AuthController.fetchUser()
+    Router.start()
 
-        Router.start()
+    let isProtectedRoute = true
 
-        // if (!isProtectedRoute) {
-        //     Router.go(Routes.Profile)
-        // }
-    } catch (e) {
-        Router.start()
+    switch (document.location.pathname) {
+        case Routes.Login:
+        case Routes.Register:
+            isProtectedRoute = false
 
-        // if (isProtectedRoute) {
-        // Router.go(Routes.Login)
-        // }
+            break
     }
 
-    Router.start()
+    try {
+        await AuthController.fetchUser()
+        Router.go(Routes.Profile)
+    } catch (e) {
+        if (!isProtectedRoute) {
+            Router.go(Routes.Login)
+        }
+    }
 })

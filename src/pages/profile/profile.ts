@@ -15,8 +15,9 @@ import {
     phoneValidator,
 } from '../../utils/validators.ts'
 import AuthController from '../../controllers/AuthController.ts'
+import { withStore } from '../../utils/Store.ts'
 
-export class ProfilePage extends Block {
+class ProfilePageBase extends Block {
     constructor() {
         super({
             user: {
@@ -93,3 +94,15 @@ export class ProfilePage extends Block {
         return this.compile(template, this.props as Record<string, unknown>)
     }
 }
+
+const withUser = withStore(state => ({
+    user: {
+        first_name: state.user?.first_name,
+        second_name: state.user?.second_name,
+        email: state.user?.email,
+        login: state.user?.login,
+        phone: state.user?.phone,
+    },
+}))
+
+export const ProfilePage = withUser(ProfilePageBase as typeof Block)

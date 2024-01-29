@@ -132,7 +132,8 @@ class Block<T extends Props = Props> {
     }
 
     protected componentDidUpdate(oldProps: Props, newProps: Props) {
-        console.log(oldProps, newProps)
+        console.log('🚀 ~ Block<T ~ componentDidUpdate ~ newProps:', newProps)
+        console.log('🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:', oldProps)
 
         return true
     }
