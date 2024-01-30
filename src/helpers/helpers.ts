@@ -4,14 +4,15 @@ export type Indexed<T = unknown> = {
 }
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
-    for (let p in rhs) {
+    for (const p in rhs) {
+        // eslint-disable-next-line no-prototype-builtins
         if (!rhs.hasOwnProperty(p)) {
             continue
         }
 
         try {
             if (rhs[p].constructor === Object) {
-                rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed)
+                rhs[p] = merge(lhs[p], rhs[p])
             } else {
                 lhs[p] = rhs[p]
             }
@@ -23,6 +24,7 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
     return lhs
 }
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
     if (typeof object !== 'object' || object === null) {
         return object
@@ -36,7 +38,7 @@ export function set(object: Indexed | unknown, path: string, value: unknown): In
         (acc, key) => ({
             [key]: acc,
         }),
-        value as any
+        value as Indexed<unknown>
     )
 
     return merge(object as Indexed, result)
