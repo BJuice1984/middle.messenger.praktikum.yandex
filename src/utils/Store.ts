@@ -1,11 +1,31 @@
 import { Indexed, set } from '../helpers/helpers.ts'
 import EventBus from '../core/EventBus.ts'
-import Block, { Props } from '../core/Block.ts'
+import Block from '../core/Block.ts'
 
 // eslint-disable-next-line no-shadow
 export enum StoreEvents {
     // eslint-disable-next-line no-unused-vars
     Updated = 'updated',
+}
+
+export interface AppState {
+    user?: {
+        first_name?: string
+        second_name?: string
+        email?: string
+        login?: string
+        phone?: string
+    }
+}
+
+export interface ComponentProps {
+    user: {
+        first_name?: string
+        second_name?: string
+        email?: string
+        login?: string
+        phone?: string
+    }
 }
 
 export class Store extends EventBus {
@@ -25,12 +45,12 @@ export class Store extends EventBus {
 const store = new Store()
 
 // eslint-disable-next-line no-unused-vars
-export function withStore(mapStateToProps: (state: unknown) => Props) {
+export function withStore(mapStateToProps: (state: AppState) => ComponentProps) {
     return function wrap(Component: typeof Block) {
-        let previousState: Props
+        let previousState: ComponentProps
 
         return class WithStore extends Component {
-            constructor(props: Props) {
+            constructor(props: ComponentProps) {
                 previousState = mapStateToProps(store.getState())
 
                 super({ ...props, ...previousState })
