@@ -17,13 +17,47 @@ import {
 import AuthController from '../../controllers/AuthController.ts'
 import { withStore } from '../../utils/Store.ts'
 
-class ProfilePageBase extends Block {
-    constructor() {
+interface ProfilePageInputs {
+    label: string
+    name: string
+    validateMessage: string
+    // eslint-disable-next-line no-unused-vars
+    validate: (value: string) => boolean
+}
+
+interface ProfilePageButton {
+    label: string
+    classType: string
+    type: string
+    onClick?: () => void
+    // eslint-disable-next-line no-unused-vars
+    handleSubmitClick?: (value: { [key: string]: unknown }) => void
+}
+
+interface ProfilePageUser {
+    first_name: string
+    second_name: string
+    login: string
+    phone: string
+    email: string
+}
+
+interface ProfilePageProps {
+    inputs: ProfilePageInputs[]
+    buttons: ProfilePageButton[]
+    user: ProfilePageUser
+    [key: string]: unknown
+}
+
+class ProfilePageBase extends Block<ProfilePageProps> {
+    constructor(propsFromStore: { user: ProfilePageUser }) {
         super({
             user: {
-                first_name: 'Almayra Zamzamy',
-                phone: '+7(987)123-4554',
-                email: 'xxxx@yyyy.zz',
+                first_name: propsFromStore.user.first_name,
+                second_name: propsFromStore.user.second_name,
+                login: propsFromStore.user.login,
+                phone: propsFromStore.user.phone,
+                email: propsFromStore.user.email,
             },
             inputs: [
                 {
@@ -74,7 +108,7 @@ class ProfilePageBase extends Block {
                     label: 'Reset changes',
                     classType: 'disabled',
                     type: 'submit',
-                    handleClick: () => {
+                    handleSubmitClick: () => {
                         console.log('Reset changes')
                     },
                 },
