@@ -14,8 +14,8 @@
         </ul>
         <div class="chat__search-bar">{{{ SearchBar }}}</div>
         <ul class="chat__container-users-list">
-          {{#each users}}
-            {{{ User name=this.name }}}
+          {{#each chats}}
+            {{{ User title=this.title }}}
           {{/each}}
         </ul>
           {{{ BottomBar }}}

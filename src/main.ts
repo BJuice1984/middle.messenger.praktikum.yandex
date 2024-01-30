@@ -44,9 +44,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         await AuthController.fetchUser()
         await controller.fetchChats()
-        Router.go(Routes.Profile)
+        // Router.go(Routes.Profile)
     } catch (e) {
         console.error(e)
+        console.log('🚀 ~ document.addEventListener ~ error:')
 
         if (!isProtectedRoute) {
             Router.go(Routes.Login)

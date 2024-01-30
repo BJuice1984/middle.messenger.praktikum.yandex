@@ -2,7 +2,7 @@ import Block from '../../core/Block.ts'
 import template from './chatListUser.hbs'
 
 interface ChatListUserProps {
-    name: string
+    title: string
 }
 
 export class User extends Block {
