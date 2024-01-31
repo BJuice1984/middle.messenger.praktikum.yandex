@@ -1,5 +1,16 @@
 {{#if selectedChat }}
+<div>
     <h2 class="chat__disclaimer"> {{{this.selectedChat}}}</h2>
+    <ul class="chat__container-users-list">
+          {{#each messages}}
+            {{{ Message content=this.content }}}
+          {{/each}}
+        </ul>
+    </div>
 {{else}}
-    <h2 class="chat__disclaimer"> Chatty: Выберите чат чтобы отправить сообщение</h2>
+    <div>
+    <h2 class="chat__disclaimer"> {{{Message}}} Chatty: Выберите чат чтобы отправить сообщение</h2>
+    {{{Message}}}
+    </div>
 {{/if}}
+

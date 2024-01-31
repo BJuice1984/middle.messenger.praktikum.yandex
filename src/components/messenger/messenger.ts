@@ -10,6 +10,7 @@ class MessengerBase extends Block {
     constructor(propsFromStore) {
         super({
             selectedChat: propsFromStore.selectedChat,
+            messages: propsFromStore.messages,
         })
     }
 
@@ -24,11 +25,13 @@ const withMessenger = withStore(state => {
     if (!selectedChatId) {
         return {
             selectedChat: undefined,
+            messages: [],
         }
     }
 
     return {
         selectedChat: state.selectedChat,
+        messages: (state.messages || {})[selectedChatId] || [],
     }
 })
 
