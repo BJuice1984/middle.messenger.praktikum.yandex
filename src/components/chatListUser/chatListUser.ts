@@ -9,7 +9,11 @@ export class User extends Block {
     constructor(props: ChatListUserProps) {
         super({
             ...props,
+            events: {
+                click: () => console.log('user', props.id),
+            },
         })
+        console.log('🚀 ~ User ~ constructor ~ props:', props)
     }
 
     render() {

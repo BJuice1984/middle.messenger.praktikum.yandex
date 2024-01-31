@@ -16,6 +16,9 @@ export interface AppState {
         login?: string
         phone?: string
     }
+    chats?: {
+        [key: string]: unknown
+    }[]
 }
 
 export interface ComponentProps {
@@ -26,6 +29,9 @@ export interface ComponentProps {
         login?: string
         phone?: string
     }
+    chats?: {
+        [key: string]: unknown
+    }[]
 }
 
 export class Store extends EventBus {

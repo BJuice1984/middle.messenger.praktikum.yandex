@@ -15,13 +15,13 @@
         <div class="chat__search-bar">{{{ SearchBar }}}</div>
         <ul class="chat__container-users-list">
           {{#each chats}}
-            {{{ User title=this.title }}}
+            {{{ User id=this.id last_message=this.last_message title=this.title }}}
           {{/each}}
         </ul>
           {{{ BottomBar }}}
     </div>
     <div class="chat__container-chats">
-        <h2 class="chat__disclaimer">Chatty: Выберите чат чтобы отправить сообщение</h2>
+        {{{ Messenger }}}
     </div>
 
 </section>

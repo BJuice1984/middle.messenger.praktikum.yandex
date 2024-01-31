@@ -1,9 +1,9 @@
 import Block from '../../core/Block.ts'
-import store, { withStore } from '../../utils/Store.ts'
+import { withStore } from '../../utils/Store.ts'
 import template from './chat.hbs'
 
 class ChatPageBase extends Block {
-    constructor() {
+    constructor(propsFromStore) {
         super({
             stories: [
                 {
@@ -28,29 +28,13 @@ class ChatPageBase extends Block {
                     alt: 'Иконка. Аватар пользователя',
                 },
             ],
-            chats: [],
+            chats: propsFromStore.chats,
         })
     }
 
     render() {
-        const propsToRender = { ...this.props }
-        console.log('🚀 ~ ChatPageBase ~ render ~ this.props:', this.props)
-
-        const { chats, messages } = store.getState()
-
-        if (chats) {
-            console.log('🚀 ~ ChatPageBase ~ render ~ chats:', chats)
-            console.log('🚀 ~ ChatPageBase ~ render ~ propsToRender:', propsToRender)
-        }
-        if (messages) {
-            console.log('🚀 ~ ChatPageBase ~ render ~ messages:', messages)
-        }
-        return this.compile(template, propsToRender)
+        return this.compile(template, this.props as Record<string, unknown>)
     }
-
-    // render() {
-    //     return this.compile(template, this.props as Record<string, unknown>)
-    // }
 }
 
 const withChats = withStore(state => ({ chats: state.chats }))
