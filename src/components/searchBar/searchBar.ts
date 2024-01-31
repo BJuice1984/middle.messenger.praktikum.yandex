@@ -1,4 +1,5 @@
 import Block from '../../core/Block.ts'
+import { emptyValidationMessage } from '../../utils/constants.ts'
 import { emptyValidator } from '../../utils/validators.ts'
 import template from './searchBar.hbs'
 
@@ -20,7 +21,7 @@ export class SearchBar extends Block<SearchBarProps> {
             label: 'Search',
             name: 'chat_search',
             validate: emptyValidator,
-            validateMessage: 'Поле не может быть пустым',
+            validateMessage: emptyValidationMessage,
 
             classType: 'hidden',
             type: 'submit',

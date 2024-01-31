@@ -8,6 +8,7 @@ export const phoneValidationMessage =
 export const nameValidationMessage =
     'латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)'
 export const mailValidationMessage = 'EMail в формате user@usermail.ru'
+export const emptyValidationMessage = 'Поле не может быть пустым'
 
 //Маршруты
 export const SIGNIN = '/signin'
