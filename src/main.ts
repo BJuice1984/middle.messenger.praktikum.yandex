@@ -5,7 +5,7 @@ import * as Pages from './pages/pages.ts'
 import Router from './utils/Router.ts'
 import AuthController from './controllers/AuthController.ts'
 import { PROFILE, SIGNIN, SIGNUP } from './utils/constants.ts'
-import controller from './controllers/ChatsController.ts'
+import ChatsController from './controllers/ChatsController.ts'
 
 export const Routes = {
     Chatty: '/',
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         await AuthController.fetchUser()
-        await controller.fetchChats()
+        await ChatsController.fetchChats()
         // Router.go(Routes.Profile)
     } catch (e) {
         console.error(e)

@@ -3,7 +3,7 @@ import store from '../utils/Store.ts'
 import Router from '../utils/Router.ts'
 import { PROFILE, SIGNIN } from '../utils/constants.ts'
 
-export class AuthController {
+class AuthController {
     private readonly api: AuthAPI
 
     constructor() {

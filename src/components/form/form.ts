@@ -63,7 +63,7 @@ export class Form extends Block<FormProps> {
                 },
             },
         })
-        // Boolean(props.user) && this._setProfile()
+        Boolean(props.user) && this._setProfile()
     }
 
     _setProfile() {

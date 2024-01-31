@@ -1,3 +1,4 @@
+import ChatsController from '../../controllers/ChatsController.ts'
 import Block from '../../core/Block.ts'
 import template from './chatListUser.hbs'
 
@@ -10,10 +11,9 @@ export class User extends Block {
         super({
             ...props,
             events: {
-                click: () => console.log('user', props.id),
+                click: () => ChatsController.selectChat(props.id),
             },
         })
-        console.log('🚀 ~ User ~ constructor ~ props:', props)
     }
 
     render() {
