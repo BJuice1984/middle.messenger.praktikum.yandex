@@ -1,0 +1,23 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.messenger {
+  @include reset;
+  margin: 0 5px;
+  &__container {
+    @include reset;
+
+    list-style: none;
+  }
+
+  &__container-message {
+    @include reset;
+  }
+  &__message-content {
+    @include reset;
+    &_mine {
+      color: $mainTextColor;
+      text-align: right;
+    }
+  }
+  }
