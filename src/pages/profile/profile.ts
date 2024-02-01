@@ -17,7 +17,7 @@ import {
 import AuthController from '../../controllers/AuthController.ts'
 import { withStore } from '../../utils/Store.ts'
 
-interface ProfilePageInputs {
+export interface Input {
     label: string
     name: string
     validateMessage: string
@@ -25,7 +25,7 @@ interface ProfilePageInputs {
     validate: (value: string) => boolean
 }
 
-interface ProfilePageButton {
+export interface Button {
     label: string
     classType: string
     type: string
@@ -43,8 +43,8 @@ interface ProfilePageUser {
 }
 
 interface ProfilePageProps {
-    inputs: ProfilePageInputs[]
-    buttons: ProfilePageButton[]
+    inputs: Input[]
+    buttons: Button[]
     user: ProfilePageUser
     [key: string]: unknown
 }

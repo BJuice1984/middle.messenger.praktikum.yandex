@@ -1,20 +1,22 @@
 import MessagesController from '../../controllers/MessagesController.ts'
 import Block from '../../core/Block.ts'
+import { Button, Input } from '../../pages/profile/profile.ts'
 import { withStore } from '../../utils/Store.ts'
 import { emptyValidationMessage } from '../../utils/constants.ts'
 import { emptyValidator } from '../../utils/validators.ts'
 import template from './messenger.hbs'
 
-// interface ChatListUserProps {
-//     title: string
-// }
+interface MessengerProps {
+    inputs: Input[]
+    buttons: Button[]
+    [key: string]: unknown
+}
 
 class MessengerBase extends Block {
-    constructor(propsFromStore) {
+    constructor(propsFromStore: MessengerProps) {
         super({
             selectedChat: propsFromStore.selectedChat,
             messages: propsFromStore.messages,
-            currentUser_id: propsFromStore.currentUser_id,
             inputs: [
                 {
                     label: 'type something...',
@@ -28,9 +30,9 @@ class MessengerBase extends Block {
                     label: 'send',
                     classType: 'primary',
                     type: 'submit',
-                    handleSubmitClick: value => {
+                    handleSubmitClick: (value: { message: string }) => {
                         void MessagesController.sendMessage(
-                            propsFromStore.selectedChat,
+                            propsFromStore.selectedChat as number,
                             value.message
                         )
                     },
@@ -47,11 +49,10 @@ class MessengerBase extends Block {
 const withMessenger = withStore(state => {
     const selectedChatId = state.selectedChat
 
-    if (!selectedChatId) {
+    if (selectedChatId == null) {
         return {
             selectedChat: undefined,
             messages: [],
-            currentUser_id: state.user?.id,
         }
     }
 
@@ -61,8 +62,7 @@ const withMessenger = withStore(state => {
             ...message,
             isMine: message.user_id === state.user.id,
         })),
-        currentUser_id: state.user.id,
     }
 })
 
-export const Messenger = withMessenger(MessengerBase)
+export const Messenger = withMessenger(MessengerBase as typeof Block)

@@ -4,6 +4,7 @@ import template from './chatListUser.hbs'
 
 interface ChatListUserProps {
     title: string
+    id: string
 }
 
 export class User extends Block {

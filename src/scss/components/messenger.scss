@@ -3,7 +3,9 @@
 
 .messenger {
   @include reset;
+
   margin: 0 5px;
+
   &__container {
     @include reset;
 
@@ -13,8 +15,10 @@
   &__container-message {
     @include reset;
   }
+
   &__message-content {
     @include reset;
+
     &_mine {
       color: $mainTextColor;
       text-align: right;

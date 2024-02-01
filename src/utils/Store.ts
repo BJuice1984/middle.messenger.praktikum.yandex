@@ -9,6 +9,8 @@ export enum StoreEvents {
 }
 
 export interface AppState {
+    selectedChat?: string
+    messages?: { [key: string]: unknown }[]
     user?: {
         first_name?: string
         second_name?: string

@@ -1,8 +1,13 @@
 import Block from '../../core/Block.ts'
 import template from './message.hbs'
 
+interface MessageProps {
+    validateMessage: string
+    show: boolean
+}
+
 export class Message extends Block {
-    constructor(props) {
+    constructor(props: MessageProps) {
         super({
             ...props,
         })

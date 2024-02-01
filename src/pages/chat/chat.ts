@@ -2,8 +2,20 @@ import Block from '../../core/Block.ts'
 import { withStore } from '../../utils/Store.ts'
 import template from './chat.hbs'
 
+interface ChatPageProps {
+    stories: {
+        owner: string
+        extraClass?: string
+        src: string
+        alt: string
+    }[]
+    chats?: {
+        [key: string]: unknown
+    }[]
+}
+
 class ChatPageBase extends Block {
-    constructor(propsFromStore) {
+    constructor(propsFromStore: ChatPageProps) {
         super({
             stories: [
                 {
