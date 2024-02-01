@@ -8,7 +8,7 @@ export const nameValidator = (value: string) => {
 }
 
 export const passwordValidator = (value: string) => {
-    return !/^\s*$/.test(value)
+    return /^(?=.*[A-Z])(?=.*\d).{8,40}$/.test(value)
 }
 
 export const phoneValidator = (value: string) => {

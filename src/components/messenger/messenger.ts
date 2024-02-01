@@ -14,6 +14,7 @@ class MessengerBase extends Block {
         super({
             selectedChat: propsFromStore.selectedChat,
             messages: propsFromStore.messages,
+            currentUser_id: propsFromStore.currentUser_id,
             inputs: [
                 {
                     label: 'type something...',
@@ -50,12 +51,17 @@ const withMessenger = withStore(state => {
         return {
             selectedChat: undefined,
             messages: [],
+            currentUser_id: state.user?.id,
         }
     }
 
     return {
         selectedChat: state.selectedChat,
-        messages: (state.messages || {})[selectedChatId] || [],
+        messages: ((state.messages || {})[selectedChatId] || []).map(message => ({
+            ...message,
+            isMine: message.user_id === state.user.id,
+        })),
+        currentUser_id: state.user.id,
     }
 })
 
