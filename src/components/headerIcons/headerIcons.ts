@@ -2,15 +2,14 @@ import Block from '../../core/Block.ts'
 import template from './headerIcons.hbs'
 
 export class HeaderIcons extends Block {
-    constructor() {
+    constructor(props) {
         super({
+            ...props,
             headerIcons: [
                 {
                     src: '/images/start-chat-icon.svg',
                     alt: 'Иконка. Создать чат',
-                    onClick: () => {
-                        console.log('Создать чат')
-                    },
+                    onClick: props.onClick,
                 },
                 {
                     src: '/images/settings-icon.svg',
@@ -21,6 +20,7 @@ export class HeaderIcons extends Block {
                 },
             ],
         })
+        console.log('🚀 ~ HeaderIcons ~ constructor ~ props:', props)
     }
 
     render() {

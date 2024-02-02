@@ -16,6 +16,9 @@ interface ChatPageProps {
 class ChatPageBase extends Block {
     constructor(propsFromStore: ChatPageProps) {
         super({
+            onClick: () => {
+                this.refs.create.setProps({ isShown: true })
+            },
             stories: [
                 {
                     owner: 'You story',
