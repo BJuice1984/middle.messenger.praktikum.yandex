@@ -1,4 +1,16 @@
+
 <li class="chat-list-user">
-  <h4>{{title}}</h4>
-  <h4>{{id}}</h4>
+  <div class="chat-list-user__container {{extraClass}}">
+    <div class="chat-list-user__img-container">
+      <img class="chat-list-user__img" src="{{src}}" alt="{{alt}}">
+    </div>
+  </div>
+  <div class="chat-list-user__container-content {{extraClass}}">
+    <h4 class="chat-list-user__title">{{title}}</h4>
+    <h4 class="chat-list-user__title">{{last_message.content}}</h4>
+  </div>
+  <div class="chat-list-user__container-info {{extraClass}}">
+    <h4 class="chat-list-user__title">{{unread_count}}</h4>
+    <h4 class="chat-list-user__title">{{last_message.time}}</h4>
+  </div>
 </li>

@@ -1,3 +1,4 @@
+import { ChatInfo } from '../../api/ChatsApi.ts'
 import Block from '../../core/Block.ts'
 import { withStore } from '../../utils/Store.ts'
 import template from './chat.hbs'
@@ -9,9 +10,7 @@ interface ChatPageProps {
         src: string
         alt: string
     }[]
-    chats?: {
-        [key: string]: unknown
-    }[]
+    chats?: ChatInfo[]
 }
 
 class ChatPageBase extends Block {

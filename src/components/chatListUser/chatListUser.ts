@@ -1,14 +1,10 @@
+import { ChatInfo } from '../../api/ChatsApi.ts'
 import ChatsController from '../../controllers/ChatsController.ts'
 import Block from '../../core/Block.ts'
 import template from './chatListUser.hbs'
 
-interface ChatListUserProps {
-    title: string
-    id: string
-}
-
 export class User extends Block {
-    constructor(props: ChatListUserProps) {
+    constructor(props: ChatInfo) {
         super({
             ...props,
             events: {

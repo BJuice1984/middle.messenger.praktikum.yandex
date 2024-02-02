@@ -11,6 +11,7 @@ export default class WSTransport extends EventBus {
     private socket: WebSocket | null = null
     private pingInterval: number = 0
 
+    // eslint-disable-next-line no-unused-vars
     constructor(private url: string) {
         super()
     }

@@ -2,15 +2,19 @@ import BaseAPI from './BaseApi.ts'
 import { User } from './AuthApi.ts'
 
 export interface ChatInfo {
+    avatar?: string
+    created_by: number
     id: number
     title: string
-    avatar: string
     unread_count: number
-    last_message: {
-        user: User
-        time: string
-        content: string
-    }
+    last_message: LastMessage
+}
+
+interface LastMessage {
+    content: string
+    id: number
+    time: string
+    user: User
 }
 
 export class ChatsAPI extends BaseAPI {
