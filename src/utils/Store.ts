@@ -1,6 +1,7 @@
 import { Indexed, set } from '../helpers/helpers.ts'
 import EventBus from '../core/EventBus.ts'
 import Block from '../core/Block.ts'
+import { Message } from '../controllers/MessagesController.ts'
 
 // eslint-disable-next-line no-shadow
 export enum StoreEvents {
@@ -10,7 +11,7 @@ export enum StoreEvents {
 
 export interface AppState {
     selectedChat?: number
-    messages?: { isMine: boolean; content: string; user_id: number }[]
+    messages?: Message[]
     user?: {
         first_name: string
         second_name: string
@@ -26,7 +27,7 @@ export interface AppState {
 
 export interface ComponentProps {
     selectedChat?: number
-    messages?: { isMine: boolean; content: string; user_id: number }[]
+    messages?: Message[]
     user?: {
         first_name?: string
         second_name?: string

@@ -1,16 +1,10 @@
-import MessagesController from '../../controllers/MessagesController.ts'
+import MessagesController, { Message } from '../../controllers/MessagesController.ts'
 import Block from '../../core/Block.ts'
 import { Button, Input } from '../../pages/profile/profile.ts'
 import { AppState, withStore } from '../../utils/Store.ts'
 import { emptyValidationMessage } from '../../utils/constants.ts'
 import { emptyValidator } from '../../utils/validators.ts'
 import template from './messenger.hbs'
-
-interface Message {
-    isMine: boolean
-    content: string
-    user_id: number
-}
 
 interface MessengerProps {
     selectedChat: number
