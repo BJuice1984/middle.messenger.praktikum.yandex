@@ -1,6 +1,8 @@
 import { ChatInfo } from '../../api/ChatsApi.ts'
 import Block from '../../core/Block.ts'
 import { withStore } from '../../utils/Store.ts'
+import { emptyValidationMessage } from '../../utils/constants.ts'
+import { emptyValidator } from '../../utils/validators.ts'
 import template from './chat.hbs'
 
 interface ChatPageProps {
@@ -19,6 +21,24 @@ class ChatPageBase extends Block {
             onClick: () => {
                 this.refs.create.setProps({ isShown: true })
             },
+            inputs: [
+                {
+                    label: 'type chat name',
+                    name: 'create_chat',
+                    validate: emptyValidator,
+                    validateMessage: emptyValidationMessage,
+                },
+            ],
+            buttons: [
+                {
+                    label: 'Create',
+                    classType: 'hidden',
+                    type: 'submit',
+                    handleSubmitClick: () => {
+                        console.log('Отправка данных')
+                    },
+                },
+            ],
             stories: [
                 {
                     owner: 'You story',
