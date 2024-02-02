@@ -1,12 +1,20 @@
 import MessagesController from '../../controllers/MessagesController.ts'
 import Block from '../../core/Block.ts'
 import { Button, Input } from '../../pages/profile/profile.ts'
-import { withStore } from '../../utils/Store.ts'
+import { AppState, withStore } from '../../utils/Store.ts'
 import { emptyValidationMessage } from '../../utils/constants.ts'
 import { emptyValidator } from '../../utils/validators.ts'
 import template from './messenger.hbs'
 
+interface Message {
+    isMine: boolean
+    content: string
+    user_id: number
+}
+
 interface MessengerProps {
+    selectedChat: number
+    messages: Message[]
     inputs: Input[]
     buttons: Button[]
     [key: string]: unknown
@@ -32,7 +40,7 @@ class MessengerBase extends Block {
                     type: 'submit',
                     handleSubmitClick: (value: { message: string }) => {
                         void MessagesController.sendMessage(
-                            propsFromStore.selectedChat as number,
+                            propsFromStore.selectedChat,
                             value.message
                         )
                     },
@@ -46,22 +54,30 @@ class MessengerBase extends Block {
     }
 }
 
-const withMessenger = withStore(state => {
+const withMessenger = withStore((state: AppState) => {
     const selectedChatId = state.selectedChat
 
-    if (selectedChatId == null) {
+    if (
+        selectedChatId == null ||
+        state.messages === undefined ||
+        state.messages[selectedChatId] === undefined
+    ) {
         return {
             selectedChat: undefined,
             messages: [],
         }
     }
 
+    const messages = state.messages[selectedChatId] as unknown as Message[]
+
+    const typedMessages = messages.map((message: Message) => ({
+        ...message,
+        isMine: message.user_id === state.user?.id,
+    }))
+
     return {
         selectedChat: state.selectedChat,
-        messages: ((state.messages || {})[selectedChatId] || []).map(message => ({
-            ...message,
-            isMine: message.user_id === state.user.id,
-        })),
+        messages: typedMessages,
     }
 })
 

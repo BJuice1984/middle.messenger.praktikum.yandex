@@ -9,14 +9,15 @@ export enum StoreEvents {
 }
 
 export interface AppState {
-    selectedChat?: string
-    messages?: { [key: string]: unknown }[]
+    selectedChat?: number
+    messages?: { isMine: boolean; content: string; user_id: number }[]
     user?: {
-        first_name?: string
-        second_name?: string
-        email?: string
-        login?: string
-        phone?: string
+        first_name: string
+        second_name: string
+        email: string
+        login: string
+        phone: string
+        id: number
     }
     chats?: {
         [key: string]: unknown
@@ -24,6 +25,8 @@ export interface AppState {
 }
 
 export interface ComponentProps {
+    selectedChat?: number
+    messages?: { isMine: boolean; content: string; user_id: number }[]
     user?: {
         first_name?: string
         second_name?: string
