@@ -1,4 +1,5 @@
-import { ChatInfo } from '../../api/ChatsApi.ts'
+import { ChatInfo, CreateChatData } from '../../api/ChatsApi.ts'
+import ChatsController from '../../controllers/ChatsController.ts'
 import Block from '../../core/Block.ts'
 import { withStore } from '../../utils/Store.ts'
 import { emptyValidationMessage } from '../../utils/constants.ts'
@@ -24,7 +25,7 @@ class ChatPageBase extends Block {
             inputs: [
                 {
                     label: 'type chat name',
-                    name: 'create_chat',
+                    name: 'title',
                     validate: emptyValidator,
                     validateMessage: emptyValidationMessage,
                 },
@@ -34,8 +35,8 @@ class ChatPageBase extends Block {
                     label: 'Create',
                     classType: 'hidden',
                     type: 'submit',
-                    handleSubmitClick: () => {
-                        console.log('Отправка данных')
+                    handleSubmitClick: (value: CreateChatData) => {
+                        void ChatsController.create(value)
                     },
                 },
             ],

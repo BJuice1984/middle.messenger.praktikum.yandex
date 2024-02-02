@@ -1,4 +1,4 @@
-import API, { ChatsAPI } from '../api/ChatsApi.ts'
+import API, { ChatsAPI, CreateChatData } from '../api/ChatsApi.ts'
 import store from '../utils/Store.ts'
 import MessagesController from './MessagesController.ts'
 
@@ -9,10 +9,10 @@ class ChatsController {
         this.api = API
     }
 
-    async create(title: string) {
+    async create(title: CreateChatData) {
         await this.api.create(title)
 
-        this.fetchChats()
+        void this.fetchChats()
     }
 
     async fetchChats() {

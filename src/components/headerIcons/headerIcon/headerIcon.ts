@@ -16,7 +16,6 @@ export class HeaderIcon extends Block<HeaderIconProps> {
                 click: props.onClick,
             },
         })
-        console.log('🚀 ~ HeaderIcon ~ constructor ~ props:', props)
     }
 
     render() {

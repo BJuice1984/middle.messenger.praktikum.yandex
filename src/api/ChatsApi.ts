@@ -1,6 +1,11 @@
 import BaseAPI from './BaseApi.ts'
 import { User } from './AuthApi.ts'
 
+export interface CreateChatData {
+    title: string
+    [key: string]: unknown
+}
+
 export interface ChatInfo {
     avatar?: string
     created_by: number
@@ -22,8 +27,8 @@ export class ChatsAPI extends BaseAPI {
         super('/chats')
     }
 
-    create(title: string) {
-        return this.http.post('/', { title })
+    create(data: CreateChatData) {
+        return this.http.post('/', { data })
     }
 
     delete(id: number): Promise<unknown> {
