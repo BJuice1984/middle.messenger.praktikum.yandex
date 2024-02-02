@@ -1,22 +1,32 @@
 import EventBus from '../core/EventBus.ts'
 
+// eslint-disable-next-line no-shadow
 export enum WSTransportEvents {
+    // eslint-disable-next-line no-unused-vars
     Connected = 'connected',
+    // eslint-disable-next-line no-unused-vars
     Error = 'error',
+    // eslint-disable-next-line no-unused-vars
     Message = 'message',
+    // eslint-disable-next-line no-unused-vars
     Close = 'close',
+}
+
+interface WSTransportMessage {
+    type: string
 }
 
 export default class WSTransport extends EventBus {
     private socket: WebSocket | null = null
-    private pingInterval: number = 0
+    // eslint-disable-next-line no-undef
+    private pingInterval: number | NodeJS.Timeout | null = null
 
     // eslint-disable-next-line no-unused-vars
     constructor(private url: string) {
         super()
     }
 
-    public send(data: unknown) {
+    public send(data: WSTransportMessage) {
         if (!this.socket) {
             throw new Error('Socket is not connected')
         }
@@ -48,9 +58,10 @@ export default class WSTransport extends EventBus {
         }, 5000)
 
         this.on(WSTransportEvents.Close, () => {
-            clearInterval(this.pingInterval)
-
-            this.pingInterval = 0
+            if (this.pingInterval !== null) {
+                clearInterval(this.pingInterval)
+                this.pingInterval = null
+            }
         })
     }
 
@@ -66,10 +77,11 @@ export default class WSTransport extends EventBus {
             this.emit(WSTransportEvents.Error, e)
         })
 
-        socket.addEventListener('message', message => {
-            const data = JSON.parse(message.data)
+        socket.addEventListener('message', (message: MessageEvent<string>) => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const data: WSTransportMessage = JSON.parse(message.data)
 
-            if (data.type && data.type === 'pong') {
+            if (data.type?.length > 0 && data.type === 'pong') {
                 return
             }
 
