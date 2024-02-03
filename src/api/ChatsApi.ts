@@ -6,6 +6,11 @@ export interface CreateChatData {
     [key: string]: unknown
 }
 
+export interface DeleteChatData {
+    chatId: number
+    [key: string]: unknown
+}
+
 export interface ChatInfo {
     avatar?: string
     created_by: number
@@ -31,8 +36,8 @@ export class ChatsAPI extends BaseAPI {
         return this.http.post('/', { data })
     }
 
-    delete(id: number): Promise<unknown> {
-        return this.http.delete('/', { chatId: id })
+    delete(data: DeleteChatData): Promise<unknown> {
+        return this.http.delete('/', { data })
     }
 
     read(): Promise<ChatInfo[]> {

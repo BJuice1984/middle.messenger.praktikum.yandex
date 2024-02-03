@@ -56,7 +56,9 @@ export default class HTTPTransport {
     }
 
     public delete: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.DELETE })
+        const fullUrl = `${this.endpoint}${url}`
+
+        return this.request(fullUrl, { ...options, method: METHODS.DELETE })
     }
 
     private request: HTTPMethod = (url, options = { method: METHODS.GET }) => {

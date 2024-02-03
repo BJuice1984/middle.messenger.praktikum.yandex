@@ -17,5 +17,5 @@ export default abstract class BaseAPI {
     public abstract update?(identifier: string, data: unknown): Promise<unknown>
 
     // eslint-disable-next-line no-unused-vars
-    public abstract delete?(identifier: string | number): Promise<unknown>
+    public abstract delete?(data: unknown): Promise<unknown>
 }

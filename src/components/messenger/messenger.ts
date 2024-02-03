@@ -1,3 +1,4 @@
+import ChatsController from '../../controllers/ChatsController.ts'
 import MessagesController, { Message } from '../../controllers/MessagesController.ts'
 import Block from '../../core/Block.ts'
 import { Button, Input } from '../../pages/profile/profile.ts'
@@ -21,7 +22,10 @@ class MessengerBase extends Block {
             messages: propsFromStore.messages,
             chatInfo: propsFromStore.chatInfo,
             headerButtons: [
-                { extraClass: 'close', handleClick: () => console.log('close') },
+                {
+                    extraClass: 'close',
+                    handleClick: () => ChatsController.delete(propsFromStore.selectedChat),
+                },
                 { extraClass: 'cross', handleClick: () => console.log('add') },
             ],
             inputs: [

@@ -32,9 +32,9 @@ class ChatsController {
     }
 
     async delete(id: number) {
-        await this.api.delete(id)
+        await this.api.delete({ chatId: id })
 
-        this.fetchChats()
+        void this.fetchChats()
     }
 
     getToken(id: number) {
