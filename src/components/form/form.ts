@@ -1,7 +1,7 @@
 import Block from '../../core/Block.ts'
 import template from './form.hbs'
 
-interface FormInputs {
+export interface FormInputs {
     label: string
     name: string
     validateMessage: string
@@ -9,7 +9,7 @@ interface FormInputs {
     validate: (value: string) => boolean
 }
 
-interface FormButton {
+export interface FormButton {
     label: string
     classType: string
     onClick?: () => void

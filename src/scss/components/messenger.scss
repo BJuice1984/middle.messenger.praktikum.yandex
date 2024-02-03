@@ -11,6 +11,7 @@
 
     list-style: none;
   }
+
   &__header-title {
     @include reset;
   }
@@ -22,7 +23,20 @@
     align-items: baseline;
   }
 
+  &__header-form-container {
+    display: none;
+    background-color: $fourthColor;
+    position: absolute;
+    right: 50%;
+    top: 50px;
+
+    &_visible {
+      display: block;
+    }
+  }
+
   &__header-buttons-container {
+    position: relative;
     display: flex;
     gap: 5px;
 

@@ -21,12 +21,16 @@ class MessengerBase extends Block {
             selectedChat: propsFromStore.selectedChat,
             messages: propsFromStore.messages,
             chatInfo: propsFromStore.chatInfo,
+            formContainerExtraClass: 'messenger__header-form-container',
             headerButtons: [
                 {
                     extraClass: 'close',
                     handleClick: () => ChatsController.delete(propsFromStore.selectedChat),
                 },
-                { extraClass: 'cross', handleClick: () => console.log('add') },
+                {
+                    extraClass: 'cross',
+                    handleClick: () => this.refs.addUser.setProps({ isShown: true }),
+                },
             ],
             inputs: [
                 {
