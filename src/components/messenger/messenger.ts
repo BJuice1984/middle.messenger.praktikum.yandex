@@ -19,6 +19,7 @@ class MessengerBase extends Block {
         super({
             selectedChat: propsFromStore.selectedChat,
             messages: propsFromStore.messages,
+            chatInfo: propsFromStore.chatInfo,
             inputs: [
                 {
                     label: 'type something...',
@@ -69,9 +70,14 @@ const withMessenger = withStore((state: AppState) => {
         isMine: message.user_id === state.user?.id,
     }))
 
+    const allChats = state.chats
+
+    const chatInfo = allChats?.find(chat => chat.id === selectedChatId)
+
     return {
         selectedChat: state.selectedChat,
         messages: typedMessages,
+        chatInfo,
     }
 })
 

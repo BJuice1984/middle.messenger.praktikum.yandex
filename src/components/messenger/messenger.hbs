@@ -1,5 +1,8 @@
 {{#if selectedChat }}
     <div class="messenger">
+        <div class="messenger__header-container">
+            <h2>{{{chatInfo.title}}}</h2>
+        </div>
         <ul class="messenger__container">
           {{#each messages}}
             {{{ Message content=this.content user_id=this.user_id isMine=this.isMine }}}
