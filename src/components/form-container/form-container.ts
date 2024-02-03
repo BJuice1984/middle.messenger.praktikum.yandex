@@ -1,3 +1,5 @@
+import { SearchUserData } from '../../api/UserApi.ts'
+import UserController from '../../controllers/UserController.ts'
 import Block from '../../core/Block.ts'
 import { emptyValidationMessage } from '../../utils/constants.ts'
 import { emptyValidator } from '../../utils/validators.ts'
@@ -28,8 +30,8 @@ export class FormContainer extends Block {
                     label: 'add user',
                     classType: 'primary',
                     type: 'submit',
-                    handleSubmitClick: (value: string) => {
-                        console.log(value)
+                    handleSubmitClick: async (value: SearchUserData) => {
+                        await UserController.searchUserByLogin(value)
                     },
                 },
             ],
