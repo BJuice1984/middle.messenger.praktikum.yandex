@@ -70,9 +70,7 @@ const withMessenger = withStore((state: AppState) => {
         isMine: message.user_id === state.user?.id,
     }))
 
-    const allChats = state.chats
-
-    const chatInfo = allChats?.find(chat => chat.id === selectedChatId)
+    const chatInfo = state.chats?.find(chat => chat.id === selectedChatId)
 
     return {
         selectedChat: state.selectedChat,
