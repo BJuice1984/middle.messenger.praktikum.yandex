@@ -1,7 +1,12 @@
 {{#if selectedChat }}
     <div class="messenger">
         <div class="messenger__header-container">
-            <h2>{{{chatInfo.title}}}</h2>
+            <h2>{{{ chatInfo.title }}}</h2>
+            <div class="messenger__header-buttons-container">
+              {{#each headerButtons}}
+                {{{ headerButton extraClass=this.extraClass handleClick=this.handleClick }}}
+              {{/each}}
+            </div>
         </div>
         <ul class="messenger__container">
           {{#each messages}}

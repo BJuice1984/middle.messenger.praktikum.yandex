@@ -20,6 +20,10 @@ class MessengerBase extends Block {
             selectedChat: propsFromStore.selectedChat,
             messages: propsFromStore.messages,
             chatInfo: propsFromStore.chatInfo,
+            headerButtons: [
+                { extraClass: 'close', handleClick: () => console.log('close') },
+                { extraClass: 'cross', handleClick: () => console.log('add') },
+            ],
             inputs: [
                 {
                     label: 'type something...',
