@@ -1,4 +1,4 @@
-import { Indexed, set } from '../helpers/helpers.ts'
+import { set } from '../helpers/helpers.ts'
 import EventBus from '../core/EventBus.ts'
 import Block from '../core/Block.ts'
 import { Message } from '../controllers/MessagesController.ts'
@@ -55,7 +55,7 @@ export class Store extends EventBus {
 }
 
 const store = new Store()
-window.store = store
+// window.store = store
 
 // eslint-disable-next-line no-unused-vars
 export function withStore(mapStateToProps: (state: AppState) => ComponentProps) {

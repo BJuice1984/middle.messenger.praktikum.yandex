@@ -1,8 +1,15 @@
 import Block from '../../core/Block.ts'
 import template from './headerIcons.hbs'
 
+interface HeaderIconsProps {
+    src: string
+    alt: string
+    onClick: () => void
+    [key: string]: unknown
+}
+
 export class HeaderIcons extends Block {
-    constructor(props) {
+    constructor(props: HeaderIconsProps) {
         super({
             ...props,
             headerIcons: [
@@ -20,7 +27,6 @@ export class HeaderIcons extends Block {
                 },
             ],
         })
-        console.log('🚀 ~ HeaderIcons ~ constructor ~ props:', props)
     }
 
     render() {
