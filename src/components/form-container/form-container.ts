@@ -1,4 +1,5 @@
 import { SearchUserData } from '../../api/UserApi.ts'
+import ChatsController from '../../controllers/ChatsController.ts'
 import UserController from '../../controllers/UserController.ts'
 import Block from '../../core/Block.ts'
 import { emptyValidationMessage } from '../../utils/constants.ts'
@@ -8,6 +9,7 @@ import template from './form-container.hbs'
 
 interface FormContainerProps {
     formContainerExtraClass: string
+    selectedChat: number
     isShown: boolean
     inputs: FormInputs[]
     buttons: FormButton[]
@@ -31,7 +33,9 @@ export class FormContainer extends Block {
                     classType: 'primary',
                     type: 'submit',
                     handleSubmitClick: async (value: SearchUserData) => {
-                        await UserController.searchUserByLogin(value)
+                        const users = await UserController.searchUserByLogin(value)
+
+                        void ChatsController.addUsersToChat(users, props.selectedChat)
                     },
                 },
             ],

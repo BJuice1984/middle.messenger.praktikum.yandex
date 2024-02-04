@@ -11,7 +11,6 @@ class ChatsController {
 
     async create(title: CreateChatData) {
         await this.api.create(title)
-
         void this.fetchChats()
     }
 
@@ -27,13 +26,10 @@ class ChatsController {
         store.set('chats', chats)
     }
 
-    addUserToChat(id: number, userId: number) {
-        this.api.addUsers(id, [userId])
+    async addUsersToChat(users: number[], chatId: number) {
+        await this.api.addUsers({ users, chatId })
+        void this.fetchChats()
     }
-
-    // addUserToChat(id: number, userId: number) {
-    //     this.api.addUsers(id, [userId])
-    // }
 
     async delete(id: number) {
         await this.api.delete({ chatId: id })

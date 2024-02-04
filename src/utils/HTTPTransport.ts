@@ -46,7 +46,9 @@ export default class HTTPTransport {
     }
 
     public put: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PUT })
+        const fullUrl = `${this.endpoint}${url}`
+
+        return this.request(fullUrl, { ...options, method: METHODS.PUT })
     }
 
     public post: HTTPMethod = (url, options = {}) => {

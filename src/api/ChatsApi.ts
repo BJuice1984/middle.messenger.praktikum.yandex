@@ -27,6 +27,12 @@ interface LastMessage {
     user: User
 }
 
+interface AddUserToChat {
+    users: number[]
+    chatId: number
+    [key: string]: unknown
+}
+
 export class ChatsAPI extends BaseAPI {
     constructor() {
         super('/chats')
@@ -44,19 +50,25 @@ export class ChatsAPI extends BaseAPI {
         return this.http.get('/')
     }
 
-    getUsers(id: number): Promise<Array<User & { role: string }>> {
-        return this.http.get(`/${id}/users`)
-    }
+    // getUsers(id: number): Promise<Array<User & { role: string }>> {
+    //     return this.http.get(`/${id}/users`)
+    // }
 
-    addUsers(id: number, users: number[]): Promise<unknown> {
-        return this.http.put('/users', { users, chatId: id })
+    addUsers(data: AddUserToChat): Promise<unknown> {
+        return this.http.put('/users', { data })
     }
 
     async getToken(id: number): Promise<string> {
-        const response = await this.http.post<{ token: string }>(`/token/${id}`)
+        const response = await this.http.post(`/token/${id}`)
 
         return response.token
     }
+
+    // async getToken(id: number): Promise<string> {
+    //     const response = await this.http.post<{ token: string }>(`/token/${id}`)
+
+    //     return response.token
+    // }
 
     update = undefined
 }
