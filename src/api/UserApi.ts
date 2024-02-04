@@ -6,6 +6,16 @@ export interface SearchUserData {
     [key: string]: unknown
 }
 
+export interface ChangeUserData {
+    first_name: string
+    second_name: string
+    display_name: string
+    login: string
+    email: string
+    phone: string
+    [key: string]: unknown
+}
+
 export class UsersAPI extends BaseAPI {
     constructor() {
         super('/user')
@@ -13,6 +23,10 @@ export class UsersAPI extends BaseAPI {
 
     searchUsers(data: SearchUserData): Promise<User[]> {
         return this.http.post('/search', { data })
+    }
+
+    changeUser(data: ChangeUserData): Promise<User> {
+        return this.http.put('/profile', { data })
     }
 
     read = undefined

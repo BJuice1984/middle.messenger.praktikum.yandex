@@ -1,21 +1,23 @@
 import Block from '../../core/Block.ts'
 import template from './profile.hbs'
 import {
+    emptyValidationMessage,
     loginValidationMessage,
     mailValidationMessage,
     nameValidationMessage,
-    passwordValidationMessage,
     phoneValidationMessage,
 } from '../../utils/constants.ts'
 import {
+    emptyValidator,
     loginValidator,
     mailValidator,
     nameValidator,
-    passwordValidator,
     phoneValidator,
 } from '../../utils/validators.ts'
 import AuthController from '../../controllers/AuthController.ts'
 import { withStore } from '../../utils/Store.ts'
+import UserController from '../../controllers/UserController.ts'
+import { ChangeUserData } from '../../api/UserApi.ts'
 
 export interface Input {
     label: string
@@ -31,7 +33,7 @@ export interface Button {
     type: string
     onClick?: () => void
     // eslint-disable-next-line no-unused-vars
-    handleSubmitClick?: (value: { [key: string]: unknown }) => void
+    handleSubmitClick?: (alue: ChangeUserData) => void
 }
 
 interface ProfilePageUser {
@@ -40,6 +42,7 @@ interface ProfilePageUser {
     login: string
     phone: string
     email: string
+    display_name: string
 }
 
 interface ProfilePageProps {
@@ -58,8 +61,21 @@ class ProfilePageBase extends Block<ProfilePageProps> {
                 login: propsFromStore.user.login,
                 phone: propsFromStore.user.phone,
                 email: propsFromStore.user.email,
+                display_name: propsFromStore.user.display_name,
             },
             inputs: [
+                {
+                    label: 'First Name',
+                    name: 'first_name',
+                    validate: nameValidator,
+                    validateMessage: nameValidationMessage,
+                },
+                {
+                    label: 'Display Name',
+                    name: 'display_name',
+                    validate: emptyValidator,
+                    validateMessage: emptyValidationMessage,
+                },
                 {
                     label: 'EMAIL',
                     name: 'email',
@@ -73,12 +89,6 @@ class ProfilePageBase extends Block<ProfilePageProps> {
                     validateMessage: loginValidationMessage,
                 },
                 {
-                    label: 'First Name',
-                    name: 'first_name',
-                    validate: nameValidator,
-                    validateMessage: nameValidationMessage,
-                },
-                {
                     label: 'Last Name',
                     name: 'second_name',
                     validate: nameValidator,
@@ -90,26 +100,14 @@ class ProfilePageBase extends Block<ProfilePageProps> {
                     validate: phoneValidator,
                     validateMessage: phoneValidationMessage,
                 },
-                {
-                    label: 'New password',
-                    name: 'password',
-                    validate: passwordValidator,
-                    validateMessage: passwordValidationMessage,
-                },
-                {
-                    label: 'Confirm new password',
-                    name: 'confirm_password',
-                    validate: passwordValidator,
-                    validateMessage: passwordValidationMessage,
-                },
             ],
             buttons: [
                 {
-                    label: 'Reset changes',
+                    label: 'Submit changes',
                     classType: 'disabled',
                     type: 'submit',
-                    handleSubmitClick: () => {
-                        console.log('Reset changes')
+                    handleSubmitClick: (value: ChangeUserData) => {
+                        void UserController.changeUserInfo(value)
                     },
                 },
                 {
@@ -136,6 +134,7 @@ const withUser = withStore(state => ({
         email: state.user?.email,
         login: state.user?.login,
         phone: state.user?.phone,
+        display_name: state.user?.display_name,
     },
 }))
 

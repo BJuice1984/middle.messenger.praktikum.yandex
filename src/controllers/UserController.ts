@@ -1,4 +1,4 @@
-import API, { SearchUserData, UsersAPI } from '../api/UserApi.ts'
+import API, { ChangeUserData, SearchUserData, UsersAPI } from '../api/UserApi.ts'
 // import store from '../utils/Store.ts'
 // import MessagesController from './MessagesController.ts'
 
@@ -16,6 +16,10 @@ class UserController {
         users.push(user[0].id)
 
         return users
+    }
+
+    async changeUserInfo(userData: ChangeUserData) {
+        await this.api.changeUser(userData)
     }
 }
 

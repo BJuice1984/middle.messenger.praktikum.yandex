@@ -13,6 +13,7 @@ export interface AppState {
     selectedChat?: number
     messages?: Message[]
     user?: {
+        display_name: string
         first_name: string
         second_name: string
         email: string
@@ -34,6 +35,7 @@ export interface ComponentProps {
         email?: string
         login?: string
         phone?: string
+        display_name?: string
     }
     chats?: {
         [key: string]: unknown
