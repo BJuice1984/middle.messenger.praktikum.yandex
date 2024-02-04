@@ -3,7 +3,7 @@
 <h1 align="center">Веб-приложение для общения "Chatty"</h1>
 
 ## О проекте:
-Проект написан на TypeScript с использованием шаблонизатора HandleBars. Это многостраничное приложение. Для запуска проекта введите в редакторе кода **npm run dev** либо перейдите по ссылке ниже.
+Проект написан на TypeScript с использованием шаблонизатора HandleBars абсолютно без сторонних библиотек. Это многостраничное приложение. Для запуска проекта введите в редакторе кода **npm run dev** либо перейдите по ссылке ниже. Реализован роутинг на собственном комопненте Route.ts. Все запросы на сервер реализованы с помощью XMLHttpRequest. Для получения иотправки сообщений в чате реализовано подключение по WebSokets.
 
 ## Установка
 
@@ -17,7 +17,9 @@
 ## Используемый стек
 ![TS](https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white)
 ![SASS](https://img.shields.io/badge/SASS%20-hotpink.svg?&style=for-the-badge&logo=SASS&logoColor=white)
-![HandleBars]
+![HandleBars](https://img.shields.io/badge/Handlebars-23272f?style=for-the-badge&logo=handlebarsdotjs)
+![Vite](https://img.shields.io/badge/Vite-23272f?style=for-the-badge&logo=vite)
+![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
 
 ## [Ссылка на проект](https://startling-faloodeh-01b44f.netlify.app/)
 ## [Ссылка на макет Figma](https://www.figma.com/file/bM8yGd4zQLl4H7VQSThAma/Chatty-UI-Kit---Messenger-App?type=design&node-id=0%3A1&mode=design&t=S96tosRx5QfhpWsh-1)
