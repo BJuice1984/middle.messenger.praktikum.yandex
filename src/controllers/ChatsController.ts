@@ -18,8 +18,13 @@ class ChatsController {
         const chats = await this.api.read()
 
         chats.map(async chat => {
-            const token = await this.getToken(chat.id)
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const res = await this.getToken(chat.id)
 
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            const token = res.token
+
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             await MessagesController.connect(chat.id, token)
         })
 

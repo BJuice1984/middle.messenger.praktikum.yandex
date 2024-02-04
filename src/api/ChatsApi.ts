@@ -58,10 +58,11 @@ export class ChatsAPI extends BaseAPI {
         return this.http.put('/users', { data })
     }
 
-    async getToken(id: number): Promise<string> {
-        const response = await this.http.post(`/token/${id}`)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async getToken(id: number): Promise<any> {
+        const res = await this.http.post(`/token/${id}`)
 
-        return response.token
+        return res
     }
 
     // async getToken(id: number): Promise<string> {
