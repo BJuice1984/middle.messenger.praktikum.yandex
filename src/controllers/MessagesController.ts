@@ -26,7 +26,7 @@ class MessagesController {
             return
         }
 
-        const userId = store.getState().user.id
+        const userId = store.getState().user?.id
 
         const wsTransport = new WSTransport(
             `wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`
@@ -76,7 +76,10 @@ class MessagesController {
             messagesToAdd.push(messages)
         }
 
-        const currentMessages = (store.getState().messages || {})[id] || []
+        const messagesState = store.getState().messages
+        const currentMessages: Message[] = Array.isArray(messagesState?.[id])
+            ? (messagesState[id] as unknown as Message[])
+            : []
 
         messagesToAdd = [...currentMessages, ...messagesToAdd]
 
@@ -88,7 +91,7 @@ class MessagesController {
     }
 
     private subscribe(transport: WSTransport, id: number) {
-        transport.on(WSTransportEvents.Message, message => this.onMessage(id, message))
+        transport.on(WSTransportEvents.Message, message => this.onMessage(id, message as Message))
         transport.on(WSTransportEvents.Close, () => this.onClose(id))
     }
 }

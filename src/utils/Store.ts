@@ -41,7 +41,7 @@ export interface ComponentProps {
 }
 
 export class Store extends EventBus {
-    private state: Indexed<unknown> = {}
+    private state: AppState = {}
 
     public set(keypath: string, data: unknown) {
         set(this.state, keypath, data)

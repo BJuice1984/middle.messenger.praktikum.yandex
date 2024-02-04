@@ -14,6 +14,7 @@ export enum WSTransportEvents {
 
 interface WSTransportMessage {
     type: string
+    content?: string
 }
 
 export default class WSTransport extends EventBus {
