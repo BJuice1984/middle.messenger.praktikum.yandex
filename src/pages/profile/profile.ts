@@ -43,6 +43,7 @@ interface ProfilePageUser {
     phone: string
     email: string
     display_name: string
+    avatar: string
 }
 
 interface ProfilePageProps {
@@ -62,6 +63,7 @@ class ProfilePageBase extends Block<ProfilePageProps> {
                 phone: propsFromStore.user.phone,
                 email: propsFromStore.user.email,
                 display_name: propsFromStore.user.display_name,
+                avatar: propsFromStore.user.avatar,
             },
             inputs: [
                 {
@@ -135,6 +137,7 @@ const withUser = withStore(state => ({
         login: state.user?.login,
         phone: state.user?.phone,
         display_name: state.user?.display_name,
+        avatar: state.user?.avatar,
     },
 }))
 

@@ -20,6 +20,7 @@ export interface AppState {
         login: string
         phone: string
         id: number
+        avatar: string
     }
     chats?: {
         [key: string]: unknown
@@ -36,6 +37,7 @@ export interface ComponentProps {
         login?: string
         phone?: string
         display_name?: string
+        avatar?: string
     }
     chats?: {
         [key: string]: unknown
