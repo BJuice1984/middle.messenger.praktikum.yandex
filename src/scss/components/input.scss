@@ -25,6 +25,11 @@
         padding-left: 8px;
         transition: $hoverTransition;
         box-sizing: border-box;
+
+        
+        &_type_hide {
+          display: none;
+        }
     }
 
     &__element::placeholder {
