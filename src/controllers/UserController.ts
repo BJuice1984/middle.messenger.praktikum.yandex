@@ -21,6 +21,10 @@ class UserController {
     async changeUserInfo(userData: ChangeUserData) {
         await this.api.changeUser(userData)
     }
+
+    async changeUserAvatar(userData: FormData) {
+        await this.api.changeAvatar(userData)
+    }
 }
 
 export default new UserController()

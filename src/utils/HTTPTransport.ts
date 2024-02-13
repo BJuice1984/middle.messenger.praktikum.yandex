@@ -9,7 +9,7 @@ interface Options {
     headers?: { [key: string]: string }
     method?: string
     timeout?: number
-    data?: Record<string, unknown>
+    data?: Record<string, unknown> | FormData
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -106,6 +106,9 @@ export default class HTTPTransport {
 
             if (method === METHODS.GET || !data) {
                 xhr.send()
+            } else if (data instanceof FormData) {
+                // xhr.setRequestHeader('Content-Type', 'multipart/form-data')
+                xhr.send(data)
             } else {
                 xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
                 xhr.send(JSON.stringify(data))
