@@ -7,12 +7,14 @@ export interface SearchUserData {
 }
 
 export interface ChangeUserData {
+    id: number
+    login: string
     first_name: string
     second_name: string
-    display_name: string
-    login: string
     email: string
     phone: string
+    display_name: string
+    avatar: string
     [key: string]: unknown
 }
 

@@ -1,40 +1,52 @@
+import { User } from '../api/AuthApi.ts'
 import API, { ChangeUserData, SearchUserData, UsersAPI } from '../api/UserApi.ts'
+import store from '../utils/Store.ts'
 
 class UserController {
-    private readonly api: UsersAPI
+    private readonly api: UsersAPI = API
+    private users: number[] = []
+    private user: User | object = {}
 
     constructor() {
-        this.api = API
+        this.api
+        this.users
+        this.user
     }
 
-    async searchUserByLogin(login: SearchUserData) {
-        const users = []
+    private handleError(method: string, error: unknown) {
+        console.error(`Ошибка при выполнении ${method}:`, error)
+    }
 
+    async searchUserByLogin(login: SearchUserData): Promise<number[] | undefined> {
         try {
-            const user = await this.api.searchUsers(login)
+            const foundUsers = await this.api.searchUsers(login)
 
-            users.push(user[0].id)
-
-            return users
+            this.users = foundUsers.map(user => user.id)
         } catch (e: unknown) {
-            console.error('Ошибка при поиске пользователя:', e)
+            this.handleError('поиска пользователя', e)
+
+            return undefined
         }
     }
 
     async changeUserInfo(userData: ChangeUserData) {
         try {
-            await this.api.changeUser(userData)
+            this.user = await this.api.changeUser(userData)
         } catch (e: unknown) {
-            console.error('Ошибка при изменении информации о пользователе:', e)
+            this.handleError('изменения информации о пользователе', e)
         }
+
+        store.set('user', this.user)
     }
 
     async changeUserAvatar(userData: FormData) {
         try {
-            await this.api.changeAvatar(userData)
+            this.user = await this.api.changeAvatar(userData)
         } catch (e: unknown) {
-            console.error('Ошибка при изменении аватара пользователя:', e)
+            this.handleError('изменения аватара пользователя', e)
         }
+
+        store.set('user', this.user)
     }
 }
 

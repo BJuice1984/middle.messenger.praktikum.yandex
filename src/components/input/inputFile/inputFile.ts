@@ -20,9 +20,9 @@ export class InputFile extends Block<InputFileProps> {
                     const selectedFile = fileInput.files && fileInput.files[0]
 
                     if (selectedFile) {
-                        this.formData.append('avatar', selectedFile)
+                        this.formData.append(props.name, selectedFile)
                         void UserController.changeUserAvatar(this.formData)
-                        this.formData.delete('avatar')
+                        this.formData.delete(props.name)
                     }
                 },
             },
