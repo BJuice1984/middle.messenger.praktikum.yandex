@@ -16,9 +16,14 @@ export class InputFile extends Block<InputFileProps> {
             ...props,
             events: {
                 change: () => {
-                    this.formData.append('file', this.element.files[0])
-                    void UserController.changeUserAvatar(this.formData)
-                    this.formData.delete('file')
+                    const fileInput = this.element as HTMLInputElement
+                    const selectedFile = fileInput.files && fileInput.files[0]
+
+                    if (selectedFile) {
+                        this.formData.append('avatar', selectedFile)
+                        void UserController.changeUserAvatar(this.formData)
+                        this.formData.delete('avatar')
+                    }
                 },
             },
         })
