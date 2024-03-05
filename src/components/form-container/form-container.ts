@@ -35,7 +35,9 @@ export class FormContainer extends Block {
                     handleSubmitClick: async (value: SearchUserData) => {
                         const users = await UserController.searchUserByLogin(value)
 
-                        void ChatsController.addUsersToChat(users, props.selectedChat)
+                        if (users) {
+                            void ChatsController.addUsersToChat(users, props.selectedChat)
+                        }
                     },
                 },
             ],
