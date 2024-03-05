@@ -19,6 +19,9 @@ export interface ChatInfo {
     unread_count: number
     last_message: LastMessage
 }
+export interface TokenResponse {
+    token: string
+}
 
 interface LastMessage {
     content: string
@@ -50,26 +53,15 @@ export class ChatsAPI extends BaseAPI {
         return this.http.get('/')
     }
 
-    // getUsers(id: number): Promise<Array<User & { role: string }>> {
-    //     return this.http.get(`/${id}/users`)
-    // }
-
     addUsers(data: AddUserToChat): Promise<unknown> {
         return this.http.put('/users', { data })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async getToken(id: number): Promise<any> {
+    async getToken(id: number): Promise<TokenResponse> {
         const res = await this.http.post(`/token/${id}`)
 
         return res
     }
-
-    // async getToken(id: number): Promise<string> {
-    //     const response = await this.http.post<{ token: string }>(`/token/${id}`)
-
-    //     return response.token
-    // }
 
     update = undefined
 }

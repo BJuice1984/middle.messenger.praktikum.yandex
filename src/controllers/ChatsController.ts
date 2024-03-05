@@ -1,4 +1,4 @@
-import API, { ChatsAPI, CreateChatData } from '../api/ChatsApi.ts'
+import API, { ChatInfo, ChatsAPI, CreateChatData, TokenResponse } from '../api/ChatsApi.ts'
 import store from '../utils/Store.ts'
 import MessagesController from './MessagesController.ts'
 
@@ -9,37 +9,57 @@ class ChatsController {
         this.api = API
     }
 
-    async create(title: CreateChatData) {
-        await this.api.create(title)
+    async create(title: CreateChatData): Promise<void> {
+        try {
+            await this.api.create(title)
+        } catch (e: unknown) {
+            console.error('Ошибка при создании чата:', e)
+        }
+
         void this.fetchChats()
     }
 
-    async fetchChats() {
-        const chats = await this.api.read()
+    async fetchChats(): Promise<void> {
+        let chats: ChatInfo[] = []
 
-        chats.map(async chat => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const res = await this.getToken(chat.id)
+        try {
+            chats = await this.api.read()
+        } catch (e: unknown) {
+            console.error('Ошибка при получении списка чатов:', e)
+        }
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-            const token = res.token
+        for (const chat of chats) {
+            try {
+                const res: TokenResponse = await this.getToken(chat.id)
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            await MessagesController.connect(chat.id, token)
-        })
+                const token: string = res.token
+
+                await MessagesController.connect(chat.id, token)
+            } catch (e: unknown) {
+                console.error(`Ошибка при обработке чата с ID ${chat.id}:`, e)
+            }
+        }
 
         store.set('chats', chats)
     }
 
     async addUsersToChat(users: number[], chatId: number) {
-        await this.api.addUsers({ users, chatId })
-        void this.fetchChats()
+        try {
+            await this.api.addUsers({ users, chatId })
+            void this.fetchChats()
+        } catch (e: unknown) {
+            console.error('Ошибка при добавлении пользователей в чат:', e)
+        }
     }
 
     async delete(id: number) {
-        await this.api.delete({ chatId: id })
+        try {
+            await this.api.delete({ chatId: id })
 
-        void this.fetchChats()
+            void this.fetchChats()
+        } catch (e: unknown) {
+            console.error('Ошибка при удалении чата:', e)
+        }
     }
 
     getToken(id: number) {

@@ -1,6 +1,4 @@
 import API, { ChangeUserData, SearchUserData, UsersAPI } from '../api/UserApi.ts'
-// import store from '../utils/Store.ts'
-// import MessagesController from './MessagesController.ts'
 
 class UserController {
     private readonly api: UsersAPI
@@ -11,19 +9,32 @@ class UserController {
 
     async searchUserByLogin(login: SearchUserData) {
         const users = []
-        const user = await this.api.searchUsers(login)
 
-        users.push(user[0].id)
+        try {
+            const user = await this.api.searchUsers(login)
 
-        return users
+            users.push(user[0].id)
+
+            return users
+        } catch (e: unknown) {
+            console.error('Ошибка при поиске пользователя:', e)
+        }
     }
 
     async changeUserInfo(userData: ChangeUserData) {
-        await this.api.changeUser(userData)
+        try {
+            await this.api.changeUser(userData)
+        } catch (e: unknown) {
+            console.error('Ошибка при изменении информации о пользователе:', e)
+        }
     }
 
     async changeUserAvatar(userData: FormData) {
-        await this.api.changeAvatar(userData)
+        try {
+            await this.api.changeAvatar(userData)
+        } catch (e: unknown) {
+            console.error('Ошибка при изменении аватара пользователя:', e)
+        }
     }
 }
 

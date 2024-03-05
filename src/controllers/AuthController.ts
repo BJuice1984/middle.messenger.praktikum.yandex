@@ -17,7 +17,7 @@ class AuthController {
 
             Router.go('/')
         } catch (e: unknown) {
-            console.error(e)
+            console.error('Ошибка при входе в систему:', e)
         }
     }
 
@@ -29,12 +29,18 @@ class AuthController {
 
             Router.go(PROFILE)
         } catch (e: unknown) {
-            console.error(e)
+            console.error('Ошибка при регистрации:', e)
         }
     }
 
     async fetchUser() {
-        const user = await this.api.read()
+        let user = {}
+
+        try {
+            user = await this.api.read()
+        } catch (e: unknown) {
+            console.error('Ошибка при получении информации о пользователе:', e)
+        }
 
         store.set('user', user)
     }
@@ -45,7 +51,7 @@ class AuthController {
 
             Router.go(SIGNIN)
         } catch (e: unknown) {
-            console.error(e)
+            console.error('Ошибка при выходе из системы:', e)
         }
     }
 }
