@@ -2,18 +2,20 @@ import API, { AuthAPI, SigninData, SignupData } from '../api/AuthApi.ts'
 import store from '../utils/Store.ts'
 import Router from '../utils/Router.ts'
 import { PROFILE, SIGNIN } from '../utils/constants.ts'
+import ChatsController from './ChatsController.ts'
 
 class AuthController {
-    private readonly api: AuthAPI
+    private readonly api: AuthAPI = API
 
     constructor() {
-        this.api = API
+        this.api
     }
 
     async signin(data: SigninData) {
         try {
             await this.api.signin(data)
             await this.fetchUser()
+            await ChatsController.fetchChats()
 
             Router.go('/')
         } catch (e: unknown) {
