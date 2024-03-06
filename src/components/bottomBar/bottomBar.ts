@@ -1,6 +1,6 @@
 import Block from '../../core/Block.ts'
 import Router from '../../utils/Router.ts'
-import { PROFILE } from '../../utils/constants.ts'
+import { MESSENGER, PROFILE } from '../../utils/constants.ts'
 import template from './bottomBar.hbs'
 
 export class BottomBar extends Block {
@@ -18,7 +18,7 @@ export class BottomBar extends Block {
                     src: '/images/bottom-bar-icon_chats.svg',
                     alt: 'Иконка. Чаты',
                     onClick: () => {
-                        Router.go('/')
+                        Router.go(MESSENGER)
                     },
                 },
                 {

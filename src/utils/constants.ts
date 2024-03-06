@@ -11,6 +11,7 @@ export const mailValidationMessage = 'EMail в формате user@usermail.ru'
 export const emptyValidationMessage = 'Поле не может быть пустым'
 
 //Маршруты
-export const SIGNIN = '/sign-in'
+export const SIGNIN = '/'
 export const SIGNUP = '/sign-up'
-export const PROFILE = '/profile'
+export const PROFILE = '/settings'
+export const MESSENGER = '/messenger'

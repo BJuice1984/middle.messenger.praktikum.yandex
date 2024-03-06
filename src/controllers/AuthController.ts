@@ -1,7 +1,7 @@
 import API, { AuthAPI, SigninData, SignupData } from '../api/AuthApi.ts'
 import store from '../utils/Store.ts'
 import Router from '../utils/Router.ts'
-import { PROFILE, SIGNIN } from '../utils/constants.ts'
+import { MESSENGER, PROFILE, SIGNIN } from '../utils/constants.ts'
 import ChatsController from './ChatsController.ts'
 
 class AuthController {
@@ -17,7 +17,7 @@ class AuthController {
             await this.fetchUser()
             await ChatsController.fetchChats()
 
-            Router.go('/')
+            Router.go(MESSENGER)
         } catch (e: unknown) {
             console.error('Ошибка при входе в систему:', e)
         }

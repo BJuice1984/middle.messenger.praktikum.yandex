@@ -4,11 +4,11 @@ import Block from './core/Block.ts'
 import * as Pages from './pages/pages.ts'
 import Router from './utils/Router.ts'
 import AuthController from './controllers/AuthController.ts'
-import { PROFILE, SIGNIN, SIGNUP } from './utils/constants.ts'
+import { MESSENGER, PROFILE, SIGNIN, SIGNUP } from './utils/constants.ts'
 import ChatsController from './controllers/ChatsController.ts'
 
 export const Routes = {
-    Chatty: '/',
+    Chatty: MESSENGER,
     Login: SIGNIN,
     Register: SIGNUP,
     Profile: PROFILE,
