@@ -79,14 +79,17 @@ export default class WSTransport extends EventBus {
         })
 
         socket.addEventListener('message', (message: MessageEvent<string>) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const data: WSTransportMessage = JSON.parse(message.data)
+            try {
+                const data = JSON.parse(message.data) as WSTransportMessage
 
-            if (data.type?.length > 0 && data.type === 'pong') {
-                return
+                if (data.type?.length > 0 && data.type === 'pong') {
+                    return
+                }
+
+                this.emit(WSTransportEvents.Message, data)
+            } catch (e) {
+                console.error('Ошибка сокета сообщений:', e)
             }
-
-            this.emit(WSTransportEvents.Message, data)
         })
     }
 }
