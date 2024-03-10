@@ -21,7 +21,7 @@
 ![Vite](https://img.shields.io/badge/Vite-23272f?style=for-the-badge&logo=vite)
 ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
 
-## [Ссылка на проект](https://startling-faloodeh-01b44f.netlify.app/)
+## [Ссылка на проект](https://deploy-preview-5--startling-faloodeh-01b44f.netlify.app/)
 ## [Ссылка на макет Figma](https://www.figma.com/file/bM8yGd4zQLl4H7VQSThAma/Chatty-UI-Kit---Messenger-App?type=design&node-id=0%3A1&mode=design&t=S96tosRx5QfhpWsh-1)
 
 ## Автор
