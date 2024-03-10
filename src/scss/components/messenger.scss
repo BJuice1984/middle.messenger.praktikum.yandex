@@ -5,11 +5,17 @@
   @include reset;
 
   margin: 0 5px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
 
   &__container {
     @include reset;
 
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   &__header-title {
