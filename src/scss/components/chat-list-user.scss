@@ -35,6 +35,17 @@
       border-radius: 15px;
       box-sizing: border-box;
       z-index: 3;
+
+      &-ava {
+        @include reset;
+        @include size(50px, 50px);
+
+        display: flex;
+        background-image: url("../../images/pencil.svg");
+        background-repeat: no-repeat;
+        background-size: 20px;
+        background-position: center;
+      }
     }
 
     &__img {
@@ -46,6 +57,13 @@
       border: $borderChat;
       box-sizing: border-box;
       box-shadow: $boxShadowLogin;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+
+        &:hover {
+          opacity: 0.2;
+          transition: 0.2s ease-in-out;
+        }
     }
 
     &__title {

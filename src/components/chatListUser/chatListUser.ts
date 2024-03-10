@@ -7,6 +7,14 @@ export class User extends Block {
     constructor(props: ChatInfo) {
         super({
             ...props,
+            onClick: () => {
+                this.refs.fileInput.element?.click()
+            },
+            input: {
+                name: 'avatar',
+                type: 'file',
+                extraClass: 'input__element_type_hide',
+            },
             events: {
                 click: () => ChatsController.selectChat(props.id),
             },

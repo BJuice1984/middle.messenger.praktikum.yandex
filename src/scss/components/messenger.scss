@@ -110,6 +110,7 @@
 
   &__message-content {
     @include reset;
+
     overflow-wrap: anywhere;
 
     &_mine {
