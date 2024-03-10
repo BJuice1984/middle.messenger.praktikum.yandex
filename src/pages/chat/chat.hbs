@@ -13,7 +13,11 @@
         <ul class="chat__container-users-list">
           {{{ ChatListCreate ref="create" inputs=this.inputs buttons=this.buttons }}}
           {{#each chats}}
-            {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src='/images/ava-1.jpg' }}}
+            {{#if this.avatar }}
+              {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src=this.avatar }}}
+            {{else}}
+              {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src='/images/ava-1.jpg' }}}
+            {{/if}}
           {{/each}}
         </ul>
           {{{ BottomBar }}}
@@ -21,5 +25,4 @@
     <div class="chat__container-chats">
         {{{ Messenger }}}
     </div>
-
 </section>

@@ -15,7 +15,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
   }
 
   &__header-title {
@@ -27,6 +27,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+    padding-bottom: 10px;
   }
 
   &__header-form-container {
@@ -109,6 +110,7 @@
 
   &__message-content {
     @include reset;
+    overflow-wrap: anywhere;
 
     &_mine {
       color: $mainTextColor;

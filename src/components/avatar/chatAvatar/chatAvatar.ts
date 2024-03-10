@@ -1,14 +1,14 @@
 import Block from '../../../core/Block.ts'
 import template from './chatAvatar.hbs'
 
-interface UserAvatarProps {
+interface ChatAvatarProps {
     onClick?: () => void
     avatar: string
     [key: string]: unknown
 }
 
-export class ChatAvatar extends Block<UserAvatarProps> {
-    constructor(props: UserAvatarProps) {
+export class ChatAvatar extends Block<ChatAvatarProps> {
+    constructor(props: ChatAvatarProps) {
         super({
             ...props,
             events: {
