@@ -94,6 +94,7 @@
 
     &__container-chats {
         width: auto;
+        overflow-y: auto;
     }
 
     &__disclaimer {
