@@ -16,7 +16,7 @@
             {{#if this.avatar }}
               {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src=this.avatar }}}
             {{else}}
-              {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src='' }}}
+              {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src=null }}}
             {{/if}}
           {{/each}}
         </ul>
