@@ -16,6 +16,7 @@ export class Avatar extends Block<AvatarProps> {
             extraClass: 'chat__container-profile-img_type_change-profile',
             input: {
                 name: 'avatar',
+                id: 'user',
                 type: 'file',
                 extraClass: 'input__element_type_hide',
             },

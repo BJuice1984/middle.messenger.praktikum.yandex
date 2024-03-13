@@ -62,6 +62,16 @@ class ChatsController {
         }
     }
 
+    async changeChatAvatar(userData: FormData) {
+        try {
+            const chatAva = await this.api.changeChatAvatar(userData)
+
+            console.log('chatAva', chatAva)
+        } catch (e: unknown) {
+            console.error('Ошибка при изменения аватара пользователя', e)
+        }
+    }
+
     getToken(id: number) {
         return this.api.getToken(id)
     }

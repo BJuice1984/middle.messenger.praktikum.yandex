@@ -12,6 +12,7 @@ export class User extends Block {
             },
             input: {
                 name: 'avatar',
+                id: props.id,
                 type: 'file',
                 extraClass: 'input__element_type_hide',
             },
