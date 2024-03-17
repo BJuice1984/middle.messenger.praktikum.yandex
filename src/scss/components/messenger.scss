@@ -22,6 +22,15 @@
 
   &__header-title {
     @include reset;
+    @include text;
+    @include text-format(400, 18px, 30px);
+
+    color: $mainTextColor;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
   }
 
   &__header-container {
@@ -29,7 +38,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+    padding-top: 15px;
     padding-bottom: 10px;
+    padding-left: 77px;
   }
 
   &__header-form-container {

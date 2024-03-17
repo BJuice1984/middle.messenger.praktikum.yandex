@@ -26,6 +26,14 @@
         background-image: none;
         background-color: $borderYourStory;
       }
+
+      &-content {
+        width: 60%;
+      }
+
+      &-info {
+        width: 15%;
+      }
     }
 
     &__img-container {
@@ -72,10 +80,10 @@
       @include text-format(400, 10px, 16px);
 
       color: $mainTextColor;
-      width: 56px;
+      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      text-align: center;
+      text-align: left;
     }
 }
