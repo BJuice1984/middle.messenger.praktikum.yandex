@@ -62,7 +62,7 @@ export class Store extends EventBus {
 }
 
 const store = new Store()
-window.store = store
+// window.store = store
 
 // eslint-disable-next-line no-unused-vars
 export function withStore(mapStateToProps: (state: AppState) => ComponentProps) {

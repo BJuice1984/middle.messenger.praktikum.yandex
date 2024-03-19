@@ -21,6 +21,7 @@ class MessengerBase extends Block {
     constructor(propsFromStore: MessengerProps) {
         super({
             selectedChat: propsFromStore.selectedChat,
+            selectedChatUsers: propsFromStore.selectedChatUsers,
             messages: propsFromStore.messages,
             chatInfo: propsFromStore.chatInfo,
             formContainerExtraClass: 'messenger__header-form-container',

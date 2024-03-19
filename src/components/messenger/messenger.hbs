@@ -2,6 +2,13 @@
     <div class="messenger">
         <div class="messenger__header-container">
             <h2 class="messenger__header-title">{{{ chatInfo.title }}}</h2>
+            <div>
+              {{#each selectedChatUsers}}
+                <div class="chat__container-profile-ava">
+                  {{{ UserAvatar avatar=this.avatar }}}
+                </div>
+              {{/each}}
+            </div>
             <div class="messenger__header-buttons-container">
               {{{ FormContainer ref="addUser" formContainerExtraClass=this.formContainerExtraClass selectedChat=this.selectedChat }}}
               {{#each headerButtons}}
