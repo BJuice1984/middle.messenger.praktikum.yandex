@@ -68,7 +68,7 @@ export class ChatsAPI extends BaseAPI {
     }
 
     getUsers(id: number): Promise<ChatUser[]> {
-        return this.http.get(`${id}/users`)
+        return this.http.get(`/${id}/users`)
     }
 
     changeChatAvatar(data: FormData): Promise<User> {

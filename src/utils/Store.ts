@@ -2,6 +2,7 @@ import { set } from '../helpers/helpers.ts'
 import EventBus from '../core/EventBus.ts'
 import Block from '../core/Block.ts'
 import { Message } from '../controllers/MessagesController.ts'
+import { ChatUser } from '../api/ChatsApi.ts'
 
 // eslint-disable-next-line no-shadow
 export enum StoreEvents {
@@ -10,6 +11,7 @@ export enum StoreEvents {
 }
 
 export interface AppState {
+    chatUsers?: ChatUser[] | undefined
     selectedChat?: number
     messages?: Message[]
     user?: {
@@ -29,6 +31,7 @@ export interface AppState {
 
 export interface ComponentProps {
     selectedChat?: number
+    selectedChatUsers?: ChatUser[]
     messages?: Message[]
     user?: {
         first_name?: string
@@ -59,7 +62,7 @@ export class Store extends EventBus {
 }
 
 const store = new Store()
-// window.store = store
+window.store = store
 
 // eslint-disable-next-line no-unused-vars
 export function withStore(mapStateToProps: (state: AppState) => ComponentProps) {

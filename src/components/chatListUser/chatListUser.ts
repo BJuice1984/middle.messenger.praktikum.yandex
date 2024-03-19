@@ -17,7 +17,10 @@ export class User extends Block {
                 extraClass: 'input__element_type_hide',
             },
             events: {
-                click: () => ChatsController.selectChat(props.id),
+                click: () => {
+                    ChatsController.selectChat(props.id)
+                    void ChatsController.getChatUsers(props.id)
+                },
             },
         })
     }

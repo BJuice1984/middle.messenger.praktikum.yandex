@@ -84,7 +84,7 @@ class ChatsController {
         try {
             users = await this.api.getUsers(id)
 
-            store.set('usersChat', users)
+            store.set('chatUsers', users)
         } catch (e: unknown) {
             console.error('Ошибка при получении пользователей чата:', e)
         }

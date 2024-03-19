@@ -1,3 +1,4 @@
+import { ChatUser } from '../../api/ChatsApi.ts'
 import ChatsController from '../../controllers/ChatsController.ts'
 import MessagesController, { Message } from '../../controllers/MessagesController.ts'
 import Block from '../../core/Block.ts'
@@ -9,6 +10,7 @@ import template from './messenger.hbs'
 
 interface MessengerProps {
     selectedChat: number
+    selectedChatUsers: ChatUser[]
     messages: Message[]
     inputs: Input[]
     buttons: Button[]
@@ -86,6 +88,7 @@ const withMessenger = withStore((state: AppState) => {
 
     return {
         selectedChat: state.selectedChat,
+        selectedChatUsers: state.chatUsers,
         messages: typedMessages,
         chatInfo,
     }
