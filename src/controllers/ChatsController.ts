@@ -1,4 +1,10 @@
-import API, { ChatInfo, ChatsAPI, CreateChatData, TokenResponse } from '../api/ChatsApi.ts'
+import API, {
+    ChatInfo,
+    ChatUser,
+    ChatsAPI,
+    CreateChatData,
+    TokenResponse,
+} from '../api/ChatsApi.ts'
 import store from '../utils/Store.ts'
 import MessagesController from './MessagesController.ts'
 
@@ -69,6 +75,18 @@ class ChatsController {
             store.set('newChatAva', newChatAva.avatar)
         } catch (e: unknown) {
             console.error('Ошибка при изменения аватара чата', e)
+        }
+    }
+
+    async getChatUsers(id: number) {
+        let users: ChatUser[] = []
+
+        try {
+            users = await this.api.getUsers(id)
+
+            store.set('usersChat', users)
+        } catch (e: unknown) {
+            console.error('Ошибка при получении пользователей чата:', e)
         }
     }
 

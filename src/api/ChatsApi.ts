@@ -23,6 +23,16 @@ export interface TokenResponse {
     token: string
 }
 
+export interface ChatUser {
+    id: number
+    first_name: string
+    second_name: string
+    display_name: string
+    login: string
+    avatar: string
+    role: string
+}
+
 interface LastMessage {
     content: string
     id: number
@@ -55,6 +65,10 @@ export class ChatsAPI extends BaseAPI {
 
     addUsers(data: AddUserToChat): Promise<unknown> {
         return this.http.put('/users', { data })
+    }
+
+    getUsers(id: number): Promise<ChatUser[]> {
+        return this.http.get(`${id}/users`)
     }
 
     changeChatAvatar(data: FormData): Promise<User> {
