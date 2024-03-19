@@ -64,11 +64,11 @@ class ChatsController {
 
     async changeChatAvatar(userData: FormData) {
         try {
-            const chatAva = await this.api.changeChatAvatar(userData)
+            const newChatAva = await this.api.changeChatAvatar(userData)
 
-            console.log('chatAva', chatAva)
+            store.set('newChatAva', newChatAva.avatar)
         } catch (e: unknown) {
-            console.error('Ошибка при изменения аватара пользователя', e)
+            console.error('Ошибка при изменения аватара чата', e)
         }
     }
 
