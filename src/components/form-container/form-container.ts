@@ -36,7 +36,8 @@ export class FormContainer extends Block {
                         const users = await UserController.searchUserByLogin(value)
 
                         if (users) {
-                            void ChatsController.addUsersToChat(users, props.selectedChat)
+                            await ChatsController.addUsersToChat(users, props.selectedChat)
+                            void ChatsController.getChatUsers(props.selectedChat)
                         }
                     },
                 },

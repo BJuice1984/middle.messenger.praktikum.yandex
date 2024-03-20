@@ -21,7 +21,7 @@ class UserController {
         try {
             const foundUsers = await this.api.searchUsers(login)
 
-            this.users = foundUsers.map(user => user.id)
+            return (this.users = foundUsers.map(user => user.id))
         } catch (e: unknown) {
             this.handleError('поиска пользователя', e)
 

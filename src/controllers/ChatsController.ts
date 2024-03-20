@@ -97,6 +97,7 @@ class ChatsController {
     private async deleteChatUsers(data: deleteChatUsers) {
         try {
             await this.api.deleteUsers(data)
+            void this.getChatUsers(data.chatId)
         } catch (e: unknown) {
             console.error('Ошибка при удалении пользователя из чата', e)
         }
