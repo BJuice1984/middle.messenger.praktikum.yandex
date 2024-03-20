@@ -2,10 +2,10 @@
     <div class="messenger">
         <div class="messenger__header-container">
             <h2 class="messenger__header-title">{{{ chatInfo.title }}}</h2>
-            <div>
+            <div class="messenger__chat-users-container">
               {{#each selectedChatUsers}}
                 <div class="chat__container-profile-ava">
-                  {{{ UserAvatar avatar=this.avatar }}}
+                  {{{ ChatAvatar src=this.avatar alt='Аватар пользователя' onClick=this.onClick }}}
                 </div>
               {{/each}}
             </div>

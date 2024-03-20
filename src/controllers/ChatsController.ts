@@ -4,6 +4,7 @@ import API, {
     ChatsAPI,
     CreateChatData,
     TokenResponse,
+    deleteChatUsers,
 } from '../api/ChatsApi.ts'
 import store from '../utils/Store.ts'
 import MessagesController from './MessagesController.ts'
@@ -83,10 +84,21 @@ class ChatsController {
 
         try {
             users = await this.api.getUsers(id)
+            users.forEach(user => {
+                user.onClick = () => void this.deleteChatUsers({ users: [user.id], chatId: id })
+            })
 
             store.set('chatUsers', users)
         } catch (e: unknown) {
             console.error('Ошибка при получении пользователей чата:', e)
+        }
+    }
+
+    private async deleteChatUsers(data: deleteChatUsers) {
+        try {
+            await this.api.deleteUsers(data)
+        } catch (e: unknown) {
+            console.error('Ошибка при удалении пользователя из чата', e)
         }
     }
 

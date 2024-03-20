@@ -1,7 +1,7 @@
 import { ChatInfo, CreateChatData } from '../../api/ChatsApi.ts'
 import ChatsController from '../../controllers/ChatsController.ts'
 import Block from '../../core/Block.ts'
-import { withStore } from '../../utils/Store.ts'
+import { AppState, withStore } from '../../utils/Store.ts'
 import { emptyValidationMessage } from '../../utils/constants.ts'
 import { emptyValidator } from '../../utils/validators.ts'
 import template from './chat.hbs'
@@ -14,6 +14,7 @@ interface ChatPageProps {
         alt: string
     }[]
     chats?: ChatInfo[]
+    selectedChat: number
 }
 
 class ChatPageBase extends Block {
@@ -72,6 +73,10 @@ class ChatPageBase extends Block {
     }
 }
 
-const withChats = withStore(state => ({ chats: state.chats }))
+const withChats = withStore((state: AppState) => {
+    return {
+        chats: state.chats,
+    }
+})
 
 export const ChatPage = withChats(ChatPageBase as typeof Block)

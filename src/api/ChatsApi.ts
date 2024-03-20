@@ -31,6 +31,13 @@ export interface ChatUser {
     login: string
     avatar: string
     role: string
+    onClick: () => void
+}
+
+export interface deleteChatUsers {
+    users: number[]
+    chatId: number
+    [key: string]: unknown
 }
 
 interface LastMessage {
@@ -69,6 +76,10 @@ export class ChatsAPI extends BaseAPI {
 
     getUsers(id: number): Promise<ChatUser[]> {
         return this.http.get(`/${id}/users`)
+    }
+
+    deleteUsers(data: deleteChatUsers): Promise<unknown> {
+        return this.http.delete('/users', { data })
     }
 
     changeChatAvatar(data: FormData): Promise<User> {
