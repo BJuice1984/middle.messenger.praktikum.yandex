@@ -4,7 +4,7 @@
             <h2 class="messenger__header-title">{{{ chatInfo.title }}}</h2>
             <div class="messenger__chat-users-container">
               {{#each selectedChatUsers}}
-                <div class="chat__container-profile-ava">
+                <div class="chat__container-profile-chat-ava">
                   {{{ ChatAvatar src=this.avatar alt='Аватар пользователя' onClick=this.onClick }}}
                 </div>
               {{/each}}

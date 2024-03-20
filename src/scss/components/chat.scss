@@ -132,6 +132,23 @@
         }
       }
 
+      &-chat-ava {
+        @include reset;
+        @include size(50px, 50px);
+
+        display: flex;
+        background-image: url("../../images/delete-svgrepo-com.svg");
+        background-repeat: no-repeat;
+        background-size: 50px;
+        background-position: center;
+
+        &_type_change-profile {
+          @include size(150px, 150px);
+
+          background-size: 30px;
+        }
+      }
+
       &-img {
         border-radius: 50px;
         width: 50px;
