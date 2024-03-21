@@ -1,30 +1,83 @@
 import Block from '../../core/Block.ts'
-import { render } from '../../core/render.ts'
 import template from './profile.hbs'
 import {
+    emptyValidationMessage,
     loginValidationMessage,
     mailValidationMessage,
     nameValidationMessage,
-    passwordValidationMessage,
     phoneValidationMessage,
 } from '../../utils/constants.ts'
 import {
+    emptyValidator,
     loginValidator,
     mailValidator,
     nameValidator,
-    passwordValidator,
     phoneValidator,
 } from '../../utils/validators.ts'
+import AuthController from '../../controllers/AuthController.ts'
+import { withStore } from '../../utils/Store.ts'
+import UserController from '../../controllers/UserController.ts'
+import { ChangeUserData } from '../../api/UserApi.ts'
 
-export class ProfilePage extends Block {
-    constructor() {
+export interface Input {
+    label: string
+    name: string
+    validateMessage: string
+    // eslint-disable-next-line no-unused-vars
+    validate: (value: string) => boolean
+}
+
+export interface Button {
+    label: string
+    classType: string
+    type: string
+    onClick?: () => void
+    // eslint-disable-next-line no-unused-vars
+    handleSubmitClick?: (alue: ChangeUserData) => void
+}
+
+interface ProfilePageUser {
+    first_name: string
+    second_name: string
+    login: string
+    phone: string
+    email: string
+    display_name: string
+    avatar: string
+}
+
+interface ProfilePageProps {
+    inputs: Input[]
+    buttons: Button[]
+    user: ProfilePageUser
+    [key: string]: unknown
+}
+
+class ProfilePageBase extends Block<ProfilePageProps> {
+    constructor(propsFromStore: { user: ProfilePageUser }) {
         super({
             user: {
-                first_name: 'Almayra Zamzamy',
-                phone: '+7(987)123-4554',
-                email: 'xxxx@yyyy.zz',
+                first_name: propsFromStore.user.first_name,
+                second_name: propsFromStore.user.second_name,
+                login: propsFromStore.user.login,
+                phone: propsFromStore.user.phone,
+                email: propsFromStore.user.email,
+                display_name: propsFromStore.user.display_name,
+                avatar: propsFromStore.user.avatar,
             },
             inputs: [
+                {
+                    label: 'First Name',
+                    name: 'first_name',
+                    validate: nameValidator,
+                    validateMessage: nameValidationMessage,
+                },
+                {
+                    label: 'Display Name',
+                    name: 'display_name',
+                    validate: emptyValidator,
+                    validateMessage: emptyValidationMessage,
+                },
                 {
                     label: 'EMAIL',
                     name: 'email',
@@ -38,12 +91,6 @@ export class ProfilePage extends Block {
                     validateMessage: loginValidationMessage,
                 },
                 {
-                    label: 'First Name',
-                    name: 'first_name',
-                    validate: nameValidator,
-                    validateMessage: nameValidationMessage,
-                },
-                {
                     label: 'Last Name',
                     name: 'second_name',
                     validate: nameValidator,
@@ -55,26 +102,14 @@ export class ProfilePage extends Block {
                     validate: phoneValidator,
                     validateMessage: phoneValidationMessage,
                 },
-                {
-                    label: 'New password',
-                    name: 'password',
-                    validate: passwordValidator,
-                    validateMessage: passwordValidationMessage,
-                },
-                {
-                    label: 'Confirm new password',
-                    name: 'confirm_password',
-                    validate: passwordValidator,
-                    validateMessage: passwordValidationMessage,
-                },
             ],
             buttons: [
                 {
-                    label: 'Reset changes',
+                    label: 'Submit changes',
                     classType: 'disabled',
                     type: 'submit',
-                    handleClick: () => {
-                        render('profile')
+                    handleSubmitClick: (value: ChangeUserData) => {
+                        void UserController.changeUserInfo(value)
                     },
                 },
                 {
@@ -82,7 +117,7 @@ export class ProfilePage extends Block {
                     classType: 'secondary',
                     type: 'button',
                     onClick: () => {
-                        render('login')
+                        void AuthController.logout()
                     },
                 },
             ],
@@ -93,3 +128,17 @@ export class ProfilePage extends Block {
         return this.compile(template, this.props as Record<string, unknown>)
     }
 }
+
+const withUser = withStore(state => ({
+    user: {
+        first_name: state.user?.first_name,
+        second_name: state.user?.second_name,
+        email: state.user?.email,
+        login: state.user?.login,
+        phone: state.user?.phone,
+        display_name: state.user?.display_name,
+        avatar: state.user?.avatar,
+    },
+}))
+
+export const ProfilePage = withUser(ProfilePageBase as typeof Block)

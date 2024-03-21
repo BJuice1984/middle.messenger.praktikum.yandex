@@ -1,6 +1,8 @@
+import { SigninData } from '../../api/AuthApi.ts'
+import AuthController from '../../controllers/AuthController.ts'
 import Block from '../../core/Block.ts'
-import { render } from '../../core/render.ts'
-import { loginValidationMessage, passwordValidationMessage } from '../../utils/constants.ts'
+import Router from '../../utils/Router.ts'
+import { SIGNUP, loginValidationMessage, passwordValidationMessage } from '../../utils/constants.ts'
 import { loginValidator, passwordValidator } from '../../utils/validators.ts'
 import template from './login.hbs'
 
@@ -26,8 +28,8 @@ export class LoginPage extends Block {
                     label: 'Sign in',
                     classType: 'primary',
                     type: 'submit',
-                    handleClick: () => {
-                        render('chatty')
+                    handleSubmitClick: (value: SigninData) => {
+                        void AuthController.signin(value)
                     },
                 },
                 {
@@ -35,23 +37,7 @@ export class LoginPage extends Block {
                     classType: 'secondary',
                     type: 'button',
                     onClick: () => {
-                        render('register')
-                    },
-                },
-                {
-                    label: '404',
-                    classType: 'secondary',
-                    type: 'button',
-                    onClick: () => {
-                        render('pageNotFound')
-                    },
-                },
-                {
-                    label: '500',
-                    classType: 'secondary',
-                    type: 'button',
-                    onClick: () => {
-                        render('serverErrorPage')
+                        Router.go(SIGNUP)
                     },
                 },
             ],

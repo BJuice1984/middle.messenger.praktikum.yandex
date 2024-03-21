@@ -1,0 +1,17 @@
+<li class="chat-list-create {{#if isShown}}chat-list-create_visible{{/if}}">
+  <div class="chat-list-user__container {{extraClass}}">
+    <div class="chat-list-user__img-container">
+      {{!-- <img class="chat-list-user__img" src="{{src}}" alt="{{alt}}"> --}}
+      <div class="chat-list-user__img"></div>
+    </div>
+  </div>
+  <div class="chat-list-user__container-content {{extraClass}}">
+    {{{ Form inputs=this.inputs buttons=this.buttons }}}
+    {{!-- <h4 class="chat-list-user__title">{{title}}</h4>
+    <h4 class="chat-list-user__title">{{last_message.content}}</h4> --}}
+  </div>
+  <div class="chat-list-user__container-info {{extraClass}}">
+    {{!-- <h4 class="chat-list-user__title">{{unread_count}}</h4>
+    <h4 class="chat-list-user__title">{{last_message.time}}</h4> --}}
+  </div>
+</li>

@@ -1,7 +1,7 @@
 import Block from '../../core/Block.ts'
 import template from './register.hbs'
-import { render } from '../../core/render.ts'
 import {
+    SIGNIN,
     loginValidationMessage,
     mailValidationMessage,
     nameValidationMessage,
@@ -15,6 +15,9 @@ import {
     passwordValidator,
     phoneValidator,
 } from '../../utils/validators.ts'
+import Router from '../../utils/Router.ts'
+import { SignupData } from '../../api/AuthApi.ts'
+import AuthController from '../../controllers/AuthController.ts'
 
 export class RegisterPage extends Block {
     constructor() {
@@ -68,8 +71,8 @@ export class RegisterPage extends Block {
                     label: 'Sign up',
                     classType: 'disabled',
                     type: 'submit',
-                    handleClick: () => {
-                        render('chatty')
+                    handleSubmitClick: (value: SignupData) => {
+                        void AuthController.signup(value)
                     },
                 },
                 {
@@ -77,7 +80,7 @@ export class RegisterPage extends Block {
                     classType: 'secondary',
                     type: 'button',
                     onClick: () => {
-                        render('login')
+                        Router.go(SIGNIN)
                     },
                 },
             ],

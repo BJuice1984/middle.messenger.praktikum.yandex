@@ -9,11 +9,11 @@ interface Options {
     headers?: { [key: string]: string }
     method?: string
     timeout?: number
-    data?: Record<string, unknown>
+    data?: Record<string, unknown> | FormData
 }
 
 // eslint-disable-next-line no-unused-vars
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
+type HTTPMethod = (url: string, options?: Options) => Promise<never>
 
 function queryStringify(data: Options['data']): string {
     if (!data) {
@@ -28,28 +28,42 @@ function queryStringify(data: Options['data']): string {
 }
 
 export default class HTTPTransport {
-    get: HTTPMethod = (url, options = {}) => {
-        const queryString = queryStringify(options.data)
-        const fullUrl = queryString.length > 0 ? `${url}${queryString}` : url
+    static API_URL = 'https://ya-praktikum.tech/api/v2'
+    protected endpoint: string
 
-        console.log(fullUrl)
+    constructor(endpoint: string) {
+        this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
+    }
+
+    public get: HTTPMethod = (url, options = {}) => {
+        const queryString = queryStringify(options.data)
+        const fullUrl =
+            queryString.length > 0
+                ? `${this.endpoint}${url}${queryString}`
+                : `${this.endpoint}${url}`
 
         return this.request(fullUrl, { ...options, method: METHODS.GET })
     }
 
-    put: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PUT })
+    public put: HTTPMethod = (url, options = {}) => {
+        const fullUrl = `${this.endpoint}${url}`
+
+        return this.request(fullUrl, { ...options, method: METHODS.PUT })
     }
 
-    post: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.POST })
+    public post: HTTPMethod = (url, options = {}) => {
+        const fullUrl = `${this.endpoint}${url}`
+
+        return this.request(fullUrl, { ...options, method: METHODS.POST })
     }
 
-    delete: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.DELETE })
+    public delete: HTTPMethod = (url, options = {}) => {
+        const fullUrl = `${this.endpoint}${url}`
+
+        return this.request(fullUrl, { ...options, method: METHODS.DELETE })
     }
 
-    request: HTTPMethod = (url, options = { method: METHODS.GET }) => {
+    private request: HTTPMethod = (url, options = { method: METHODS.GET }) => {
         const { method, data } = options
 
         return new Promise((resolve, reject) => {
@@ -66,7 +80,7 @@ export default class HTTPTransport {
             // eslint-disable-next-line func-names
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
-                    resolve(xhr.response)
+                    resolve(xhr.response as PromiseLike<never>)
                 } else {
                     reject(new Error(`Запрос не выполнен. Статус: ${xhr.status}`))
                 }
@@ -87,8 +101,14 @@ export default class HTTPTransport {
                 reject(new Error('Время ожидания запроса истекло'))
             }
 
+            xhr.withCredentials = true
+            xhr.responseType = 'json'
+
             if (method === METHODS.GET || !data) {
                 xhr.send()
+            } else if (data instanceof FormData) {
+                // xhr.setRequestHeader('Content-Type', 'multipart/form-data')
+                xhr.send(data)
             } else {
                 xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
                 xhr.send(JSON.stringify(data))
@@ -96,30 +116,3 @@ export default class HTTPTransport {
         })
     }
 }
-
-// function fetchWithRetry(url, options = { retries: 3 }) {
-//     const { retries } = options
-//     let attempts = 0
-
-//     const attemptFetch = () => {
-//         return fetch(url, options)
-//             .then(response => {
-//                 return Promise.resolve(response)
-//             })
-//             .catch(error => {
-//                 attempts++
-
-//                 if (attempts === retries) {
-//                     return Promise.reject(
-//                         new Error(`Failed after ${attempts} attempts. Last error: ${error.message}`)
-//                     )
-//                 }
-
-//                 console.log(`Attempt ${attempts} failed. Retrying...`)
-
-//                 return attemptFetch()
-//             })
-//     }
-
-//     return attemptFetch()
-// }

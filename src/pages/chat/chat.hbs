@@ -2,10 +2,7 @@
     <div class="chat__container-users">
         <div class="chat__container-header">
             <h2 class="chat__header">Chatty</h2>
-            <div class="chat__container-header-icons">
-                <img class="chat__header-icon" src="/images/start-chat-icon.svg" alt="Иконка. Создать чат">
-                <img class="chat__header-icon" src="/images/settings-icon.svg" alt="Иконка. Настройки">
-            </div>
+            {{{ HeaderIcons onClick=this.onClick }}}
         </div>
         <ul class="chat__container-stories-list">
           {{#each stories}}
@@ -14,14 +11,18 @@
         </ul>
         <div class="chat__search-bar">{{{ SearchBar }}}</div>
         <ul class="chat__container-users-list">
-          {{#each users}}
-            {{{ User name=this.name }}}
+          {{{ ChatListCreate ref="create" inputs=this.inputs buttons=this.buttons }}}
+          {{#each chats}}
+            {{#if this.avatar }}
+              {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src=this.avatar }}}
+            {{else}}
+              {{{ User id=this.id last_message=this.last_message title=this.title unread_count=this.unread_count src=null }}}
+            {{/if}}
           {{/each}}
         </ul>
           {{{ BottomBar }}}
     </div>
     <div class="chat__container-chats">
-        <h2 class="chat__disclaimer">Chatty: Выберите чат чтобы отправить сообщение</h2>
+        {{{ Messenger }}}
     </div>
-
 </section>

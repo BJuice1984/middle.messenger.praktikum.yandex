@@ -5,7 +5,7 @@
         </div>
         <div class="chat__container-profile">
           <div class="chat__container-profile-ava">
-            <img class="chat__container-profile-img" src="/images/ava-4.jpg" alt="Фотография профиля">
+            {{{ UserAvatar avatar=this.user.avatar }}}
           </div>
           <div class="chat__container-profile-info">
             <p class="chat__container-profile-info-contact">{{this.user.first_name}}</p>
@@ -26,9 +26,7 @@
         {{{ BottomBar }}}
     </div>
     <div class="chat__container-profile-changing">
-        <div class="chat__container-profile-ava chat__container-profile-ava_type_change-profile">
-          <img class="chat__container-profile-img chat__container-profile-img_type_change-profile" src="/images/ava-4.jpg" alt="Фотография профиля">
-        </div>
+        {{{ Avatar avatar=this.user.avatar }}}
         {{{ Form inputs=this.inputs buttons=this.buttons user=this.user }}}
     </div>
 </section>

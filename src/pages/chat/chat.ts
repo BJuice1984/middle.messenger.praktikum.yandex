@@ -1,9 +1,46 @@
+import { ChatInfo, CreateChatData } from '../../api/ChatsApi.ts'
+import ChatsController from '../../controllers/ChatsController.ts'
 import Block from '../../core/Block.ts'
+import { AppState, withStore } from '../../utils/Store.ts'
+import { emptyValidationMessage } from '../../utils/constants.ts'
+import { emptyValidator } from '../../utils/validators.ts'
 import template from './chat.hbs'
 
-export class ChatPage extends Block {
-    constructor() {
+interface ChatPageProps {
+    stories: {
+        owner: string
+        extraClass?: string
+        src: string
+        alt: string
+    }[]
+    chats?: ChatInfo[]
+    selectedChat: number
+}
+
+class ChatPageBase extends Block {
+    constructor(propsFromStore: ChatPageProps) {
         super({
+            onClick: () => {
+                this.refs.create.setProps({ isShown: true })
+            },
+            inputs: [
+                {
+                    label: 'type chat name',
+                    name: 'title',
+                    validate: emptyValidator,
+                    validateMessage: emptyValidationMessage,
+                },
+            ],
+            buttons: [
+                {
+                    label: 'Create',
+                    classType: 'hidden',
+                    type: 'submit',
+                    handleSubmitClick: (value: CreateChatData) => {
+                        void ChatsController.create(value)
+                    },
+                },
+            ],
             stories: [
                 {
                     owner: 'You story',
@@ -27,20 +64,7 @@ export class ChatPage extends Block {
                     alt: 'Иконка. Аватар пользователя',
                 },
             ],
-            users: [
-                {
-                    name: 'user 1',
-                },
-                {
-                    name: 'user 2',
-                },
-                {
-                    name: 'user 3',
-                },
-                {
-                    name: 'user 4',
-                },
-            ],
+            chats: propsFromStore.chats,
         })
     }
 
@@ -48,3 +72,11 @@ export class ChatPage extends Block {
         return this.compile(template, this.props as Record<string, unknown>)
     }
 }
+
+const withChats = withStore((state: AppState) => {
+    return {
+        chats: state.chats,
+    }
+})
+
+export const ChatPage = withChats(ChatPageBase as typeof Block)

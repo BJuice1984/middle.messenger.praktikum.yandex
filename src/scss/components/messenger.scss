@@ -1,0 +1,141 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.messenger {
+  @include reset;
+
+  margin: 0 5px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+
+  &__container {
+    @include reset;
+
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-right: 5px;
+    overflow-y: auto;
+  }
+
+  &__header-title {
+    @include reset;
+    @include text;
+    @include text-format(400, 18px, 30px);
+
+    color: $mainTextColor;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  &__header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    padding-left: 77px;
+  }
+
+  &__header-form-container {
+    display: none;
+    background-color: $fourthColor;
+    position: absolute;
+    right: 50%;
+    top: 50px;
+
+    &_visible {
+      display: block;
+    }
+  }
+
+  &__header-buttons-container {
+    position: relative;
+    display: flex;
+    gap: 5px;
+
+    .cross {
+      width: 18px;
+      height: 18px;
+      position: relative;
+  
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        background-color: black;
+      }
+  
+      &::before {
+        width: 80%;
+        height: 2px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+  
+      &::after {
+        width: 2px;
+        height: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  
+    .close {
+      width: 15px;
+      height: 15px;
+      position: relative;
+      cursor: pointer;
+  
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        background-color: black;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+  
+      &::before {
+        transform: rotate(45deg);
+      }
+  
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  &__container-message {
+    @include reset;
+  }
+
+  &__message-content {
+    @include reset;
+
+    overflow-wrap: anywhere;
+
+    &_mine {
+      color: $mainTextColor;
+      text-align: right;
+    }
+  }
+
+  &__chat-users-container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  }

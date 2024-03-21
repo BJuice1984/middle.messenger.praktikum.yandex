@@ -9,6 +9,7 @@
     "start": "npm run build && node ./server/server.js",
     "preview": "vite preview",
     "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx src",
+    "eslint:fix": "eslint --fix",
     "cm": "cz",
     "stylelint": "stylelint '**/*{.css,.scss}'",
     "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix",

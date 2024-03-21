@@ -1,7 +1,7 @@
 import Block from '../../core/Block.ts'
 import template from './form.hbs'
 
-interface FormInputs {
+export interface FormInputs {
     label: string
     name: string
     validateMessage: string
@@ -9,11 +9,12 @@ interface FormInputs {
     validate: (value: string) => boolean
 }
 
-interface FormButton {
+export interface FormButton {
     label: string
     classType: string
     onClick?: () => void
-    handleClick?: () => void
+    // eslint-disable-next-line no-unused-vars
+    handleSubmitClick?: (value: { [key: string]: unknown }) => void
 }
 
 interface FormRefs {
@@ -45,14 +46,15 @@ export class Form extends Block<FormProps> {
                         console.log('Форма ДА!')
 
                         const buttonWithHandleClick: Partial<FormButton> | undefined =
-                            this.props.buttons.find((button: FormButton) => button.handleClick)
+                            this.props.buttons.find(
+                                (button: FormButton) => button.handleSubmitClick
+                            )
 
                         if (buttonWithHandleClick && this.element instanceof HTMLFormElement) {
-                            if (buttonWithHandleClick.handleClick) {
-                                buttonWithHandleClick.handleClick()
+                            if (buttonWithHandleClick.handleSubmitClick) {
                                 const formData = this._serializeForm(this.element)
 
-                                console.log(formData)
+                                buttonWithHandleClick.handleSubmitClick(formData)
                             }
                         }
                     } else {

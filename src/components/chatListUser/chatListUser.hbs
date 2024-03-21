@@ -1,1 +1,16 @@
-<li class="chat-list-user">{{name}}</li>
+<li class="chat-list-user">
+  <div class="chat-list-user__container {{extraClass}}">
+    <div class="chat-list-user__img-container chat-list-user__img-container-ava">
+      {{{ InputFile ref="fileInput" id=this.input.id name=this.input.name type=this.input.type extraClass=this.input.extraClass }}}
+      {{{ ChatAvatar src=this.src alt=this.alt onClick=this.onClick }}}
+    </div>
+  </div>
+  <div class="chat-list-user__container-content {{extraClass}}">
+    <h4 class="chat-list-user__title">{{title}}</h4>
+    <h4 class="chat-list-user__title">{{last_message.content}}</h4>
+  </div>
+  <div class="chat-list-user__container-info {{extraClass}}">
+    <h4 class="chat-list-user__title">{{unread_count}}</h4>
+    <h4 class="chat-list-user__title">{{last_message.time}}</h4>
+  </div>
+</li>

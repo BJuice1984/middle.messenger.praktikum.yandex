@@ -1,7 +1,7 @@
 import EventBus from './EventBus.ts'
 import { nanoid } from 'nanoid'
 
-interface Props {
+export interface Props {
     events?: Record<string, () => void>
     [key: string]: unknown
 }
@@ -132,7 +132,8 @@ class Block<T extends Props = Props> {
     }
 
     protected componentDidUpdate(oldProps: Props, newProps: Props) {
-        console.log(oldProps, newProps)
+        console.log('🚀 ~ Block<T ~ componentDidUpdate ~ newProps:', newProps)
+        console.log('🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:', oldProps)
 
         return true
     }
