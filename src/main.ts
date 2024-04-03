@@ -1,43 +1,56 @@
-import Handlebars from 'handlebars'
+import { registerComponent } from './core/registerComponent.ts'
 import * as Components from './components/components.ts'
+import Block from './core/Block.ts'
 import * as Pages from './pages/pages.ts'
+import Router from './utils/Router.ts'
+import AuthController from './controllers/AuthController.ts'
+import { MESSENGER, PROFILE, SIGNIN, SIGNUP } from './utils/constants.ts'
+import ChatsController from './controllers/ChatsController.ts'
 
-const pages = {
-    login: [Pages.LoginPage, { test: '123' }],
-    register: [Pages.RegisterPage],
-    chatty: [Pages.ChatPage],
-    profile: [Pages.ProfilePage],
-    pageNotFound: [Pages.NotFoundPage],
-    serverErrorPage: [Pages.ServerErrorPage],
+export const Routes = {
+    Chatty: MESSENGER,
+    Login: SIGNIN,
+    Register: SIGNUP,
+    Profile: PROFILE,
+    PageNotFound: '/404',
+    ServerErrorPage: '/500',
 }
 
 Object.entries(Components).forEach(([name, component]) => {
-    Handlebars.registerPartial(name, component)
+    registerComponent(name, component as typeof Block)
 })
 
-function navigate(page: string) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const [source, context] = pages[page]
-    const container = document.getElementById('app')!
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+document.addEventListener('DOMContentLoaded', async () => {
+    Router.use(Routes.Chatty, Pages.ChatPage as typeof Block)
+        .use(Routes.Login, Pages.LoginPage as typeof Block)
+        .use(Routes.Register, Pages.RegisterPage as typeof Block)
+        .use(Routes.Profile, Pages.ProfilePage as typeof Block)
+        .use(Routes.PageNotFound, Pages.NotFoundPage as typeof Block)
+        .use(Routes.ServerErrorPage, Pages.ServerErrorPage as typeof Block)
 
-    container.innerHTML = Handlebars.compile(source)(context)
-}
+    Router.start()
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'))
+    let isProtectedRoute = true
 
-//повесить слушатель на кнопку
-document.addEventListener('click', e => {
-    if (!e.target) return
+    switch (document.location.pathname) {
+        case Routes.Login:
+        case Routes.Register:
+            isProtectedRoute = false
 
-    const el = e.target as HTMLButtonElement
-    const page = el.getAttribute('page') as string
+            break
+    }
 
-    if (page.length > 0) {
-        navigate(page)
+    try {
+        await AuthController.fetchUser()
+        await ChatsController.fetchChats()
+        // Router.go(Routes.Profile)
+    } catch (e) {
+        console.error(e)
+        console.log('🚀 ~ document.addEventListener ~ error:')
 
-        e.preventDefault()
-        e.stopImmediatePropagation()
+        if (!isProtectedRoute) {
+            Router.go(Routes.Login)
+        }
     }
 })

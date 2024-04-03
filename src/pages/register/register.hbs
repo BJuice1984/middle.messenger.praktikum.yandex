@@ -1,14 +1,4 @@
 <section class="login">
     <h2 class="login__header">Register</h2>
-    {{#> FormAuth}}
-        {{> Input label="EMAIL" }}
-        {{> Input label="Login" }}
-        {{> Input label="First Name" }}
-        {{> Input label="Last Name" }}
-        {{> Input label="Phone Number" }}
-        {{> Input label="Password" }}
-        {{> Input label="Confirm Password" }}
-        {{> Button label="Sign up" classType="disabled" page="chatty"}}
-        {{> Button label="Sign in" classType="secondary" page="login"}}
-    {{/FormAuth}}
+    {{{ Form inputs=this.inputs buttons=this.buttons }}}
 </section>

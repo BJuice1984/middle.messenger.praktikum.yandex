@@ -1,0 +1,15 @@
+@import '../utils/mixins';
+@import '../utils/variable';
+
+.chat-list-create {
+    @include size(56px, 100%);
+
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &_visible {
+      display: flex;
+    }
+    
+}

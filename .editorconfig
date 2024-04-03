@@ -9,4 +9,9 @@ trim_trailing_whitespace = false
 
 # Denotes whether file should end with a newline
 # Possible values - true, false
+[*.scss]
+insert_final_newline = true
+[*.json]
+insert_final_newline = true
+[*.hbs]
 insert_final_newline = true
