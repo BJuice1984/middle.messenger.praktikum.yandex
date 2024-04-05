@@ -1,7 +1,7 @@
 import Block from '../../../core/Block.ts'
 import template from './input.hbs'
 
-interface InputProps {
+export interface InputProps {
     onBlur: () => void
     label: string
     name: string
