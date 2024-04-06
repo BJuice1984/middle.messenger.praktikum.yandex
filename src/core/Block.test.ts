@@ -35,14 +35,14 @@ describe('Block', () => {
         PageClass = Page
     })
 
-    it('Must create component with props', () => {
+    it('should create component with props', () => {
         const text = 'Test'
         const pageComponent = new PageClass({ text })
         const spanText = pageComponent.element?.querySelector('#test-text')?.innerHTML
         expect(spanText).to.be.eq(text)
     })
 
-    it('Must be reactive', () => {
+    it('should be reactive', () => {
         const text = 'new value'
         const pageComponent = new PageClass({ text: 'Hello' })
         pageComponent.setProps({ text })
@@ -50,7 +50,7 @@ describe('Block', () => {
         expect(spanText).to.be.eq(text)
     })
 
-    it('Must set events', () => {
+    it('should set events', () => {
         const handlerStub = sinon.stub()
         const pageComponent = new PageClass({
             events: {
@@ -62,7 +62,7 @@ describe('Block', () => {
         expect(handlerStub.calledOnce).to.be.true
     })
 
-    it('Must call componentDidMount method', () => {
+    it('should call componentDidMount method', () => {
         const pageComponent = new PageClass()
         const componentDidMountMock = sinon.stub(pageComponent, 'componentDidMount')
         pageComponent.dispatchComponentDidMount()
