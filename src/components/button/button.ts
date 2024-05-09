@@ -1,7 +1,7 @@
 import Block from '../../core/Block.ts'
 import template from './button.hbs'
 
-interface ButtonProps {
+export interface ButtonProps {
     label: string
     classType: 'primary' | 'secondary' | 'disabled' | 'hidden'
     type: 'submit' | 'button'
