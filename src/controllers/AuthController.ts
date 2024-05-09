@@ -40,6 +40,7 @@ class AuthController {
 
         try {
             user = await this.api.read()
+            Router.go(MESSENGER)
         } catch (e: unknown) {
             console.error('Ошибка при получении информации о пользователе:', e)
         }

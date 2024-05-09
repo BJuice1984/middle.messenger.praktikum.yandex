@@ -1,3 +1,4 @@
+import isEqual from '../helpers/isEqual.ts'
 import EventBus from './EventBus.ts'
 import { nanoid } from 'nanoid'
 
@@ -132,8 +133,7 @@ class Block<T extends Props = Props> {
     }
 
     protected componentDidUpdate(oldProps: Props, newProps: Props) {
-        console.log('🚀 ~ Block<T ~ componentDidUpdate ~ newProps:', newProps)
-        console.log('🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:', oldProps)
+        isEqual(oldProps, newProps)
 
         return true
     }

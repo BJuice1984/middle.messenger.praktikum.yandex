@@ -6,6 +6,7 @@ server
 commitlint.config.js
 vite.config.ts
 vite-plugin-handelbars-precompile.ts
+mochaSetup.ts
 build
 dist
 vendor
