@@ -17,7 +17,7 @@
     "test": "mocha"
   },
   "engines": {
-    "node": "16.20.2",
+    "node": ">=18",
     "npm": "8.19.4"
   },
   "devDependencies": {
