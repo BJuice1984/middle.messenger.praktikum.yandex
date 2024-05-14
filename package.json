@@ -17,7 +17,7 @@
     "test": "mocha"
   },
   "engines": {
-    "node": ">=15"
+    "node": ">=18"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
